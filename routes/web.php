@@ -8,5 +8,9 @@ Route::group(['middleware' => ['auth']], function () {
 		return redirect('/');
 	});
 
+
+	Route::resource('antMiners', 'AntMinerController');
+
 });
+
 
