@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Telegram\Bot\Api;
 
 class AntMinerController extends AppBaseController
 {
@@ -30,11 +31,90 @@ class AntMinerController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->antMinerRepository->pushCriteria(new RequestCriteria($request));
+	    $telegram = new Api('435412547:AAG-_rO6oRo-BuWvG8RyxwY7FrzoCp5BBKA');
+
+
+	    $this->antMinerRepository->pushCriteria(new RequestCriteria($request));
         $antMiners = $this->antMinerRepository->all();
 
+        $data_raw = [];
+
+		foreach($antMiners as $antMiner)
+		{
+			$data_raw[$antMiner->id] = $this->formatMinerData($antMiner);
+			$data[$antMiner->id]['hash_rate'] = $data_raw[$antMiner->id]['summary']['GHS 5s'];
+
+			$avg_temp = 0;
+			$temp_sens_numer = 0;
+
+			$chip_ok_count = 0;
+			$chip_er_count = 0;
+
+			foreach($data_raw[$antMiner->id]['selected']['chains'] as $chain_index => $chain_data)
+			{
+				if($antMiner->type == 'bmminer')
+				{
+					$avg_temp = $avg_temp + $chain_data['brd_temp1'];
+					$temp_sens_numer++;
+					$avg_temp = $avg_temp + $chain_data['brd_temp2'];
+					$temp_sens_numer++;
+				}
+				else
+				{
+					$avg_temp = $avg_temp + $chain_data['brd_temp'];
+					$temp_sens_numer++;
+				}
+
+				foreach($chain_data['chips_stat'] as $chip)
+				{
+					if($chip == 'o')
+					{
+						$chip_ok_count++;
+					}
+					else
+					{
+						$chip_er_count++;
+					}
+				}
+
+			}
+
+			$avg_temp = round($avg_temp / $temp_sens_numer);
+			$data[$antMiner->id]['temp_avg'] = $avg_temp;
+			$data[$antMiner->id]['chips']['ok'] = $chip_ok_count;
+			$data[$antMiner->id]['chips']['er'] = $chip_er_count;
+
+			foreach($data_raw[$antMiner->id]['selected']['fans'] as $chain_index => $fan_data)
+			{
+				$data[$antMiner->id]['fans'][] = $fan_data;
+			}
+
+		}
+
+
+	    $a = '<b>bold</b>, <strong>bold</strong>
+			<i>italic</i>, <em>italic</em>
+			<a href="http://www.example.com/">inline URL</a>
+			<code>inline fixed-width code</code>
+			<pre>pre-formatted fixed-width code block</pre>';
+
+		/*
+	    $response = $telegram->sendMessage([
+		    'chat_id' => 2421164,
+		    'text' => $a,
+		    'parse_mode' =>'HTML'
+	    ]);
+
+	    $response = $telegram->sendMessage([
+		    'chat_id' => 81184145,
+		    'text' => $a,
+		    'parse_mode' =>'HTML'
+	    ]);
+		*/
+
         return view('ant_miners.index')
-            ->with('antMiners', $antMiners);
+            ->with('antMiners', $antMiners)
+            ->with('data', $data);
     }
 
     /**
@@ -316,5 +396,57 @@ class AntMinerController extends AppBaseController
 	    }
 
 	    return $result;
+    }
+
+    private function formatMinerData(AntMiner $antMiner)
+    {
+	    $stats_all = $this->getStats($antMiner);
+
+	    $stats['summary'] = $this->parseStats($stats_all['summary']);
+	    $stats['pools'] = $this->parsePools($stats_all['pools']);
+
+	    $stats['stats'] = $this->parseStats($stats_all['stats']);
+
+	    foreach($antMiner->options as $option_key => $option_value)
+	    {
+		    if(substr( $option_key, 0, 3 ) === "fan")
+		    {
+			    $stats['selected']['fans'][$option_key] = $stats['stats'][$option_key];
+		    }
+
+		    if(substr( $option_key, 0, 9 ) === "chain_acn")
+		    {
+			    $chain_index = substr( $option_key, -1, 1 );
+
+			    $brd_chips_var = 'chain_acn'.$chain_index;
+			    $brd_chips_stat_var = 'chain_acs'.$chain_index;
+
+
+			    $stats['selected']['chains'][$chain_index]['chips'] = $stats['stats'][$brd_chips_var];
+			    $stats['selected']['chains'][$chain_index]['chips_stat'] = str_split(str_replace(' ', '', $stats['stats'][$brd_chips_stat_var]));
+
+
+			    if($antMiner->type == 'bmminer')
+			    {
+				    $brd1_temp_var = 'temp2_'.$chain_index;
+				    $brd2_temp_var = 'temp3_'.$chain_index;
+
+				    $brd_freq_var = 'freq_avg'.$chain_index;
+
+				    $stats['selected']['chains'][$chain_index]['brd_temp1'] = $stats['stats'][$brd1_temp_var];
+				    $stats['selected']['chains'][$chain_index]['brd_temp2'] = $stats['stats'][$brd2_temp_var];
+				    $stats['selected']['chains'][$chain_index]['brd_freq'] = $stats['stats'][$brd_freq_var];
+			    }
+			    else
+			    {
+				    $brd_temp_var = 'temp'.$chain_index;
+				    $stats['selected']['chains'][$chain_index]['brd_temp'] = $stats['stats'][$brd_temp_var];
+			    }
+
+
+		    }
+	    }
+
+	    return $stats;
     }
 }
