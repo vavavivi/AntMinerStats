@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "infyomlabs/adminlte-templates": "5.4.x-dev",
+        "infyomlabs/laravel-generator": "5.4.x-dev",
+        "irazasyed/telegram-bot-sdk": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "infyomlabs/laravel-generator": "5.4.x-dev",
-        "laravelcollective/html": "^5.4.0",
-        "infyomlabs/adminlte-templates": "5.4.x-dev"
+        "laravelcollective/html": "^5.4.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.4",
