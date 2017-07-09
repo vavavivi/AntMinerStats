@@ -14,4 +14,5 @@ use Illuminate\Http\Request;
 */
 
 
-Route::any('/webhook', 'ApiController@webHook')->name('webHook');
+Route::any('/set_webhook', 'ApiController@set_webhook')->name('set_webHook');
+Route::any('/webhook', 'ApiController@webhook')->name('webHook');

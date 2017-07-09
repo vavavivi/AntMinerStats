@@ -7,11 +7,20 @@ use Telegram;
 
 class ApiController extends Controller
 {
-    public function webHook()
+    public function set_webhook()
     {
 	    $response = Telegram::setWebhook(['url' => 'https://ant.hippie.com.ua/api/webhook']);
 
 	    return $response;
+
+    }
+
+    public function webhook(Request $request)
+    {
+	    $response = Telegram::sendMessage([
+		    'chat_id' => 2421164,
+		    'text' => $request->all()
+	    ]);
 
     }
 
