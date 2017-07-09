@@ -91,27 +91,6 @@ class AntMinerController extends AppBaseController
 
 		}
 
-
-	    $a = '<b>bold</b>, <strong>bold</strong>
-			<i>italic</i>, <em>italic</em>
-			<a href="http://www.example.com/">inline URL</a>
-			<code>inline fixed-width code</code>
-			<pre>pre-formatted fixed-width code block</pre>';
-
-		/*
-	    $response = $telegram->sendMessage([
-		    'chat_id' => 2421164,
-		    'text' => $a,
-		    'parse_mode' =>'HTML'
-	    ]);
-
-	    $response = $telegram->sendMessage([
-		    'chat_id' => 81184145,
-		    'text' => $a,
-		    'parse_mode' =>'HTML'
-	    ]);
-		*/
-
         return view('ant_miners.index')
             ->with('antMiners', $antMiners)
             ->with('data', $data);
