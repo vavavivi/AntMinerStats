@@ -253,59 +253,9 @@ class AntMinerController extends AppBaseController
 
     private function get_ssh_stats(AntMiner $antMiner)
     {
-	    $ssh_host = $antMiner->host;
-	    $ssh_port = $antMiner->port;
-	    $ssh_auth_user = $antMiner->username;
-	    $ssh_auth_pass = $antMiner->password;
-
-	    ini_set("default_socket_timeout", 25);
-
-
-	    if (!($connection = ssh2_connect($ssh_host, $ssh_port))) {
-		    abort(500, 'Cannot connect to server');
-	    }
-
-	    if(!(ssh2_auth_password($connection, $ssh_auth_user, $ssh_auth_pass))) {
-		    abort(500, 'Username or Password invalid');
-	    }
-
-	    $command_summary = '/usr/bin/'.$antMiner->type.'-api -o summary';
-	    $stream_summary = ssh2_exec($connection, $command_summary);
-	    stream_set_blocking($stream_summary, true);
-
-	    $data = "";
-	    while ($buf = fread($stream_summary, 4096)) {
-		    $data .= $buf;
-	    }
-	    fclose($stream_summary);
-
-	    $reply['summary'] = $data;
-
-	    $command_stats = '/usr/bin/'.$antMiner->type.'-api -o stats';
-	    $stream_stats = ssh2_exec($connection, $command_stats);
-	    stream_set_blocking($stream_stats, true);
-
-	    $data = "";
-	    while ($buf = fread($stream_stats, 4096)) {
-		    $data .= $buf;
-	    }
-	    fclose($stream_stats);
-
-	    $reply['stats'] = $data;
-
-	    $command_pools = '/usr/bin/'.$antMiner->type.'-api -o pools';
-	    $stream_pools = ssh2_exec($connection, $command_pools);
-	    stream_set_blocking($stream_pools, true);
-
-	    $data = "";
-	    while ($buf = fread($stream_pools, 4096)) {
-		    $data .= $buf;
-	    }
-	    fclose($stream_pools);
-	    $reply['pools'] = $data;
-
-	    ssh2_exec($connection, 'echo "EXITING" && exit;');
-	    $connection = null;
+	    $reply['summary'] = $this->read_from_socket($antMiner, 'summary');
+	    $reply['stats'] = $this->read_from_socket($antMiner, 'stats');
+	    $reply['pools'] = $this->read_from_socket($antMiner, 'pools');
 
 	    return $reply;
     }
@@ -428,4 +378,35 @@ class AntMinerController extends AppBaseController
 
 	    return $stats;
     }
+
+	private function read_from_socket(AntMiner $antMiner, $command)
+	{
+		$host = $antMiner->host;
+		$port = $antMiner->port;
+
+		$connection = null;
+
+		try{
+			ini_set("default_socket_timeout", 5);
+			$connection = fsockopen($host, $port,$errstr);
+
+		}
+		catch(\Exception $e){
+
+		}
+
+		if (!$connection) {
+			return false;
+		}
+
+		fwrite($connection, $command);
+		$reply = stream_get_contents($connection);
+
+		stream_socket_shutdown($connection, STREAM_SHUT_WR);
+		fclose($connection);
+		$connection = null;
+
+
+		return $reply;
+	}
 }
