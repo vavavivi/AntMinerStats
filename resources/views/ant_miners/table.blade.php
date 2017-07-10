@@ -21,22 +21,22 @@
 
             <td>
                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    <p>{{$chain_data['brd_freq']}} Mhz</p>
+                    <p><strong>Board{{$chain_index}}: </strong>{{$chain_data['brd_freq']}} Mhz</p>
                 @endforeach
             </td>
 
             <td>
                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                     @if($antMiner->type == 'bmminer')
-                        <p>Board{{$chain_index}}: {{$chain_data['brd_temp1']}} °C / {{$chain_data['brd_temp2']}} °C</p>
+                        <p>{{$chain_data['brd_temp1']}} °C / {{$chain_data['brd_temp2']}} °C</p>
                     @else
-                        <p>Board{{$chain_index}}: {{$chain_data['brd_temp']}} °C</p>
+                        <p>{{$chain_data['brd_temp']}} °C</p>
                     @endif
                 @endforeach
             </td>
             <td>
                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    <p>Board{{$chain_index}} chips: OK = {{$chain_data['chips_condition']['ok']}} / Fail = {{$chain_data['chips_condition']['er']}}</p>
+                    <p>OK = {{$chain_data['chips_condition']['ok']}} / Fail = {{$chain_data['chips_condition']['er']}}</p>
                 @endforeach
             </td>
             <td>
