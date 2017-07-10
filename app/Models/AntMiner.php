@@ -16,7 +16,8 @@ class AntMiner extends Model
     public $table = 'ant_miners';
 
     public $fillable = [
-        'title',
+        'user_id',
+    	'title',
         'host',
         'type',
         'port',
@@ -29,6 +30,7 @@ class AntMiner extends Model
      * @var array
      */
     protected $casts = [
+	    'user_id' => 'integer',
         'title' => 'string',
         'host' => 'string',
         'port' => 'integer',

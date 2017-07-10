@@ -31,9 +31,7 @@ class AntMinerController extends AppBaseController
      */
     public function index(Request $request)
     {
-	    $this->antMinerRepository->pushCriteria(new RequestCriteria($request));
-        $antMiners = $this->antMinerRepository->all();
-
+	    $antMiners = \Auth::user()->miners;
         $data_raw = [];
 
 		foreach($antMiners as $antMiner)
@@ -113,6 +111,7 @@ class AntMinerController extends AppBaseController
     public function store(CreateAntMinerRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = \Auth::id();
 
         $antMiner = $this->antMinerRepository->create($input);
 
