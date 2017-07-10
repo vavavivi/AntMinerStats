@@ -31,9 +31,6 @@ class AntMinerController extends AppBaseController
      */
     public function index(Request $request)
     {
-	    $telegram = new Api('435412547:AAG-_rO6oRo-BuWvG8RyxwY7FrzoCp5BBKA');
-
-
 	    $this->antMinerRepository->pushCriteria(new RequestCriteria($request));
         $antMiners = $this->antMinerRepository->all();
 
@@ -141,13 +138,11 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
-        //return $this->run_ssh_command($antMiner, '/usr/bin/bmminer-api -o pools');
 
-        $stats_all = $this->getStats($antMiner);
+        $stats_all = $this->get_api_stats($antMiner);
 
         $stats['summary'] = $this->parseStats($stats_all['summary']);
 	    $stats['pools'] = $this->parsePools($stats_all['pools']);
-
 	    $stats['stats'] = $this->parseStats($stats_all['stats']);
 
 	    foreach($antMiner->options as $option_key => $option_value)
@@ -206,7 +201,7 @@ class AntMinerController extends AppBaseController
 
 	    $keys = [];
 
-	    $stats_all = $this->getStats($antMiner);
+	    $stats_all = $this->get_api_stats($antMiner);
         $result = $this->parseStats($stats_all['stats']);
 
 	    foreach($result as $key => $value)
@@ -251,20 +246,44 @@ class AntMinerController extends AppBaseController
         return redirect(route('antMiners.index'));
     }
 
-    private function get_ssh_stats(AntMiner $antMiner)
+	private function read_from_socket(AntMiner $antMiner, $command)
+	{
+		$host = $antMiner->host;
+		$port = $antMiner->port;
+
+		$connection = null;
+
+		try{
+			ini_set("default_socket_timeout", 5);
+			$connection = fsockopen($host, $port,$errstr);
+
+		}
+		catch(\Exception $e){
+
+		}
+
+		if (!$connection) {
+			return false;
+		}
+
+		fwrite($connection, $command);
+		$reply = stream_get_contents($connection);
+
+		stream_socket_shutdown($connection, STREAM_SHUT_WR);
+		fclose($connection);
+		$connection = null;
+
+
+		return $reply;
+	}
+
+    private function get_api_stats(AntMiner $antMiner)
     {
 	    $reply['summary'] = $this->read_from_socket($antMiner, 'summary');
 	    $reply['stats'] = $this->read_from_socket($antMiner, 'stats');
 	    $reply['pools'] = $this->read_from_socket($antMiner, 'pools');
 
 	    return $reply;
-    }
-
-    private function getStats(AntMiner $antMiner)
-    {
-	    $reply_raw = $this->get_ssh_stats($antMiner);
-
-	    return $reply_raw;
     }
 
     private function parseStats($array)
@@ -329,7 +348,7 @@ class AntMinerController extends AppBaseController
 
     private function formatMinerData(AntMiner $antMiner)
     {
-	    $stats_all = $this->getStats($antMiner);
+	    $stats_all = $this->get_api_stats($antMiner);
 
 	    $stats['summary'] = $this->parseStats($stats_all['summary']);
 	    $stats['pools'] = $this->parsePools($stats_all['pools']);
@@ -379,34 +398,5 @@ class AntMinerController extends AppBaseController
 	    return $stats;
     }
 
-	private function read_from_socket(AntMiner $antMiner, $command)
-	{
-		$host = $antMiner->host;
-		$port = $antMiner->port;
 
-		$connection = null;
-
-		try{
-			ini_set("default_socket_timeout", 5);
-			$connection = fsockopen($host, $port,$errstr);
-
-		}
-		catch(\Exception $e){
-
-		}
-
-		if (!$connection) {
-			return false;
-		}
-
-		fwrite($connection, $command);
-		$reply = stream_get_contents($connection);
-
-		stream_socket_shutdown($connection, STREAM_SHUT_WR);
-		fclose($connection);
-		$connection = null;
-
-
-		return $reply;
-	}
 }

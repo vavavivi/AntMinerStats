@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,8 +20,6 @@ class AntMiner extends Model
         'host',
         'type',
         'port',
-        'username',
-        'password',
         'options'
     ];
 
@@ -33,8 +32,6 @@ class AntMiner extends Model
         'title' => 'string',
         'host' => 'string',
         'port' => 'integer',
-        'username' => 'string',
-        'password' => 'string',
         'options' => 'string'
     ];
 
@@ -47,8 +44,6 @@ class AntMiner extends Model
         'title' => 'required',
         'host' => 'required',
         'port' => 'required',
-        'username' => 'required',
-        'password' => 'required'
     ];
 
     public function setOptionsAttribute($array)
@@ -59,6 +54,11 @@ class AntMiner extends Model
     public function getOptionsAttribute($value)
     {
     	return unserialize($value);
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
     }
 
     
