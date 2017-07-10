@@ -4,7 +4,6 @@
         <div class="box-body">
             <table class="table table-bordered table-hover">
                 <tbody><tr>
-                    <th>Miner ID</th>
                     <th>Title</th>
                     <th>Elapsed</th>
                     <th>GH/S(5s)</th>
@@ -16,15 +15,8 @@
                     <th>Best Share</th>
                 </tr>
                 <tr>
-                    <td>{!! $antMiner->id !!}</td>
                     <td>
                         {{$stats['stats']['Type']}}: {!! $antMiner->title !!}
-                        <p>
-                            <small>
-                                {!! $antMiner->username !!} @ {!! $antMiner->host !!}:{!! $antMiner->port !!}
-                            </small>
-                        </p>
-
                     </td>
                     <td>{{$stats['summary']['When']}}</td>
                     <td>{{$stats['summary']['GHS 5s']}}</td>

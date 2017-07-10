@@ -15,7 +15,6 @@ use Telegram\Bot\Api;
 
 class AntMinerController extends AppBaseController
 {
-    /** @var  AntMinerRepository */
     private $antMinerRepository;
 
     public function __construct(AntMinerRepository $antMinerRepo)
@@ -23,67 +22,15 @@ class AntMinerController extends AppBaseController
         $this->antMinerRepository = $antMinerRepo;
     }
 
-    /**
-     * Display a listing of the AntMiner.
-     *
-     * @param Request $request
-     * @return Response
-     */
     public function index(Request $request)
     {
 	    $antMiners = \Auth::user()->miners;
-        $data_raw = [];
+        $data = [];
 
 		foreach($antMiners as $antMiner)
 		{
-			$data_raw[$antMiner->id] = $this->formatMinerData($antMiner);
-			$data[$antMiner->id]['hash_rate'] = $data_raw[$antMiner->id]['summary']['GHS 5s'];
-
-			$avg_temp = 0;
-			$temp_sens_numer = 0;
-
-			$chip_ok_count = 0;
-			$chip_er_count = 0;
-
-			foreach($data_raw[$antMiner->id]['selected']['chains'] as $chain_index => $chain_data)
-			{
-				if($antMiner->type == 'bmminer')
-				{
-					$avg_temp = $avg_temp + $chain_data['brd_temp1'];
-					$temp_sens_numer++;
-					$avg_temp = $avg_temp + $chain_data['brd_temp2'];
-					$temp_sens_numer++;
-				}
-				else
-				{
-					$avg_temp = $avg_temp + $chain_data['brd_temp'];
-					$temp_sens_numer++;
-				}
-
-				foreach($chain_data['chips_stat'] as $chip)
-				{
-					if($chip == 'o')
-					{
-						$chip_ok_count++;
-					}
-					else
-					{
-						$chip_er_count++;
-					}
-				}
-
-			}
-
-			$avg_temp = round($avg_temp / $temp_sens_numer);
-			$data[$antMiner->id]['temp_avg'] = $avg_temp;
-			$data[$antMiner->id]['chips']['ok'] = $chip_ok_count;
-			$data[$antMiner->id]['chips']['er'] = $chip_er_count;
-
-			foreach($data_raw[$antMiner->id]['selected']['fans'] as $chain_index => $fan_data)
-			{
-				$data[$antMiner->id]['fans'][] = $fan_data;
-			}
-
+			//return $this->formatMinerData($antMiner);
+			$data[$antMiner->id] = $this->formatMinerData($antMiner);
 		}
 
         return view('ant_miners.index')
@@ -91,23 +38,11 @@ class AntMinerController extends AppBaseController
             ->with('data', $data);
     }
 
-    /**
-     * Show the form for creating a new AntMiner.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('ant_miners.create');
     }
 
-    /**
-     * Store a newly created AntMiner in storage.
-     *
-     * @param CreateAntMinerRequest $request
-     *
-     * @return Response
-     */
     public function store(CreateAntMinerRequest $request)
     {
         $input = $request->all();
@@ -120,13 +55,6 @@ class AntMinerController extends AppBaseController
         return redirect(route('antMiners.edit',$antMiner->id));
     }
 
-    /**
-     * Display the specified AntMiner.
-     *
-     * @param  int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
         $antMiner = $this->antMinerRepository->findWithoutFail($id);
@@ -138,7 +66,7 @@ class AntMinerController extends AppBaseController
         }
 
 
-        $stats_all = $this->get_api_stats($antMiner);
+        $stats_all = $this->get_api_data($antMiner);
 
         $stats['summary'] = $this->parseStats($stats_all['summary']);
 	    $stats['pools'] = $this->parsePools($stats_all['pools']);
@@ -184,7 +112,6 @@ class AntMinerController extends AppBaseController
 		    }
 	    }
 
-
         return view('ant_miners.show')->with('antMiner', $antMiner)->with('stats', $stats);
     }
 
@@ -200,7 +127,7 @@ class AntMinerController extends AppBaseController
 
 	    $keys = [];
 
-	    $stats_all = $this->get_api_stats($antMiner);
+	    $stats_all = $this->get_api_data($antMiner);
         $result = $this->parseStats($stats_all['stats']);
 
 	    foreach($result as $key => $value)
@@ -276,13 +203,28 @@ class AntMinerController extends AppBaseController
 		return $reply;
 	}
 
-    private function get_api_stats(AntMiner $antMiner)
+    private function get_api_data(AntMiner $antMiner)
     {
-	    $reply['summary'] = $this->read_from_socket($antMiner, 'summary');
-	    $reply['stats'] = $this->read_from_socket($antMiner, 'stats');
-	    $reply['pools'] = $this->read_from_socket($antMiner, 'pools');
+	    $reply['stats'] = $this->get_api_stats($antMiner);
+	    $reply['pools'] = $this->get_api_pools($antMiner);
+	    $reply['summary'] = $this->get_api_summary($antMiner);
 
 	    return $reply;
+    }
+
+	private function get_api_stats(AntMiner $antMiner)
+	{
+		return $this->read_from_socket($antMiner, 'stats');
+	}
+
+	private function get_api_pools(AntMiner $antMiner)
+	{
+		return $this->read_from_socket($antMiner, 'pools');
+	}
+
+    private function get_api_summary(AntMiner $antMiner)
+    {
+	    return $this->read_from_socket($antMiner, 'summary');
     }
 
     private function parseStats($array)
@@ -347,18 +289,20 @@ class AntMinerController extends AppBaseController
 
     private function formatMinerData(AntMiner $antMiner)
     {
-	    $stats_all = $this->get_api_stats($antMiner);
+	    $chip_ok_count = 0;
+	    $chip_er_count = 0;
 
-	    $stats['summary'] = $this->parseStats($stats_all['summary']);
-	    $stats['pools'] = $this->parsePools($stats_all['pools']);
+	    $miner_stats = $this->parseStats($this->get_api_stats($antMiner));
 
-	    $stats['stats'] = $this->parseStats($stats_all['stats']);
+	    $stats = null;
+
+	    $stats['hash_rate'] = $miner_stats['GHS 5s'];
 
 	    foreach($antMiner->options as $option_key => $option_value)
 	    {
 		    if(substr( $option_key, 0, 3 ) === "fan")
 		    {
-			    $stats['selected']['fans'][$option_key] = $stats['stats'][$option_key];
+			    $stats['fans'][$option_key] = $miner_stats[$option_key];
 		    }
 
 		    if(substr( $option_key, 0, 9 ) === "chain_acn")
@@ -369,8 +313,27 @@ class AntMinerController extends AppBaseController
 			    $brd_chips_stat_var = 'chain_acs'.$chain_index;
 
 
-			    $stats['selected']['chains'][$chain_index]['chips'] = $stats['stats'][$brd_chips_var];
-			    $stats['selected']['chains'][$chain_index]['chips_stat'] = str_split(str_replace(' ', '', $stats['stats'][$brd_chips_stat_var]));
+			    $stats['chains'][$chain_index]['chips'] = $miner_stats[$brd_chips_var];
+			    $stats['chains'][$chain_index]['chips_stat'] = str_split(str_replace(' ', '', $miner_stats[$brd_chips_stat_var]));
+
+			    foreach($stats['chains'][$chain_index]['chips_stat'] as $chip)
+			    {
+				    if($chip == 'o')
+				    {
+					    $chip_ok_count++;
+				    }
+				    else
+				    {
+					    $chip_er_count++;
+				    }
+			    }
+
+			    $stats['chains'][$chain_index]['chips_condition']['ok'] = $chip_ok_count;
+			    $stats['chains'][$chain_index]['chips_condition']['er'] = $chip_er_count;
+
+			    $chip_ok_count = 0;
+			    $chip_er_count = 0;
+
 
 
 			    if($antMiner->type == 'bmminer')
@@ -380,14 +343,15 @@ class AntMinerController extends AppBaseController
 
 				    $brd_freq_var = 'freq_avg'.$chain_index;
 
-				    $stats['selected']['chains'][$chain_index]['brd_temp1'] = $stats['stats'][$brd1_temp_var];
-				    $stats['selected']['chains'][$chain_index]['brd_temp2'] = $stats['stats'][$brd2_temp_var];
-				    $stats['selected']['chains'][$chain_index]['brd_freq'] = $stats['stats'][$brd_freq_var];
+				    $stats['chains'][$chain_index]['brd_temp1'] = $miner_stats[$brd1_temp_var];
+				    $stats['chains'][$chain_index]['brd_temp2'] = $miner_stats[$brd2_temp_var];
+				    $stats['chains'][$chain_index]['brd_freq']  = $miner_stats[$brd_freq_var];
 			    }
 			    else
 			    {
 				    $brd_temp_var = 'temp'.$chain_index;
-				    $stats['selected']['chains'][$chain_index]['brd_temp'] = $stats['stats'][$brd_temp_var];
+				    $stats['chains'][$chain_index]['brd_temp'] = $miner_stats[$brd_temp_var];
+				    $stats['chains'][$chain_index]['brd_freq']  = $miner_stats['frequency'];
 			    }
 
 
