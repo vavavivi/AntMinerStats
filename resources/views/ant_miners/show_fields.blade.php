@@ -84,7 +84,7 @@
                                     @if($chip == 'o')
                                         <span class="pull-left bg-aqua">{{$chip}}</span>
                                     @else
-                                        <span class="pull-right bg-red">x</span>
+                                        <span class="pull-left bg-red">x</span>
                                     @endif
                                 @endforeach
                             </td>
@@ -115,7 +115,7 @@
                                     @if($chip == 'o')
                                         <span class="pull-left bg-aqua">{{$chip}}</span>
                                     @else
-                                        <span class="pull-right bg-red">x</span>
+                                        <span class="pull-left bg-red">x</span>
                                     @endif
                                 @endforeach
                             </td>
