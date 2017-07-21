@@ -65,6 +65,12 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
 
         $stats_all = $this->get_api_data($antMiner);
 
@@ -125,6 +131,12 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
 	    $keys = [];
 
 	    $stats_all = $this->get_api_data($antMiner);
@@ -148,6 +160,12 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
         $antMiner = $this->antMinerRepository->update($request->all(), $id);
 
         Flash::success('Ant Miner updated successfully.');
@@ -164,6 +182,12 @@ class AntMinerController extends AppBaseController
 
             return redirect(route('antMiners.index'));
         }
+
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
 
         $this->antMinerRepository->delete($id);
 
@@ -287,7 +311,7 @@ class AntMinerController extends AppBaseController
 	    return $result;
     }
 
-    private function formatMinerData(AntMiner $antMiner)
+	private function formatMinerData(AntMiner $antMiner)
     {
 	    $chip_ok_count = 0;
 	    $chip_er_count = 0;
@@ -367,6 +391,5 @@ class AntMinerController extends AppBaseController
 
 	    return $stats;
     }
-
 
 }
