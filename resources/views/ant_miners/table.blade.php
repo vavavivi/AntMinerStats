@@ -13,32 +13,37 @@
         <tr>
             <td>{!! $antMiner->title !!}</td>
             <td>{!! $data[$antMiner->id]['hash_rate'] !!}</td>
-            <td>
-                @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                    <p>{{title_case($fan_id)}}: {{$fan_speed}}</p>
-                @endforeach
-            </td>
+            @if($data[$antMiner->id])
+                <td>
+                    @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
+                        <p>{{title_case($fan_id)}}: {{$fan_speed}}</p>
+                    @endforeach
+                </td>
 
-            <td>
-                @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    <p><strong>Board{{$chain_index}}: </strong>{{$chain_data['brd_freq']}} Mhz</p>
-                @endforeach
-            </td>
+                <td>
+                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        <p><strong>Board{{$chain_index}}: </strong>{{$chain_data['brd_freq']}} Mhz</p>
+                    @endforeach
+                </td>
 
-            <td>
-                @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    @if($antMiner->type == 'bmminer')
-                        <p>{{$chain_data['brd_temp1']}} °C / {{$chain_data['brd_temp2']}} °C</p>
-                    @else
-                        <p>{{$chain_data['brd_temp']}} °C</p>
-                    @endif
-                @endforeach
-            </td>
-            <td>
-                @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    <p>OK = {{$chain_data['chips_condition']['ok']}} / Fail = {{$chain_data['chips_condition']['er']}}</p>
-                @endforeach
-            </td>
+                <td>
+                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        @if($antMiner->type == 'bmminer')
+                            <p>{{$chain_data['brd_temp1']}} °C / {{$chain_data['brd_temp2']}} °C</p>
+                        @else
+                            <p>{{$chain_data['brd_temp']}} °C</p>
+                        @endif
+                    @endforeach
+                </td>
+                <td>
+                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        <p>OK = {{$chain_data['chips_condition']['ok']}} / Fail = {{$chain_data['chips_condition']['er']}}</p>
+                    @endforeach
+                </td>
+            @else
+                <td colspan="4">ERROR: Cannot fetch data</td>
+            @endif
+
             <td>
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

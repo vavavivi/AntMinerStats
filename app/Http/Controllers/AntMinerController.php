@@ -292,6 +292,13 @@ class AntMinerController extends AppBaseController
 	    $chip_ok_count = 0;
 	    $chip_er_count = 0;
 
+	    $miner_data = $this->get_api_stats($antMiner);
+
+	    if(!$miner_data)
+	    {
+	    	return false;
+	    }
+
 	    $miner_stats = $this->parseStats($this->get_api_stats($antMiner));
 
 	    $stats = null;
