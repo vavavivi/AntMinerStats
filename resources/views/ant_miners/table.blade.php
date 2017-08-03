@@ -1,50 +1,70 @@
-<table class="table table-responsive" id="antMiners-table">
+<table class="table table-valign-middle" id="antMiners-table">
     <thead>
-        <th>Title</th>
-        <th>GH/S(5s)</th>
-        <th>Fans</th>
-        <th>Brd Freq</th>
-        <th>Brd Temp</th>
-        <th>Chips Status</th>
-        <th colspan="3">Action</th>
+        <th width="5%">Title</th>
+        <th width="3%" class="text-center">TH/S</th>
+        <th class="text-left">Board Temp,°C</th>
+        <th>Chips Status (Good/Bad)</th>
+        <th width="3%" class="text-left">FANs</th>
+        <th width="5%" class="text-left">B.Freq</th>
+        <th class="text-center">Action</th>
     </thead>
     <tbody>
     @foreach($antMiners as $antMiner)
         <tr>
-            <td>{!! $antMiner->title !!}</td>
-            <td>{!! $data[$antMiner->id]['hash_rate'] !!}</td>
+            <td class="small" nowrap>{!! $antMiner->title !!}</td>
+
+            <td class="text-center">
+                <button class="btn btn-default btn-xs"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
+            </td>
+
             @if($data[$antMiner->id])
-                <td>
-                    @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <p>{{title_case($fan_id)}}: {{$fan_speed}}</p>
-                    @endforeach
-                </td>
-
-                <td>
-                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <p><strong>Board{{$chain_index}}: </strong>{{$chain_data['brd_freq']}} Mhz</p>
-                    @endforeach
-                </td>
-
-                <td>
+                <td class="text-left small" nowrap="">
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                         @if($antMiner->type == 'bmminer')
-                            <p>{{$chain_data['brd_temp1']}} °C / {{$chain_data['brd_temp2']}} °C</p>
+                            <div class="btn-group">
+                                <button class="btn btn-success btn-xs miner-temp">{{$chain_data['brd_temp1']}} °C</button>
+                                <button class="btn btn-success btn-xs miner-temp">{{$chain_data['brd_temp2']}} °C</button>
+                            </div>
                         @else
-                            <p>{{$chain_data['brd_temp']}} °C</p>
+                            @if(intval($chain_data['brd_temp']) > 69)
+                                <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
+                            @elseif(intval($chain_data['brd_temp']) > 63)
+                                <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
+                            @else
+                                <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
+                            @endif
                         @endif
                     @endforeach
                 </td>
-                <td>
+                <td nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <p>OK = {{$chain_data['chips_condition']['ok']}} / Fail = {{$chain_data['chips_condition']['er']}}</p>
+                    <div class="btn-group">
+
+                            @if(intval($chain_data['chips_condition']['ok'])>0)
+                                <button class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</button>
+                            @else
+                                <button class="btn btn-danger btn-xs chip-status">&mdash;</button>
+                            @endif
+                        <button class="btn @if(intval($chain_data['chips_condition']['er']) > 0) btn-danger @else btn-default @endif btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</button>
+                    </div>
+                    @endforeach
+                </td>
+                <td class="text-left" nowrap>
+                    @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
+                        <button class="btn btn-info btn-xs">{{title_case($fan_id)}}: {{$fan_speed}} rpm</button>
+                    @endforeach
+                </td>
+
+                <td class="text-left" nowrap>
+                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
                     @endforeach
                 </td>
             @else
                 <td colspan="4">ERROR: Cannot fetch data</td>
             @endif
 
-            <td>
+            <td class="text-center">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('antMiners.show', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>

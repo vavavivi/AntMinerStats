@@ -24,7 +24,7 @@ class AntMinerController extends AppBaseController
 
     public function index(Request $request)
     {
-	    $antMiners = \Auth::user()->miners;
+	    $antMiners = \Auth::user()->miners->sortBy('type');
         $data = [];
 
 		foreach($antMiners as $antMiner)
