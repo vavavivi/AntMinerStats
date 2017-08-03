@@ -26,9 +26,9 @@
                                 <button class="btn btn-success btn-xs miner-temp">{{$chain_data['brd_temp2']}} °C</button>
                             </div>
                         @else
-                            @if(intval($chain_data['brd_temp']) > 69)
+                            @if(intval($chain_data['brd_temp']) > 79)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
-                            @elseif(intval($chain_data['brd_temp']) > 63)
+                            @elseif(intval($chain_data['brd_temp']) > 65)
                                 <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
                             @else
                                 <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
