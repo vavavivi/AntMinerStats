@@ -21,10 +21,23 @@
                 <td class="text-left small" nowrap="">
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                         @if($antMiner->type == 'bmminer')
-                            <div class="btn-group">
-                                <button class="btn btn-success btn-xs miner-temp">{{$chain_data['brd_temp1']}} °C</button>
-                                <button class="btn btn-success btn-xs miner-temp">{{$chain_data['brd_temp2']}} °C</button>
-                            </div>
+                        <div class="btn-group">
+                            @if(intval($chain_data['brd_temp1']) > 90)
+                                <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
+                            @elseif(intval($chain_data['brd_temp1']) > 80)
+                                <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
+                            @else
+                                <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
+                            @endif
+
+                            @if(intval($chain_data['brd_temp2']) > 90)
+                                <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
+                            @elseif(intval($chain_data['brd_temp2']) > 80)
+                                <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
+                            @else
+                                <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
+                            @endif
+                        </div>
                         @else
                             @if(intval($chain_data['brd_temp']) > 79)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
