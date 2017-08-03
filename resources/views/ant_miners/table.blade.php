@@ -51,7 +51,7 @@
                 </td>
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <button class="btn btn-info btn-xs">{{title_case($fan_id)}}: {{$fan_speed}} rpm</button>
+                        <button class="btn btn-default btn-xs">{{title_case($fan_id)}}: {{$fan_speed}} rpm</button>
                     @endforeach
                 </td>
 
