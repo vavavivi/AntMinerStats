@@ -2,11 +2,11 @@
     <thead>
         <th width="5%">Title</th>
         <th width="1%" class="text-center">TH/S</th>
-        <th width="15%" class="text-left">Board Temp,°C</th>
-        <th width="15%">Chips Status</th>
-        <th width="15%" class="text-left">Board Freq</th>
-        <th width="15%" class="text-left">FANs</th>
-        <th width="20%" class="text-center">Action</th>
+        <th width="16%" class="text-left">Board Temp,°C</th>
+        <th width="16%">Chips Status</th>
+        <th width="16%" class="text-left">Board Freq</th>
+        <th width="16%" class="text-left">FANs</th>
+        <th width="16%" class="text-center">Action</th>
     </thead>
     <tbody>
     @foreach($antMiners as $antMiner)
