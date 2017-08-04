@@ -68,7 +68,7 @@ table thead th {
         display: inherit;
     }
     .main-sidebar, .left-side {
-        padding-top: 0px;
+        padding-top: 50px;
     }
 }
 
