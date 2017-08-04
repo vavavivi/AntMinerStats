@@ -4,8 +4,8 @@
         <th width="3%" class="text-center">TH/S</th>
         <th class="text-left">Board Temp,°C</th>
         <th>Chips Status (Good/Bad)</th>
+        <th width="5%" class="text-left">Board Freq</th>
         <th width="3%" class="text-left">FANs</th>
-        <th width="5%" class="text-left">B.Freq</th>
         <th class="text-center">Action</th>
     </thead>
     <tbody>
@@ -52,7 +52,6 @@
                 <td nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                     <div class="btn-group">
-
                             @if(intval($chain_data['chips_condition']['ok'])>0)
                                 <button class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</button>
                             @else
@@ -62,15 +61,25 @@
                     </div>
                     @endforeach
                 </td>
+
+                <!--Board Freq -->
                 <td class="text-left" nowrap>
-                    @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <button class="btn btn-default btn-xs">{{title_case($fan_id)}}: {{$fan_speed}} rpm</button>
+                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        @if(round(intval($chain_data['brd_freq'])) > 749)
+                            <button class="btn btn-warning btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
+                        @elseif(round(intval($chain_data['brd_freq'])) == 0)
+                                <button class="btn btn-danger btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
+                        @else
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
+                        @endif
+
                     @endforeach
                 </td>
 
+                <!-- FANS -->
                 <td class="text-left" nowrap>
-                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
+                    @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
+                        <button class="btn btn-default btn-xs">{{title_case($fan_id)}}: {{$fan_speed}}</button>
                     @endforeach
                 </td>
             @else
