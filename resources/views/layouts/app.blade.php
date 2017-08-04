@@ -44,6 +44,10 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
 
+                <a href="/" class="title">
+                    <i class="fa fa-envira"></i> AntSTATS <sup>1.0</sup>
+                </a>
+
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
