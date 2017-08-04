@@ -26,14 +26,14 @@
     @yield('css')
 </head>
 
-<body class="skin-purple sidebar-mini">
+<body class="skin-red sidebar-mini">
 @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <i class="fa fa-envira"></i> AntSTATS <sup>1.0</sup>
             </a>
 
@@ -60,18 +60,19 @@
                                     <img src="/images/user-avatar.png" class="img-circle" alt="User Image"/>
                                     <p>
                                         {!! Auth::user()->name !!}
+                                        <small>Менеджер</small>
 
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Профиль</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Exit
+                                            Выход
                                         </a>
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
