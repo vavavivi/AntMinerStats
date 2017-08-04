@@ -67,6 +67,9 @@ table thead th {
     .navbar .title {
         display: inherit;
     }
+    .main-sidebar, .left-side {
+        padding-top: 0px;
+    }
 }
 
 @media (max-width: 480px) {
