@@ -1,6 +1,7 @@
 <table class="table table-valign-middle" id="antMiners-table">
     <thead>
         <th width="5%">Title</th>
+        <th width="5%" class="text-center">Manage</th>
         <th width="5%" class="text-center">TH/S</th>
         <th width="18%" class="text-left">Board Temp,°C</th>
         <th width="18%">Chips Status</th>
@@ -11,7 +12,14 @@
     <tbody>
     @foreach($antMiners as $antMiner)
         <tr>
-            <td class="small" nowrap>{!! $antMiner->title !!}</td>
+            <td class="small" nowrap>
+                <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
+                 </td>
+            <td>
+                <div class='btn-group'>
+                    <a href="#" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-share"></i></a>
+                </div>
+            </td>
 
             <td class="text-center">
                 <button class="btn btn-default btn-xs"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
@@ -89,7 +97,6 @@
             <td class="text-center">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
