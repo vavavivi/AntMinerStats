@@ -21,7 +21,9 @@ class AntMiner extends Model
         'host',
         'type',
         'port',
-        'options'
+        'options',
+        'log',
+        'url'
     ];
 
     /**
@@ -34,7 +36,9 @@ class AntMiner extends Model
         'title' => 'string',
         'host' => 'string',
         'port' => 'integer',
-        'options' => 'string'
+        'options' => 'string',
+        'log' => 'boolean',
+        'url' => 'string',
     ];
 
     /**
@@ -61,6 +65,16 @@ class AntMiner extends Model
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function setLogAttribute($value)
+    {
+        if($value == 0) {
+            $this->attributes['log'] = 0;
+        }else{
+            $this->attributes['log'] = 1;
+        }
+
     }
 
     

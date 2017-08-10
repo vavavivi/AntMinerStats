@@ -17,7 +17,12 @@
                  </td>
             <td>
                 <div class='btn-group'>
-                    <a href="#" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-share"></i></a>
+                    @if($antMiner->url)
+                        <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                    @else
+                        <a href="#" class='btn btn-default btn-xs disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                    @endif
+
                 </div>
             </td>
 

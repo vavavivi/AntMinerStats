@@ -154,6 +154,13 @@ class AntMinerController extends AppBaseController
     {
         $antMiner = $this->antMinerRepository->findWithoutFail($id);
 
+        $input = $request->all();
+
+        if(! $request->has('log'))
+        {
+            $input['log'] = 0;
+        }
+
         if (empty($antMiner)) {
             Flash::error('Ant Miner not found');
 
@@ -166,7 +173,7 @@ class AntMinerController extends AppBaseController
 		    return redirect(route('antMiners.index'));
 	    }
 
-        $antMiner = $this->antMinerRepository->update($request->all(), $id);
+        $antMiner = $this->antMinerRepository->update($input, $id);
 
         Flash::success('Ant Miner updated successfully.');
 

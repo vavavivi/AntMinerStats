@@ -20,6 +20,13 @@
     {!! Form::text('port', null, ['class' => 'form-control']) !!}
 </div>
 
+
+<!-- Url Field -->
+<div class="form-group col-sm-12">
+    {!! Form::label('url', 'Management Url:') !!}
+    {!! Form::text('url', null, ['class' => 'form-control']) !!}
+</div>
+
 @if(isset($keys))
     <!-- Options Field -->
     <div class="form-group col-sm-4">
@@ -85,6 +92,16 @@
 </div>
 -->
 @endif
+
+<div class="form-group col-sm-12">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox">
+            {{Form::checkbox('log' ,null, null)}}
+            Log data
+        </label>
+    </div>
+</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
