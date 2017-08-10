@@ -30,7 +30,11 @@ class AntMinerController extends AppBaseController
 		foreach($antMiners as $antMiner)
 		{
 			//return $this->formatMinerData($antMiner);
-			$data[$antMiner->id] = $this->formatMinerData($antMiner);
+            $miner_data = $this->formatMinerData($antMiner);
+			$data[$antMiner->id] = $miner_data;
+
+			$antMiner->antMinerlogs()->create(['data'=>$miner_data]);
+
 		}
 
         return view('ant_miners.index')

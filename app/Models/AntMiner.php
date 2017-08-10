@@ -67,6 +67,11 @@ class AntMiner extends Model
     	return $this->belongsTo(User::class);
     }
 
+    public function antMinerlogs()
+    {
+        return $this->hasMany(Antlog::class);
+    }
+
 
 
     
