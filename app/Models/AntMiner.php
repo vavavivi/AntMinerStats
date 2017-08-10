@@ -67,15 +67,7 @@ class AntMiner extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function setLogAttribute($value)
-    {
-        if($value == 0) {
-            $this->attributes['log'] = 0;
-        }else{
-            $this->attributes['log'] = 1;
-        }
 
-    }
 
     
 }

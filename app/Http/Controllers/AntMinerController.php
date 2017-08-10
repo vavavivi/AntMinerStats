@@ -158,7 +158,11 @@ class AntMinerController extends AppBaseController
 
         if(! $request->has('log'))
         {
-            $input['log'] = 0;
+            $input['log'] = false;
+        }
+        else
+        {
+            $input['log'] = true;
         }
 
         if (empty($antMiner)) {
