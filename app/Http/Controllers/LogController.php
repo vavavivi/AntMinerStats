@@ -39,26 +39,52 @@ class LogController extends Controller
 		    ->addNumberColumn($antMiner->title);
 	    ;
 
-
-	    foreach($logs as $log)
+	    if($antMiner->type == 'bmminer')
 	    {
-	    	$data_temp  = [$log->created_at->format('d.m.Y H:i')];
-	    	$data_freq  = [$log->created_at->format('d.m.Y H:i')];
-	    	$data_hr    = [$log->created_at->format('d.m.Y H:i'), intval (round($log->data['hash_rate'],0))];
-		    foreach($log->data['chains'] as $chain_id => $chain)
+		    foreach($logs as $log)
 		    {
-			    array_push($data_temp, intval ($chain['brd_temp']));
-			    array_push($data_freq, intval ($chain['brd_freq']));
+			    $data_temp  = [$log->created_at->format('d.m.Y H:i')];
+			    $data_freq  = [$log->created_at->format('d.m.Y H:i')];
+			    $data_hr    = [$log->created_at->format('d.m.Y H:i'), intval (round($log->data['hash_rate'],0))];
+			    foreach($log->data['chains'] as $chain_id => $chain)
+			    {
+				    array_push($data_temp, intval ($chain['brd_temp1']));
+				    array_push($data_freq, intval ($chain['brd_freq']));
+			    }
+
+			    $temperatures->addRow($data_temp);
+			    $freqs->addRow($data_freq);
+			    $hr->addRow($data_hr);
+
+			    $data_temp = null;
+			    $data_freq = null;
+			    $data_hr = null;
 		    }
-
-		    $temperatures->addRow($data_temp);
-		    $freqs->addRow($data_freq);
-		    $hr->addRow($data_hr);
-
-		    $data_temp = null;
-		    $data_freq = null;
-		    $data_hr = null;
 	    }
+	    else
+	    {
+		    foreach($logs as $log)
+		    {
+			    $data_temp  = [$log->created_at->format('d.m.Y H:i')];
+			    $data_freq  = [$log->created_at->format('d.m.Y H:i')];
+			    $data_hr    = [$log->created_at->format('d.m.Y H:i'), intval (round($log->data['hash_rate'],0))];
+			    foreach($log->data['chains'] as $chain_id => $chain)
+			    {
+				    array_push($data_temp, intval ($chain['brd_temp']));
+				    array_push($data_freq, intval ($chain['brd_freq']));
+			    }
+
+			    $temperatures->addRow($data_temp);
+			    $freqs->addRow($data_freq);
+			    $hr->addRow($data_hr);
+
+			    $data_temp = null;
+			    $data_freq = null;
+			    $data_hr = null;
+		    }
+	    }
+
+
 
 
 	    Lava::LineChart('Temps', $temperatures, [
