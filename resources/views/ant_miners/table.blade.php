@@ -1,7 +1,8 @@
 <table class="table table-valign-middle" id="antMiners-table">
     <thead>
         <th width="5%">Title</th>
-        <th width="5%" class="text-center">Manage</th>
+        <th width="3%" class="text-center">Stats</th>
+        <th width="3%" class="text-center">Manage</th>
         <th width="5%" class="text-center">TH/S</th>
         <th width="18%" class="text-left">Board Temp,°C</th>
         <th width="18%">Chips Status</th>
@@ -14,7 +15,10 @@
         <tr>
             <td class="small" nowrap>
                 <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
-                 </td>
+            </td>
+            <td>
+                <a href="{!! route('log.show', $antMiner->id) !!}" class='btn btn-default btn-xs' ><i class="glyphicon glyphicon-stats"></i></a>
+            </td>
             <td>
                 <div class='btn-group'>
                     @if($antMiner->url)
