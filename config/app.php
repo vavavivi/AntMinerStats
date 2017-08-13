@@ -183,6 +183,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 	    Telegram\Bot\Laravel\TelegramServiceProvider::class,
 
+	    Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+
+
+
     ],
 
     /*
@@ -235,6 +239,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
+
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 
 
     ],
