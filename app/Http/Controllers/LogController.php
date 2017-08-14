@@ -17,7 +17,7 @@ class LogController extends Controller
 		    return redirect()->back();
 	    }
 
-	    $logs = $antMiner->antMinerlogs;
+	    $logs = $antMiner->antlogs;
 
 	    $temperatures = Lava::DataTable();
 	    $freqs = Lava::DataTable();
@@ -39,18 +39,14 @@ class LogController extends Controller
 		    ->addNumberColumn($antMiner->title);
 	    ;
 
-	    if($antMiner->type == 'bmminer')
-	    {
 		    foreach($logs as $log)
 		    {
-			    $data_temp  = [$log->created_at->format('d.m.Y H:i')];
-			    $data_freq  = [$log->created_at->format('d.m.Y H:i')];
-			    $data_hr    = [$log->created_at->format('d.m.Y H:i'), intval (round($log->data['hash_rate'],0))];
-			    foreach($log->data['chains'] as $chain_id => $chain)
-			    {
-				    array_push($data_temp, intval ($chain['brd_temp1']));
-				    array_push($data_freq, intval ($chain['brd_freq']));
-			    }
+		    	$date = $log->created_at->format('d.m.Y H:i');
+
+			    $data_temp  = [$date, $log->temp1, $log->temp2, $log->temp3];
+			    $data_freq  = [$date, $log->freq1, $log->freq2, $log->freq3];
+			    $data_hr    = [$date, $log->hr];
+
 
 			    $temperatures->addRow($data_temp);
 			    $freqs->addRow($data_freq);
@@ -60,32 +56,6 @@ class LogController extends Controller
 			    $data_freq = null;
 			    $data_hr = null;
 		    }
-	    }
-	    else
-	    {
-		    foreach($logs as $log)
-		    {
-			    $data_temp  = [$log->created_at->format('d.m.Y H:i')];
-			    $data_freq  = [$log->created_at->format('d.m.Y H:i')];
-			    $data_hr    = [$log->created_at->format('d.m.Y H:i'), intval (round($log->data['hash_rate'],0))];
-			    foreach($log->data['chains'] as $chain_id => $chain)
-			    {
-				    array_push($data_temp, intval ($chain['brd_temp']));
-				    array_push($data_freq, intval ($chain['brd_freq']));
-			    }
-
-			    $temperatures->addRow($data_temp);
-			    $freqs->addRow($data_freq);
-			    $hr->addRow($data_hr);
-
-			    $data_temp = null;
-			    $data_freq = null;
-			    $data_hr = null;
-		    }
-	    }
-
-
-
 
 	    Lava::LineChart('Temps', $temperatures, [
 		    'title' => 'Hash Board Temps',
@@ -103,4 +73,5 @@ class LogController extends Controller
 	    return view('ant_miners.show_log');
 
     }
+
 }
