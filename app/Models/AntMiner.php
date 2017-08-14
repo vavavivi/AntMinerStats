@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
+use App\AntMinerLog;
 use App\User;
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class AntMiner
- * @package App\Models
- * @version July 8, 2017, 1:18 pm UTC
- */
+
 class AntMiner extends Model
 {
     public $table = 'ant_miners';
@@ -26,11 +22,6 @@ class AntMiner extends Model
         'url'
     ];
 
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
     protected $casts = [
 	    'user_id' => 'integer',
         'title' => 'string',
@@ -41,11 +32,6 @@ class AntMiner extends Model
         'url' => 'string',
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
     public static $rules = [
         'title' => 'required',
         'host' => 'required',
@@ -72,7 +58,9 @@ class AntMiner extends Model
         return $this->hasMany(Antlog::class);
     }
 
+	public function antlogs()
+	{
+		return $this->hasMany(AntMinerLog::class);
+	}
 
-
-    
 }
