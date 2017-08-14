@@ -9,46 +9,69 @@ use Illuminate\Console\Command;
 class PollMiner extends Command
 {
     use MinerTrait;
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'antminer:poll';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Poll miner data';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
         $antMiners = AntMiner::all();
-        $i = 0;
+        $s = 0;
+        $f = 0;
         foreach($antMiners as $antMiner)
         {
             $miner_data = $this->formatMinerData($antMiner);
-            $antMiner->antMinerlogs()->create(['data'=>$miner_data]);
-            $i++;
+
+            if($miner_data)
+            {
+	            if($antMiner->type == 'bmminer')
+	            {
+		            $data['hr']  = intval (round($miner_data['hash_rate'],0));
+		            $i = 1;
+		            foreach($miner_data['chains'] as $chain_id => $chain)
+		            {
+			            $data['temp'.$i]  = intval ($chain['brd_temp1']);
+			            $data['temp'.$i.'1'] = intval ($chain['brd_temp2']);
+			            $data['freq'.$i]  = intval ($chain['brd_freq']);
+			            $i++;
+
+		            }
+
+		            $antMiner->antlogs()->create($data);
+
+		            $data = null;
+	            }
+	            else
+	            {
+		            $data['hr']  = intval (round($miner_data['hash_rate'],0));
+		            $i = 1;
+		            foreach($miner_data['chains'] as $chain_id => $chain)
+		            {
+			            $data['temp'.$i]  = intval ($chain['brd_temp']);
+			            $data['temp'.$i.'1'] = null;
+			            $data['freq'.$i]  = intval ($chain['brd_freq']);
+			            $i++;
+		            }
+
+		            $antMiner->antlogs()->create($data);
+
+		            $data = null;
+	            }
+
+	            $s++;
+            }
+            else
+            {
+            	$f++;
+            }
         }
 
-        echo  $i .' Miners were polled.';
+        echo  $s ." Miners were polled. ".$f ." Miners failed to fetch.\n";
     }
 }
