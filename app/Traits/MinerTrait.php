@@ -185,6 +185,10 @@ trait MinerTrait
 
                     $brd_freq_var = 'freq_avg'.$chain_index;
 
+                    if(! array_key_exists($brd1_temp_var, $miner_stats)) $miner_stats[$brd1_temp_var] = 0;
+                    if(! array_key_exists($brd2_temp_var, $miner_stats)) $miner_stats[$brd2_temp_var] = 0;
+                    if(! array_key_exists($brd_freq_var, $miner_stats))  $miner_stats[$brd_freq_var] = 0;
+
                     $stats['chains'][$chain_index]['brd_temp1'] = $miner_stats[$brd1_temp_var];
                     $stats['chains'][$chain_index]['brd_temp2'] = $miner_stats[$brd2_temp_var];
                     $stats['chains'][$chain_index]['brd_freq']  = $miner_stats[$brd_freq_var];
@@ -192,6 +196,9 @@ trait MinerTrait
                 else
                 {
                     $brd_temp_var = 'temp'.$chain_index;
+
+	                if(! array_key_exists($brd_temp_var, $miner_stats)) $miner_stats[$brd_temp_var] = 0;
+
                     $stats['chains'][$chain_index]['brd_temp'] = $miner_stats[$brd_temp_var];
                     $stats['chains'][$chain_index]['brd_freq']  = $miner_stats['frequency'];
                 }
