@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\AntMiner;
 use App\Traits\MinerTrait;
 use Illuminate\Console\Command;
+use Telegram;
 
 class PollMiner extends Command
 {
@@ -69,9 +70,26 @@ class PollMiner extends Command
             else
             {
             	$f++;
+
+            	$msg = $antMiner->title .' is offline or unable to connect.';
+
+	            Telegram::sendMessage([
+		            'chat_id' => 2421164,
+		            'text' => $msg,
+		            'parse_mode' =>'HTML'
+	            ]);
+
             }
         }
 
-        echo  $s ." Miners were polled. ".$f ." Miners failed to fetch.\n";
+        $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.\n";
+
+        echo  $msg;
+
+	    Telegram::sendMessage([
+		    'chat_id' => 2421164,
+		    'text' => $msg,
+		    'parse_mode' =>'HTML'
+	    ]);
     }
 }
