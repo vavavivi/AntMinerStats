@@ -17,12 +17,16 @@ class ApiController extends Controller
 
     public function webhook(Request $request)
     {
+    	$hook = $request->all();
+
+    	$chat_id = $hook['message']['from']['id'];
+
 	    $i = Telegram::getMe();
-	    $msg = json_encode($i);
+	    $msg = json_encode($hook);
 
 
 	    $response = Telegram::sendMessage([
-		    'chat_id' => 2421164,
+		    'chat_id' => $chat_id,
 		    'text' => $msg
 	    ]);
 
@@ -35,9 +39,6 @@ class ApiController extends Controller
 		    'text' => 123,
 		    'parse_mode' =>'HTML'
 	    ]);
-
-
-
 
     }
 }
