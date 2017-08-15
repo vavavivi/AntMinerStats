@@ -39,17 +39,17 @@
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                         @if($antMiner->type == 'bmminer')
                         <div class="btn-group">
-                            @if(intval($chain_data['brd_temp1']) > 90)
+                            @if(intval($chain_data['brd_temp1']) > 95)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
-                            @elseif(intval($chain_data['brd_temp1']) > 80)
+                            @elseif(intval($chain_data['brd_temp1']) > 88)
                                 <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
                             @else
                                 <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp1']}} °C</button>
                             @endif
 
-                            @if(intval($chain_data['brd_temp2']) > 90)
+                            @if(intval($chain_data['brd_temp2']) > 95)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
-                            @elseif(intval($chain_data['brd_temp2']) > 80)
+                            @elseif(intval($chain_data['brd_temp2']) > 88)
                                 <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
                             @else
                                 <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp2']}} °C</button>
@@ -58,7 +58,7 @@
                         @else
                             @if(intval($chain_data['brd_temp']) > 79)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
-                            @elseif(intval($chain_data['brd_temp']) > 69)
+                            @elseif(intval($chain_data['brd_temp']) > 75)
                                 <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
                             @else
                                 <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp']}} °C</button>
@@ -82,14 +82,7 @@
                 <!--Board Freq -->
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        @if(round(intval($chain_data['brd_freq'])) > 749)
-                            <button class="btn btn-warning btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
-                        @elseif(round(intval($chain_data['brd_freq'])) == 0)
-                                <button class="btn btn-danger btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
-                        @else
-                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
-                        @endif
-
+                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
                     @endforeach
                 </td>
 
