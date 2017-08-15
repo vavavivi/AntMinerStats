@@ -21,15 +21,11 @@ class ApiController extends Controller
 
     	$chat_id = $hook['message']['from']['id'];
 
-	    $i = Telegram::getMe();
-	    $msg = json_encode($hook);
-
-	    $msg = 'Welcome to antMiner notify service. Your chat ID is:<strong>'.$chat_id.'</strong>. 
+	    $msg = 'Welcome to antMiner notify service. Your chat ID is: <strong>'.$chat_id.'</strong>. 
 				Please fill chat id in your <a href="https://antminer.dev/profile">profile</a>.
 	    ';
 
-
-	    $response = Telegram::sendMessage([
+	    Telegram::sendMessage([
 		    'chat_id' => $chat_id,
 		    'text' => $msg,
 		    'parse_mode' =>'HTML'
@@ -37,13 +33,4 @@ class ApiController extends Controller
 
     }
 
-    public function sendInfo()
-    {
-	    Telegram::sendMessage([
-		    'chat_id' => 2421164,
-		    'text' => 123,
-		    'parse_mode' =>'HTML'
-	    ]);
-
-    }
 }
