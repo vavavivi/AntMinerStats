@@ -31,7 +31,8 @@ class ApiController extends Controller
 
 	    $response = Telegram::sendMessage([
 		    'chat_id' => $chat_id,
-		    'text' => $msg
+		    'text' => $msg,
+		    'parse_mode' =>'HTML'
 	    ]);
 
     }
