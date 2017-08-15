@@ -71,13 +71,18 @@ class PollMiner extends Command
             {
             	$f++;
 
-            	$msg = $antMiner->title .' is offline or unable to connect.';
+            	$chat_id = $antMiner->user->chat_id;
 
-	            Telegram::sendMessage([
-		            'chat_id' => 2421164,
-		            'text' => $msg,
-		            'parse_mode' =>'HTML'
-	            ]);
+            	if($chat_id)
+	            {
+		            $msg = $antMiner->title .' is offline or unable to connect.';
+
+		            Telegram::sendMessage([
+			            'chat_id' => 2421164,
+			            'text' => $msg,
+			            'parse_mode' =>'HTML'
+		            ]);
+	            }
 
             }
         }
@@ -86,10 +91,5 @@ class PollMiner extends Command
 
         echo  $msg;
 
-	    Telegram::sendMessage([
-		    'chat_id' => 2421164,
-		    'text' => $msg,
-		    'parse_mode' =>'HTML'
-	    ]);
     }
 }
