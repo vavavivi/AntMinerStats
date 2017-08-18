@@ -1,3 +1,70 @@
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-blue">
+            <span class="info-box-icon"><i class="fa fa-cog fa-spin"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Current speed</span>
+                <span class="info-box-number">{{$stats['summary']['GHS 5s']}} GH/s</span>
+
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width: @if($stats['stats']['Type'] == "Antminer S7") {{ round(($stats['summary']['GHS 5s']/5200)*100) }}%
+                         @elseif ($stats['stats']['Type'] == "Antminer S9") {{ round(($stats['summary']['GHS 5s']/13000)*100) }}%
+                         @endif">
+                    </div>
+                </div>
+                <span class="progress-description">
+                    Last 5 minut statistics
+                  </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-cogs"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Average speed</span>
+                <span class="info-box-number">{{$stats['summary']['GHS av']}} GH/s</span>
+
+                <div class="progress">
+                    <div class="progress-bar" style="width: 70%"></div>
+                </div>
+                <span class="progress-description">
+                    24 hours statistics
+                  </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-green">
+            <span class="info-box-icon"><i class="fa fa-rocket"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Uptime</span>
+                <span class="info-box-number">{{ $stats['summary']['When'] }}</span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-red">
+            <span class="info-box-icon"><i class="fa fa-rocket"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Uptime</span>
+                <span class="info-box-number">{{ $stats['summary']['When'] }}</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- COMMON INFO -->
 <table class="table table-bordered table-hover">
     <thead>

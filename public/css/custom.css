@@ -73,6 +73,8 @@ table thead th {
 }
 
 @media (max-width: 480px) {
+
+
     .table-condensed { font-size: 82%;}
     .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
     .button-block { margin-top: 10px; margin-bottom: 10px; }
@@ -82,8 +84,6 @@ table thead th {
         font-size: 90%;
     }
 }
-
-
 
 .btn-group {
     display: inline-flex;
