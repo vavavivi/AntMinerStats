@@ -14,9 +14,10 @@ h2 {font-size: 160%; margin: 10px 0px; }
 h3 {font-size: 140%; margin: 10px 0px; }
 h6 {margin-top:7px; margin-bottom: 3px;}
 
+.ths         { width: 43px; }
 .miner-temp  { width: 40px; }
 .chip-status { width: 26px; }
-.freq        { width: 80px; }
+.freq        { width: 60px; }
 
 .label {
     position: relative;

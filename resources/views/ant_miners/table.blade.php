@@ -1,14 +1,13 @@
 <table class="table table-valign-middle" id="antMiners-table">
     <thead>
-        <th width="5%">Title</th>
-        <th width="3%" class="text-center">Stats</th>
-        <th width="3%" class="text-center">Manage</th>
-        <th width="5%" class="text-center">TH/S</th>
-        <th width="18%" class="text-left">Board Temp,°C</th>
-        <th width="18%">Chips Status</th>
-        <th width="18%" class="text-left">Board Freq</th>
-        <th width="18%" class="text-left">FANs</th>
-        <th width="18%" class="text-center">Action</th>
+        <th width="5%" class="text-center">Title</th>
+        <th width="" class="text-center">Action</th>
+        <th width="" class="text-center">TH/S</th>
+        <th width="" class="text-center">Board Temp,°C</th>
+        <th width="" class="text-center">Chips info</th>
+        <th width="" class="text-center">Board Freq</th>
+        <th width="" class="text-center">FANs</th>
+        <th width="" class="text-center">Action</th>
     </thead>
     <tbody>
     @foreach($antMiners as $antMiner)
@@ -17,21 +16,18 @@
                 <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
             </td>
             <td>
-                <a href="{!! route('log.show', $antMiner->id) !!}" class='btn btn-default btn-xs' ><i class="glyphicon glyphicon-stats"></i></a>
-            </td>
-            <td>
                 <div class='btn-group'>
                     @if($antMiner->url)
                         <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
                     @else
                         <a href="#" class='btn btn-default btn-xs disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
                     @endif
-
+                    <a href="{!! route('log.show', $antMiner->id) !!}" class='btn btn-default btn-xs' ><i class="glyphicon glyphicon-stats"></i></a>
                 </div>
             </td>
 
             <td class="text-center">
-                <button class="btn btn-default btn-xs"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
+                <button class="btn btn-default btn-xs ths"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
             </td>
 
             @if($data[$antMiner->id])
@@ -82,7 +78,7 @@
                 <!--Board Freq -->
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}} Mhz</button>
+                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
                     @endforeach
                 </td>
 
