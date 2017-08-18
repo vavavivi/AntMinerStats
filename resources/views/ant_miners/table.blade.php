@@ -1,13 +1,13 @@
 <table class="table table-valign-middle" id="antMiners-table">
     <thead>
         <th width="5%" class="text-center">Title</th>
-        <th width="" class="text-center">Action</th>
+        <th width="" class="text-center">Actions</th>
         <th width="" class="text-center">TH/S</th>
         <th width="" class="text-center">Board Temp,°C</th>
         <th width="" class="text-center">Chips info</th>
         <th width="" class="text-center">Board Freq</th>
         <th width="" class="text-center">FANs</th>
-        <th width="" class="text-center">Action</th>
+        <th width="" class="text-center"><i class="fa fa-cogs"></i> </th>
     </thead>
     <tbody>
     @foreach($antMiners as $antMiner)
