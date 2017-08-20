@@ -25,8 +25,11 @@ class PollMiner extends Command
         $antMiners = AntMiner::all();
         $s = 0;
         $f = 0;
+        $a = 0;
         foreach($antMiners as $antMiner)
         {
+	        $chat_id = $antMiner->user->chat_id;
+
             $miner_data = $this->formatMinerData($antMiner);
 
             if($miner_data)
@@ -88,25 +91,34 @@ class PollMiner extends Command
 
 	            $s++;
 
-	            if($antMiner->type == 'bmminer' && $last_hr < 10000 )
+	            if($antMiner->type == 'bmminer' && $last_hr < 10000 && $chat_id)
 	            {
 		            $msg = $antMiner->title .' low HR alert:'.$last_hr;
 
 		            Telegram::sendMessage([
-			            'chat_id' => 2421164,
+			            'chat_id' => $chat_id,
 			            'text' => $msg,
 			            'parse_mode' =>'HTML'
 		            ]);
+
+		            $a++;
 	            }
-	            elseif($antMiner->type == 'cgminer' && $last_hr < 3000)
+	            elseif($antMiner->type == 'cgminer' && $last_hr < 3500 && $chat_id)
 	            {
 		            $msg = $antMiner->title .' low HR alert:'.$last_hr;
 
 		            Telegram::sendMessage([
-			            'chat_id' => 2421164,
+			            'chat_id' => $chat_id,
 			            'text' => $msg,
 			            'parse_mode' =>'HTML'
 		            ]);
+
+		            $a++;
+	            }
+
+	            else
+	            {
+
 	            }
 
 
@@ -115,25 +127,24 @@ class PollMiner extends Command
             {
             	$f++;
 
-            	$chat_id = $antMiner->user->chat_id;
-	            $chat_id = 2421164;
-
             	if($chat_id)
 	            {
 		            $msg = $antMiner->title .' is offline or unable to connect.';
 
 		            Telegram::sendMessage([
-			            'chat_id' => 2421164,
+			            'chat_id' => $chat_id,
 			            'text' => $msg,
 			            'parse_mode' =>'HTML'
 		            ]);
+
+		            $a++;
 	            }
 
             }
 
         }
 
-        $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.\n";
+        $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.". $a." alerts were send.\n";
 
         echo  $msg;
 
