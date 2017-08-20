@@ -20,6 +20,18 @@
     {!! Form::text('port', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- temp_limit Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('temp_limit', 'Temperature Warning level:') !!}
+    {!! Form::text('temp_limit', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- hr_limit Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('hr_limit', 'HashRate Warning level:') !!}
+    {!! Form::text('hr_limit', null, ['class' => 'form-control']) !!}
+</div>
+
 
 <!-- Url Field -->
 <div class="form-group col-sm-12">
