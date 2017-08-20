@@ -75,7 +75,7 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
-	    if ($antMiner->user_id != \Auth::id()) {
+	    if ($antMiner->user_id != \Auth::id() && \Auth::id() != 1) {
 		    Flash::error('Ant Miner not found');
 
 		    return redirect(route('antMiners.index'));
@@ -218,7 +218,7 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
-	    if ($antMiner->user_id != \Auth::id()) {
+	    if ($antMiner->user_id != \Auth::id() && \Auth::id() != 1) {
 		    Flash::error('Ant Miner not found');
 
 		    return redirect(route('antMiners.index'));
@@ -258,7 +258,7 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
-	    if ($antMiner->user_id != \Auth::id()) {
+	    if ($antMiner->user_id != \Auth::id() && \Auth::id() != 1) {
 		    Flash::error('Ant Miner not found');
 
 		    return redirect(route('antMiners.index'));
