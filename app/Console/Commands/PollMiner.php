@@ -44,9 +44,6 @@ class PollMiner extends Command
 
 		            }
 
-		            $antMiner->antlogs()->create($data);
-
-		            $data = null;
 	            }
 	            else
 	            {
@@ -60,18 +57,66 @@ class PollMiner extends Command
 			            $i++;
 		            }
 
-		            $antMiner->antlogs()->create($data);
-
-		            $data = null;
 	            }
 
+	            if(! key_exists('temp3',$data))
+	            {
+	            	$data['temp3'] = 0;
+	            }
+
+	            if(! key_exists('temp2',$data))
+	            {
+		            $data['temp2'] = 0;
+	            }
+
+	            if(! key_exists('freq3',$data))
+	            {
+		            $data['freq3'] = 0;
+	            }
+
+	            if(! key_exists('freq2',$data))
+	            {
+		            $data['freq2'] = 0;
+	            }
+
+
+
+	            $antMiner->antlogs()->create($data);
+	            $last_hr = $data['hr'];
+
+	            $data = null;
+
 	            $s++;
+
+	            if($antMiner->type == 'bmminer' && $last_hr < 10000 )
+	            {
+		            $msg = $antMiner->title .' low HR alert:'.$last_hr;
+
+		            Telegram::sendMessage([
+			            'chat_id' => 2421164,
+			            'text' => $msg,
+			            'parse_mode' =>'HTML'
+		            ]);
+	            }
+	            elseif($antMiner->type == 'cgminer' && $last_hr < 4500)
+	            {
+		            $msg = $antMiner->title .' low HR alert:'.$last_hr;
+
+		            Telegram::sendMessage([
+			            'chat_id' => 2421164,
+			            'text' => $msg,
+			            'parse_mode' =>'HTML'
+		            ]);
+	            }
+
+
             }
             else
             {
             	$f++;
 
             	$chat_id = $antMiner->user->chat_id;
+	            $chat_id = 2421164;
 
             	if($chat_id)
 	            {
@@ -85,6 +130,7 @@ class PollMiner extends Command
 	            }
 
             }
+
         }
 
         $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.\n";
