@@ -103,7 +103,7 @@ class PollMiner extends Command
 
 		            $a++;
 	            }
-	            elseif($antMiner->type == 'cgminer' && $last_hr < 3500 && $chat_id)
+	            elseif($antMiner->type == 'cgminer' && $last_hr < 3000 && $chat_id)
 	            {
 		            $msg = $antMiner->title .' low HR alert:'.$last_hr;
 
