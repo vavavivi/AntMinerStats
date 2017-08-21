@@ -20,6 +20,18 @@
     {!! Form::text('port', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- temp_limit Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('temp_limit', 'Temperature Warning level:') !!}
+    {!! Form::text('temp_limit', null, ['class' => 'form-control']) !!}
+</div>
+
+<!-- hr_limit Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('hr_limit', 'HashRate Warning level:') !!}
+    {!! Form::text('hr_limit', null, ['class' => 'form-control']) !!}
+</div>
+
 
 <!-- Url Field -->
 <div class="form-group col-sm-12">
@@ -35,7 +47,6 @@
             @if(substr( $key, 0, 3 ) === "fan" && substr( $key, 0, 4 ) !== "fan_" && $value != 0)
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox">
                         {{Form::checkbox('options['.$key.']', $key, 1,['onclick='=>'return false;'])}}
                         {{$key}}: {{$value}}
                     </label>
@@ -51,7 +62,6 @@
             @if(substr( $key, 0, 4 ) === "temp" && substr( $key, 0, 5 ) !== "temp_" && $value != 0)
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox">
                         {{Form::checkbox('options['.$key.']', $key, 1,['onClick'=>'return false;'])}}
                         {{$key}}: {{$value}}
                     </label>
@@ -67,7 +77,6 @@
             @if(substr( $key, 0, 9 ) === "chain_acn" && $value != 0)
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox">
                         {{Form::checkbox('options['.$key.']', $key, 1,['onclick='=>'return false;'])}}
                         {{$key}}: {{$value}}
                     </label>
@@ -96,7 +105,6 @@
 <div class="form-group col-sm-12">
     <div class="checkbox">
         <label>
-            <input type="checkbox">
             {{Form::checkbox('log' ,null, null)}}
             Log data
         </label>

@@ -19,6 +19,8 @@ class AntMiner extends Model
         'port',
         'options',
         'log',
+	    'temp_limit',
+	    'hr_limit',
         'url'
     ];
 
@@ -36,6 +38,8 @@ class AntMiner extends Model
         'title' => 'required',
         'host' => 'required',
         'port' => 'required',
+	    'temp_limit' => 'integer|nullable',
+	    'hr_limit' => 'integer|nullable',
     ];
 
     public function setOptionsAttribute($array)
