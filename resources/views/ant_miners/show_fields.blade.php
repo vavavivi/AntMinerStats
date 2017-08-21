@@ -296,8 +296,5 @@
         <?= Lava::render('LineChart', 'Freqs', 'freqs_div') ?>
         <?= Lava::render('LineChart', 'HashRate', 'hr_div') ?>
 
-        <div class="table-responsive" style="padding-left: 0px">
-            <a href="{!! route('antMiners.index') !!}" class="btn btn-default">Back</a>
-        </div>
     </div>
 </div>
