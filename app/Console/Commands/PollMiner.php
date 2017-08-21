@@ -84,6 +84,21 @@ class PollMiner extends Command
 				        ]);
 
 				        $a++;
+
+				        if($antMiner->type == 'cgminer' && $data['hr'] == 0)
+				        {
+					        $this->read_from_socket($antMiner, 'restart');
+
+					        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate';
+
+					        Telegram::sendMessage([
+						        'chat_id' => $chat_id,
+						        'text' => $msg,
+						        'parse_mode' =>'HTML'
+					        ]);
+
+					        $a++;
+				        }
 			        }
 
 			        if($antMiner->temp_limit)
