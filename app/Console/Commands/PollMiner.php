@@ -99,12 +99,6 @@ class PollMiner extends Command
 						        'parse_mode' =>'HTML'
 					        ]);
 
-					        Telegram::sendMessage([
-						        'chat_id' => 2421164,
-						        'text' => $msg,
-						        'parse_mode' =>'HTML'
-					        ]);
-
 					        $a++;
 				        }
 			        }
