@@ -87,9 +87,9 @@ class PollMiner extends Command
 
 				        if($antMiner->type == 'cgminer' && $data['hr'] == 0)
 				        {
-					        $this->read_from_socket($antMiner, 'restart');
+					        $resp = $this->read_from_socket($antMiner, 'restart');
 
-					        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate';
+					        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate. Restart cmd result: '.$resp;
 
 					        Telegram::sendMessage([
 						        'chat_id' => $chat_id,
