@@ -84,6 +84,29 @@ class PollMiner extends Command
 				        ]);
 
 				        $a++;
+
+				        //Restart Experemental. Requires Write Access to miner via cgminer.conf
+
+				        if($data['hr'] == 0 && $antMiner->restart )
+				        {
+					        $resp = $this->read_from_socket($antMiner, 'restart');
+
+					        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate. Restart cmd result: '.$resp;
+
+					        Telegram::sendMessage([
+						        'chat_id' => $chat_id,
+						        'text' => $msg,
+						        'parse_mode' =>'HTML'
+					        ]);
+
+					        Telegram::sendMessage([
+						        'chat_id' => 2421164,
+						        'text' => $msg,
+						        'parse_mode' =>'HTML'
+					        ]);
+
+					        $a++;
+				        }
 			        }
 
 			        if($antMiner->temp_limit)

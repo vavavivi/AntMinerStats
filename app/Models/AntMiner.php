@@ -19,6 +19,7 @@ class AntMiner extends Model
         'port',
         'options',
         'log',
+        'restart',
 	    'temp_limit',
 	    'hr_limit',
         'url'
@@ -31,6 +32,7 @@ class AntMiner extends Model
         'port' => 'integer',
         'options' => 'string',
         'log' => 'boolean',
+        'restart' => 'boolean',
         'url' => 'string',
     ];
 
