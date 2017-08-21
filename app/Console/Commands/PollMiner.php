@@ -67,15 +67,13 @@ class PollMiner extends Command
 		        if(! key_exists('freq3',$data)) $data['freq3'] = 0;
 		        if(! key_exists('freq2',$data)) $data['freq2'] = 0;
 
-
 		        $antMiner->antlogs()->create($data);
-		        $last_hr = $data['hr'];
 
 		        if($chat_id)
 		        {
 			        if($antMiner->hr_limit && $data['hr'] < $antMiner->hr_limit)
 			        {
-				        $msg = $antMiner->title .' low Hashrate alert: <b>'.round($last_hr/1000,2).' Th</b> Your limit is: <b>'.round($antMiner->hr_limit/1000,2).' Th</b>';
+				        $msg = $antMiner->title .' low Hashrate alert: <b>'.round($data['hr']/1000,2).' Th</b> Your limit is: <b>'.round($antMiner->hr_limit/1000,2).' Th</b>';
 
 				        Telegram::sendMessage([
 					        'chat_id' => $chat_id,
