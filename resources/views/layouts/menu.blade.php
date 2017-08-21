@@ -1,5 +1,9 @@
+<li class="{{ Route::is('home') ? 'active' : '' }}">
+    <a href="/"><i class="fa fa-desktop"></i> <span>Dashboard</span></a>
+</li>
+
 <li class="{{ Route::is('antMiners.index') ? 'active' : '' }}">
-    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-desktop"></i> <span>Dashboard</span></a>
+    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i> <span>Monitoring</span></a>
 </li>
 
 <li class="treeview {{ Route::is('antMiners.show') ? 'active' : '' }}">
@@ -16,4 +20,5 @@
         @endforeach
     </ul>
 </li>
+
 
