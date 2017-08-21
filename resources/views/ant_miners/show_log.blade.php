@@ -12,7 +12,6 @@
 
 @section('content')
     <section class="content-header">
-
     </section>
 
     <div class="content">
@@ -22,10 +21,10 @@
                 <div id="temps_div"></div>
                 <div id="freqs_div"></div>
                 <div id="hr_div"></div>
+
 	            <?= Lava::render('LineChart', 'Temps', 'temps_div') ?>
 	            <?= Lava::render('LineChart', 'Freqs', 'freqs_div') ?>
 	            <?= Lava::render('LineChart', 'HashRate', 'hr_div') ?>
-
 
                 <div class="table-responsive" style="padding-left: 0px">
                     <a href="{!! route('antMiners.index') !!}" class="btn btn-default">Back</a>
@@ -34,7 +33,6 @@
         </div>
     </div>
 @endsection
-
 
 @section('scripts')
 
