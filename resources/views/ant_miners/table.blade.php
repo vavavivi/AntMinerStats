@@ -78,7 +78,25 @@
                 <!--Board Freq -->
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                        @if(round(intval($chain_data['brd_freq']),0) > 774)
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="height: 100%">
+                                </div>
+                            </div>
+                        @elseif(round(intval($chain_data['brd_freq']),0) > 749)
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 70%">
+                                </div>
+                            </div>
+                        @else
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
+                                </div>
+                            </div>
+                        @endif
                     @endforeach
                 </td>
 
