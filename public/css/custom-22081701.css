@@ -15,12 +15,19 @@ h3 {font-size: 140%; margin: 10px 0px; }
 h6 {margin-top:7px; margin-bottom: 3px;}
 
 .ths         { width: 43px; }
-.miner-temp  { width: 26px; font-size: 90%; }
 .chip-status { width: 26px; }
+
+.miner-temp  {
+    width: 26px;
+    font-size: 90%;
+    position: relative;
+    top: 1px;
+}
+
 .freq        {
     width: 60px;
     position: relative;
-    top: -4px;
+    top: -3px;
 }
 
 .label {
@@ -47,7 +54,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     height: 20px !important;
     padding: 0px;
     margin: 0px 1px !important;
-    top: 2px;
+    top: 3px;
 }
 
 .login-logo i { color: #444;}
