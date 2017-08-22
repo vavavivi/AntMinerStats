@@ -91,13 +91,13 @@
                         @elseif(round(intval($chain_data['brd_freq']),0) > 749)
                             <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
                             <div class="progress vertical progress-xxs">
-                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 70%">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 50%">
                                 </div>
                             </div>
                         @else
                             <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
                             <div class="progress vertical progress-xxs">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 30%">
                                 </div>
                             </div>
                         @endif
