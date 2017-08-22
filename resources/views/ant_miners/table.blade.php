@@ -31,10 +31,14 @@
 
             <!-- HASHRATE -->
             <td class="text-center">
-                @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) == 0)
-                    <button class="btn btn-danger btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
-                @elseif(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) < $antMiner->temp_limit)
-                    <button class="btn btn-warning btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                @if (isset($antMiner->temp_limit))
+                    @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) == 0)
+                        <button class="btn btn-danger btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                    @elseif(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) > $antMiner->temp_limit)
+                        <button class="btn btn-warning btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                    @else
+                        <button class="btn btn-default btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                    @endif
                 @else
                     <button class="btn btn-default btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
                 @endif
