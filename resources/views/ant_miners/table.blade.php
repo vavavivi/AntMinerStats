@@ -119,7 +119,7 @@
                 </td>
 
                 <!-- Chips -->
-                <td class="text-center" nowrap>
+                <td class="text-center small" nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                     <div class="btn-group">
                             @if(intval($chain_data['chips_condition']['ok'])>0)

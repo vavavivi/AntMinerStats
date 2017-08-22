@@ -15,7 +15,11 @@ h3 {font-size: 140%; margin: 10px 0px; }
 h6 {margin-top:7px; margin-bottom: 3px;}
 
 .ths         { width: 43px; }
-.chip-status { width: 26px; }
+
+.chip-status {
+    width: 24px;
+    font-size: 90%;
+}
 
 .miner-temp  {
     width: 26px;
