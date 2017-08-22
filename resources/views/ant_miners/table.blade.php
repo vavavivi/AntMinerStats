@@ -27,7 +27,11 @@
             </td>
 
             <td class="text-center">
-                <button class="btn btn-default btn-xs ths"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
+                @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) < $antMiner->temp_limit)
+                    <button class="btn btn-warning btn-xs ths"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
+                @else
+                    <button class="btn btn-default btn-xs ths"><strong>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</strong></button>
+                @endif
             </td>
 
             @if($data[$antMiner->id])

@@ -12,9 +12,7 @@
            <div class="box-body">
                <div class="row">
                    {!! Form::model($antMiner, ['route' => ['antMiners.update', $antMiner->id], 'method' => 'patch']) !!}
-
                         @include('ant_miners.fields')
-
                    {!! Form::close() !!}
                </div>
            </div>
