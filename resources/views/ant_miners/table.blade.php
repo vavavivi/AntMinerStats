@@ -8,6 +8,8 @@
         <th width="5%" class="text-left">Board Temp,°C</th>
         <th width="3%" class="text-left">Chips info</th>
         <th width=""   class="text-left">FANs</th>
+        <th width=""   class="text-left hidden-xs">Temp Warning</th>
+        <th width=""   class="text-left hidden-xs">Hashrate Warning</th>
         <th width=""   class="text-right"><i class="fa fa-cogs"></i> </th>
     </thead>
     <tbody>
@@ -141,6 +143,9 @@
             @else
                 <td colspan="3">ERROR: Cannot fetch data</td>
             @endif
+
+            <td class="text-center small hidden-xs">@if (isset($antMiner->temp_limit)) {{$antMiner->temp_limit}}° @else &mdash; @endif</td>
+            <td class="text-center small hidden-xs">@if (isset($antMiner->hr_limit)) {{$antMiner->hr_limit}} TH/s @else &mdash; @endif</td>
 
             <td class="text-right">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
