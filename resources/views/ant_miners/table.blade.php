@@ -3,12 +3,12 @@
         <th width="1%" class="text-center"><i class="fa fa-wrench"></i> </th>
         <th width="1%" class="text-center">Title</th>
         <th width="1%" class="text-center">TH/S</th>
-        <th width="1%"   class="text-center">B. Freq</th>
-        <th width="1%"   class="text-center hidden">HW</th>
-        <th width="5%"   class="text-left">Board Temp,°C</th>
-        <th width="3%"   class="text-left">Chips info</th>
+        <th width="1%" class="text-center">B. Freq</th>
+        <th width="1%" class="text-center hidden">HW</th>
+        <th width="5%" class="text-left">Board Temp,°C</th>
+        <th width="3%" class="text-left">Chips info</th>
         <th width=""   class="text-left">FANs</th>
-        <th width=""   class="text-center"><i class="fa fa-cogs"></i> </th>
+        <th width=""   class="text-right"><i class="fa fa-cogs"></i> </th>
     </thead>
     <tbody>
     @foreach($antMiners as $antMiner)
@@ -142,7 +142,7 @@
                 <td colspan="3">ERROR: Cannot fetch data</td>
             @endif
 
-            <td class="text-center">
+            <td class="text-right">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
