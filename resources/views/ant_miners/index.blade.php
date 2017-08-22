@@ -14,8 +14,12 @@
 
         <div class="clearfix"></div>
         <div class="box box-primary">
-            <div class="box-body table-responsive">
-                    @include('ant_miners.table')
+            <div class="box-body">
+
+                <div class="table-responsive">
+                @include('ant_miners.table')
+                </div>
+            
             </div>
         </div>
     </div>
