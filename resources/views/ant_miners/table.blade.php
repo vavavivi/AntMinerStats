@@ -1,36 +1,32 @@
 <table class="table table-hover table-valign-middle" id="antMiners-table">
     <thead>
-        <th width="1%" class="text-center"><i class="fa fa-wrench"></i> </th>
         <th width="1%" class="text-center">Title</th>
+        <th width="1%" class="text-center small"></th>
         <th width="1%" class="text-center">TH/S</th>
         <th width="1%" class="text-center">B. Freq</th>
         <th width="1%" class="text-center hidden">HW</th>
         <th width="5%" class="text-left">Board Temp,°C</th>
-        <th width="3%" class="text-left">Chips info</th>
-        <th width=""   class="text-left">FANs</th>
-        <th width=""   class="text-left hidden-xs">Temp Warning</th>
-        <th width=""   class="text-left hidden-xs">Hashrate Warning</th>
+        <th width="3%" class="text-left">Board CHIP Status</th>
+        <th width=""   class="text-left">FANs, rpm</th>
+        <th width=""   class="text-center hidden-xs">Temp Warning</th>
+        <th width=""   class="text-center hidden-xs">Hashrate Warning</th>
         <th width=""   class="text-right"><i class="fa fa-cogs"></i> </th>
     </thead>
     <tbody>
-    @foreach($antMiners as $antMiner)
+    @foreach($antMiners->sortBy('user_id') as $antMiner)
         <tr>
-            <!-- MANAGE URL -->
-            <td>
-                <div class='btn-group'>
-                    @if($antMiner->url)
-                        <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
-                    @else
-                        <a href="#" class='btn btn-default btn-xs disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
-                    @endif
-                </div>
-            </td>
-
             <!-- TITLE -->
             <td class="small" nowrap>
                 <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
             </td>
-
+            <!-- MANAGE URL -->
+            <td>
+                @if($antMiner->url)
+                    <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                @else
+                    <a href="#" class='btn btn-default btn-xs disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                @endif
+            </td>
             <!-- HASHRATE -->
             <td class="text-center">
                 @if (isset($antMiner->temp_limit))
@@ -135,9 +131,9 @@
                 </td>
 
                 <!-- FANS -->
-                <td class="text-left" nowrap>
+                <td class="text-left small" nowrap>
                     @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <button class="btn btn-default btn-xs">{{title_case($fan_id)}}: {{$fan_speed}}</button>
+                        <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
                     @endforeach
                 </td>
             @else
@@ -150,7 +146,7 @@
             <td class="text-right">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cog"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}

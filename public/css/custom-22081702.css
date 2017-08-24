@@ -14,6 +14,10 @@ h2 {font-size: 160%; margin: 10px 0px; }
 h3 {font-size: 140%; margin: 10px 0px; }
 h6 {margin-top:7px; margin-bottom: 3px;}
 
+.color-red       { color: #dd4b39;}
+
+.color-white       { color: #ffffff;}
+.color-white:hover { color: #ccc;}
 .ths         { width: 43px; }
 
 .chip-status {
@@ -21,8 +25,12 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     font-size: 90%;
 }
 
+.fan {
+    font-size: 90%;
+}
+
 .miner-temp  {
-    width: 26px;
+    width: 28px;
     font-size: 90%;
     position: relative;
     top: 1px;
@@ -37,6 +45,20 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .label {
     position: relative;
     top: -2px;
+}
+.connectedSortable .bg-gray { background-color: #999 !important; color: #fff; }
+.connectedSortable .box-title { font-size: 100%;}
+.connectedSortable .box-header { padding: 6px; }
+.connectedSortable .btn-box-tool { padding: 2px 3px; }
+.connectedSortable .description-block,
+.connectedSortable .row,
+.connectedSortable .progress {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #dd4b39;
 }
 
 .navbar .title {
@@ -138,6 +160,7 @@ table thead th {
 .bordered  td { border: 1px solid #eee;}
 .no-border td { border: 0px !important;}
 
+.m-0  { margin: 0px !important; }
 .m-5  { margin: 5px !important; }
 .m-10 { margin: 10px !important; }
 .m-15 { margin: 15px !important; }
@@ -184,6 +207,7 @@ table thead th {
 .m-l-35 { margin-left: 35px !important; }
 .m-l-40 { margin-left: 40px !important; }
 
+.p-0  { padding: 0px !important; }
 .p-5  { padding: 5px !important; }
 .p-10 { padding: 10px !important; }
 .p-15 { padding: 15px !important; }
