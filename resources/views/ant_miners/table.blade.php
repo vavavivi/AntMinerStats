@@ -1,4 +1,4 @@
-<table class="table table-hover table-valign-middle" id="antMiners-table">
+<table class="table table-border table-hover table-valign-middle" id="antMiners-table">
     <thead>
         <th width="1%" class="text-center">Title</th>
         <th width="1%" class="text-center small"></th>

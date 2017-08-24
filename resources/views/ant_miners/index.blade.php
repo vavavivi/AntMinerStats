@@ -53,14 +53,16 @@
                 connectWith         : '.connectedSortable',
                 handle              : '.box-header',
                 forcePlaceholderSize: true,
-                zIndex              : 999999
+                zIndex              : 999999,
+                scrollSensitivity   : 100,
+                revert              : 200,
+                helper              : 'clone',
+                tolerance           : 'pointer'
             });
 
             $('.connectedSortable .sortable').css('cursor', 'move');
 
-            //
             // Active tab save to cookie
-            //
             jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
                 //save the latest tab using a cookie:
                 jQuery.cookie('last_tab', jQuery(e.target).attr('href'));
@@ -77,6 +79,7 @@
                 jQuery(lastTab).addClass('in');
             }
         });
+
     </script>
 @endsection
 

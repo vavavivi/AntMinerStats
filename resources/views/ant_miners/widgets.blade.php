@@ -4,11 +4,9 @@
         <section class="col-sm-3 connectedSortable">
 
             <div class="box" style="border: 0px;">
-                <div class="box-header @if($data[$antMiner->id]) bg-blue @else bg-red-active @endif">
+                <div class="box-header @if($data[$antMiner->id]) bg-gray @else bg-red-active @endif">
                     <h3 class="box-title">{!! $antMiner->title !!}</h3>
-
                     <div class="box-tools pull-right">
-
                         <a href="{!! route('antMiners.show', [$antMiner->id]) !!}" class='btn btn-box-tool color-white'><i class="fa fa-bar-chart"></i></a>
                         @if($antMiner->url)
                         <a href="{{$antMiner->url}}" class='btn btn-box-tool color-white' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
