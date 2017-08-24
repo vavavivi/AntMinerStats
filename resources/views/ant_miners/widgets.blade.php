@@ -8,10 +8,12 @@
                     <h3 class="box-title">{!! $antMiner->title !!}</h3>
 
                     <div class="box-tools pull-right">
+
+                        <a href="{!! route('antMiners.show', [$antMiner->id]) !!}" class='btn btn-box-tool color-white'><i class="fa fa-bar-chart"></i></a>
                         @if($antMiner->url)
-                            <a href="{{$antMiner->url}}" class='btn btn-box-tool color-white' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                        <a href="{{$antMiner->url}}" class='btn btn-box-tool color-white' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
                         @else
-                            <a href="#" class='btn btn-box-tool color-white disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                        <a href="#" class='btn btn-box-tool color-white disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
                         @endif
                         <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-box-tool color-white'><i class="fa fa-cog"></i></a>
                         <button type="button" class="btn btn-box-tool color-white"><i class="fa fa-trash"></i></button>
