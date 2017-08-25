@@ -43,37 +43,30 @@
             </td>
 
             <!--Board Freq -->
-            <td class="text-center" nowrap>
-
-                @php ( $board_freq = 0 )
-
+            <td class="text-left" nowrap>
                 @if($data[$antMiner->id])
 
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        @php ( $board_freq = $board_freq + round(intval($chain_data['brd_freq']),0) )
+                        @if(round(intval($chain_data['brd_freq']),0) > 774)
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="height: 100%">
+                                </div>
+                            </div>
+                        @elseif(round(intval($chain_data['brd_freq']),0) > 749)
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 70%">
+                                </div>
+                            </div>
+                        @else
+                            <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                            <div class="progress vertical progress-xxs">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
+                                </div>
+                            </div>
+                        @endif
                     @endforeach
-
-                    @if(round($board_freq/3,0) > 774)
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-yellow progress-bar-striped" role="progressbar" style="height: 100%">
-                            </div>
-                        </div>
-                    @elseif(round($board_freq/3,0) > 749)
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
-                            </div>
-                        </div>
-                    @else
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" style="height: 30%">
-                            </div>
-                        </div>
-                    @endif
-                @else
-                    &dash;
                 @endif
             </td>
 
