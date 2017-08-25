@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- CUSTOM -->
-    <link rel="stylesheet" href="css/custom-24081701.css">
+    <link rel="stylesheet" href="css/custom-24082501.css">
 @yield('css')
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
