@@ -3,11 +3,13 @@
         <th width="1%" class="text-center">Title</th>
         <th width="1%" class="text-center small"></th>
         <th width="1%" class="text-center">TH/S</th>
-        <th width="1%" class="text-center">B. Freq</th>
+        <th width="15%" class="text-left">Board Temp,°C</th>
+        <th width="10%" class="text-left">Board CHIP Status</th>
+        <th width="12%" class="text-center">B. Freq</th>
         <th width="1%" class="text-center hidden">HW</th>
-        <th width="5%" class="text-left">Board Temp,°C</th>
-        <th width="3%" class="text-left">Board CHIP Status</th>
+
         <th width=""   class="text-left">FANs, rpm</th>
+
         <th width=""   class="text-center hidden-xs">Temp Warning</th>
         <th width=""   class="text-center hidden-xs">Hashrate Warning</th>
         <th width=""   class="text-right"><i class="fa fa-cogs"></i> </th>
@@ -20,6 +22,7 @@
                 <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
             </td>
             <!-- MANAGE URL -->
+
             <td>
                 @if($antMiner->url)
                     <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
@@ -27,83 +30,44 @@
                     <a href="#" class='btn btn-default btn-xs disabled' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
                 @endif
             </td>
-            <!-- HASHRATE -->
-            <td class="text-center">
-                @if (isset($antMiner->temp_limit))
-                    @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) == 0)
-                        <button class="btn btn-danger btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
-                    @elseif(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) > $antMiner->temp_limit)
-                        <button class="btn btn-warning btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+
+            @if($data[$antMiner->id])
+                <!-- HASHRATE -->
+                <td class="text-center">
+                    @if (isset($antMiner->temp_limit))
+                        @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) == 0)
+                            <button class="btn btn-danger btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                        @elseif(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) > $antMiner->temp_limit)
+                            <button class="btn btn-warning btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                        @else
+                            <button class="btn btn-default btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
+                        @endif
                     @else
                         <button class="btn btn-default btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
                     @endif
-                @else
-                    <button class="btn btn-default btn-xs ths">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</button>
-                @endif
-            </td>
+                </td>
 
-            <!--Board Freq -->
-            <td class="text-center" nowrap>
-
-                @php ( $board_freq = 0 )
-
-                @if($data[$antMiner->id])
-
-                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        @php ( $board_freq = $board_freq + round(intval($chain_data['brd_freq']),0) )
-                    @endforeach
-
-                    @if(round($board_freq/3,0) > 774)
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-yellow progress-bar-striped" role="progressbar" style="height: 100%">
-                            </div>
-                        </div>
-                    @elseif(round($board_freq/3,0) > 749)
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
-                            </div>
-                        </div>
-                    @else
-                        <button class="btn btn-default btn-xs freq"> {{ round($board_freq/3,0) }} <small>Mhz</small></button>
-                        <div class="progress vertical progress-xxs">
-                            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" style="height: 30%">
-                            </div>
-                        </div>
-                    @endif
-                @else
-                    &dash;
-                @endif
-            </td>
-
-            <!-- HW Errors -->
-            <td class="text-center hidden">
-                -
-            </td>
-
-            <!-- TEMP -->
-            @if($data[$antMiner->id])
+                <!-- TEMP -->
                 <td class="text-left small" nowrap="">
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                         @if($antMiner->type == 'bmminer')
-                        <div class="btn-group">
-                            @if(intval($chain_data['brd_temp1']) > 95)
-                                <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
-                            @elseif(intval($chain_data['brd_temp1']) > 88)
-                                <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
-                            @else
-                                <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
-                            @endif
+                            <div class="btn-group">
+                                @if(intval($chain_data['brd_temp1']) > 95)
+                                    <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
+                                @elseif(intval($chain_data['brd_temp1']) > 88)
+                                    <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
+                                @else
+                                    <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp1']}}°</button>
+                                @endif
 
-                            @if(intval($chain_data['brd_temp2']) > 95)
-                                <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
-                            @elseif(intval($chain_data['brd_temp2']) > 88)
-                                <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
-                            @else
-                                <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
-                            @endif
-                        </div>
+                                @if(intval($chain_data['brd_temp2']) > 95)
+                                    <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
+                                @elseif(intval($chain_data['brd_temp2']) > 88)
+                                    <button class="btn btn-warning btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
+                                @else
+                                    <button class="btn btn-success btn-xs miner-temp"> {{$chain_data['brd_temp2']}}°</button>
+                                @endif
+                            </div>
                         @else
                             @if(intval($chain_data['brd_temp']) > 79)
                                 <button class="btn btn-danger btn-xs miner-temp"> {{$chain_data['brd_temp']}}°</button>
@@ -119,15 +83,48 @@
                 <!-- Chips -->
                 <td class="text-left small" nowrap>
                     @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                    <div class="btn-group">
+                        <div class="btn-group">
                             @if(intval($chain_data['chips_condition']['ok'])>0)
                                 <button class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</button>
                             @else
                                 <button class="btn btn-danger btn-xs chip-status">&mdash;</button>
                             @endif
-                        <button class="btn @if(intval($chain_data['chips_condition']['er']) > 0) btn-danger @else btn-default @endif btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</button>
-                    </div>
+                            <button class="btn @if(intval($chain_data['chips_condition']['er']) > 0) btn-danger @else btn-default @endif btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</button>
+                        </div>
                     @endforeach
+                </td>
+
+                <!--Board Freq -->
+                <td class="text-left" nowrap>
+                    @if($data[$antMiner->id])
+
+                        @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                            @if(round(intval($chain_data['brd_freq']),0) > 774)
+                                <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                                <div class="progress vertical progress-xxs">
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="height: 100%">
+                                    </div>
+                                </div>
+                            @elseif(round(intval($chain_data['brd_freq']),0) > 749)
+                                <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                                <div class="progress vertical progress-xxs">
+                                    <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 70%">
+                                    </div>
+                                </div>
+                            @else
+                                <button class="btn btn-default btn-xs freq">B{{$chain_index}}: {{round(intval($chain_data['brd_freq']),0)}}</button>
+                                <div class="progress vertical progress-xxs">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="height: 50%">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+                </td>
+
+                <!-- HW Errors -->
+                <td class="text-center hidden">
+                    -
                 </td>
 
                 <!-- FANS -->
@@ -136,12 +133,13 @@
                         <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
                     @endforeach
                 </td>
+
+                <td class="text-center small hidden-xs">@if (isset($antMiner->temp_limit)) {{$antMiner->temp_limit}}° @else &mdash; @endif</td>
+                <td class="text-center small hidden-xs">@if (isset($antMiner->hr_limit)) {{round($antMiner->hr_limit/1000,2)}} TH/s @else &mdash; @endif</td>
             @else
-                <td colspan="3">ERROR: Cannot fetch data</td>
+                    <td colspan="7" class="text-center">ERROR: miner is offline or unable to connect.</td>
             @endif
 
-            <td class="text-center small hidden-xs">@if (isset($antMiner->temp_limit)) {{$antMiner->temp_limit}}° @else &mdash; @endif</td>
-            <td class="text-center small hidden-xs">@if (isset($antMiner->hr_limit)) {{$antMiner->hr_limit}} TH/s @else &mdash; @endif</td>
 
             <td class="text-right">
                 {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
