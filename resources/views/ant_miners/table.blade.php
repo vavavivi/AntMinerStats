@@ -10,8 +10,7 @@
 
         <th width=""   class="text-left">FANs, rpm</th>
 
-        <th width=""   class="text-center hidden-xs">Temp Warning</th>
-        <th width=""   class="text-center hidden-xs">Hashrate Warning</th>
+        <th colspan="2"  class="text-center hidden-xs">Notification warnings</th>
         <th width=""   class="text-right"><i class="fa fa-cogs"></i> </th>
     </thead>
     <tbody>
