@@ -55,7 +55,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .table-border { border: 1px solid #efefef; border-top: 0px; }
 
 .connectedSortable .bg-gray { background-color: #888 !important; color: #fff; }
-.connectedSortable .box-title { font-size: 100%;}
+.connectedSortable .box-title { color: #fff; font-size: 100%;}
+.connectedSortable .box-title:hover { text-decoration: underline; }
 .connectedSortable .box-header { padding: 6px; }
 .connectedSortable .btn-box-tool { padding: 2px 3px; }
 .connectedSortable .description-block,

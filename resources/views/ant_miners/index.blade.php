@@ -60,7 +60,7 @@
                 tolerance           : 'pointer'
             });
 
-            $('.connectedSortable .sortable').css('cursor', 'move');
+            $('.connectedSortable .box-header').css('cursor', 'move');
 
             // Active tab save to cookie
             jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
