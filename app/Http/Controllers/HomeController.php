@@ -43,12 +43,16 @@ class HomeController extends Controller
 	    }
 	    return $avg;
 		*/
+
 	    $avg = [];
+	    $temp = [];
+	    $date_array = [];
+	    $hashrate_array = [];
 
     	foreach($miners as $miner)
 	    {
 			$daily = $miner->antlogs->groupBy(function($log) {
-			    return $log->created_at->format('Y-m-d');
+			    return $log->created_at->format('M.d');
 		    });
 
 		    foreach($daily as $day => $logs)
@@ -57,7 +61,7 @@ class HomeController extends Controller
 		    }
 	    }
 
-	    $temp = [];
+
 
 	    foreach($avg as $miner_id => $data)
 	    {
@@ -75,7 +79,7 @@ class HomeController extends Controller
 		    }
 	    }
 
-	    $hashrate_array = [];
+
 
 
 	    foreach($temp as $date_index => $hasrate)
