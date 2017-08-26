@@ -85,7 +85,7 @@ class PollMiner extends Command
 
 				        //Restart Experemental. Requires Write Access to miner via cgminer.conf
 
-				        if($data['hr'] == 0 && $antMiner->restart )
+				        if($data['hr'] < 500 && $antMiner->restart )
 				        {
 					        $resp = $this->read_from_socket($antMiner, 'restart');
 
