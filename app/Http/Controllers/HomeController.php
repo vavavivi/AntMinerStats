@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AntMiner;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+    	$st9 = AntMiner::where('type','bmminer')->count();
+    	$s7 = AntMiner::where('type','cgminer')->count();
+
         $chartjs_th = app()->chartjs
             ->name('OverallHashrate')
             ->type('line')
@@ -39,8 +44,7 @@ class HomeController extends Controller
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
                     'data' => [12, 20, 25, 28, 24, 38, 39,43],
                 ]
-            ])
-            ->options([]);
+            ]);
 
         $chartjs_miners = app()->chartjs
             ->name('MinersType')
@@ -52,10 +56,9 @@ class HomeController extends Controller
                     "label" => "Miners Types",
                     "backgroundColor" => ['rgb(255, 99, 132)', 'rgb(255, 205, 86)'],
 
-                    'data' => [1, 5],
+                    'data' => [$s7, $st9],
                 ]
-            ])
-            ->options([]);
+            ]);
 
         return view('home', compact('chartjs_th','chartjs_miners'));
     }
