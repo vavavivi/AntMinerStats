@@ -8,6 +8,8 @@ Route::group(['middleware' => ['auth']], function () {
 		return redirect('/');
 	});
 
+	Route::post('/antMiners/view', 'AntMinerController@view')->name('antMiners.view');
+
     Route::get('/antMiners/{antMiner}/log_old', 'LogController@show_old')->name('log.show_old');
     Route::get('/antMiners/{antMiner}/log', 'LogController@show')->name('log.show');
 

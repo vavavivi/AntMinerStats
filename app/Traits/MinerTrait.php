@@ -139,6 +139,7 @@ trait MinerTrait
         $stats = null;
 
         $stats['hash_rate'] = $miner_stats['GHS 5s'];
+        $stats['hw'] = $miner_stats['Device Hardware%'];
 
         foreach($antMiner->options as $option_key => $option_value)
         {
