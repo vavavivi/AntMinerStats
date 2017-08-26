@@ -53,7 +53,7 @@
                             <button type="button" class="btn btn-xs btn-default" data-widget="collapse">1H</button>
                         </div>
                         <div class="chart-container">
-                            <canvas id="ths-graph" height="95vw"></canvas>
+                            {!! $chartjs_th->render() !!}
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="box-body">
                         <div id="chart-container">
-                            <canvas id="miners-graph" height="227vw"></canvas>
+                            {!! $chartjs_miners->render() !!}
                         </div>
                     </div>
                 </div>
@@ -182,6 +182,7 @@
             }
         };
 
+        {{--
         window.onload = function() {
             var ctx = document.getElementById("miners-graph").getContext("2d");
             window.myDoughnut = new Chart(ctx, config1);
@@ -189,5 +190,6 @@
             var ctx = document.getElementById("ths-graph").getContext("2d");
             window.myLine = new Chart(ctx, config2);
         };
+        --}}
 </script>
 @endsection

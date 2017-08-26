@@ -184,8 +184,7 @@ return [
 	    Telegram\Bot\Laravel\TelegramServiceProvider::class,
 
 	    Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
-
-
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
     ],
 
