@@ -294,4 +294,11 @@ class AntMinerController extends AppBaseController
         return redirect(route('antMiners.index'));
     }
 
+    public function view(Request $request)
+    {
+	    session(['miners_view' => $request->view]);
+
+		return redirect()->back();
+    }
+
 }
