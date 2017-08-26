@@ -32,18 +32,6 @@ class HomeController extends Controller
     	$st9 = $miners->where('type','bmminer');
     	$s7 = $miners->where('type','cgminer');
 
-    	/*
-	    $daily = AntMinerLog::all()->groupBy(function($log) {
-		    return $log->created_at->format('Y-m-d');
-	    });
-
-	    foreach($daily as $day => $logs)
-	    {
-		    $avg[$day] = round($logs->avg('hr')/1024, 2);
-	    }
-	    return $avg;
-		*/
-
 	    $avg = [];
 	    $temp = [];
 	    $date_array = [];
@@ -52,7 +40,7 @@ class HomeController extends Controller
     	foreach($miners as $miner)
 	    {
 			$daily = $miner->antlogs->groupBy(function($log) {
-			    return $log->created_at->format('M.d');
+			    return $log->created_at->format('d M');
 		    });
 
 		    foreach($daily as $day => $logs)
