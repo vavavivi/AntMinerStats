@@ -18,6 +18,11 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
+.content-header h1 .btn {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
 .color-red       { color: #dd4b39;}
 
 .color-white       { color: #ffffff;}
@@ -64,6 +69,17 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .connectedSortable .progress {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.miner-info .description-text {
+    font-size: 120%;
+}
+.miner-info .description-text img {
+    position: relative;
+    top: -2px;
+}
+.miner-info .description-header {
+    margin-top: 5px;
 }
 
 .nav-tabs-custom>.nav-tabs>li.active {
@@ -128,7 +144,9 @@ table thead th {
 }
 
 @media (max-width: 480px) {
-
+    .content-header {
+        padding-bottom: 15px;
+    }
 
     .table-condensed { font-size: 82%;}
     .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
