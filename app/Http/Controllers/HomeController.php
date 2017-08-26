@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AntMinerLog;
 use App\Models\AntMiner;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,14 +27,70 @@ class HomeController extends Controller
     public function index()
     {
 
-    	$st9 = AntMiner::where('type','bmminer')->count();
-    	$s7 = AntMiner::where('type','cgminer')->count();
+    	$miners = AntMiner::all();
+
+    	$st9 = $miners->where('type','bmminer');
+    	$s7 = $miners->where('type','cgminer');
+
+    	/*
+	    $daily = AntMinerLog::all()->groupBy(function($log) {
+		    return $log->created_at->format('Y-m-d');
+	    });
+
+	    foreach($daily as $day => $logs)
+	    {
+		    $avg[$day] = round($logs->avg('hr')/1024, 2);
+	    }
+	    return $avg;
+		*/
+	    $avg = [];
+
+    	foreach($miners as $miner)
+	    {
+			$daily = $miner->antlogs->groupBy(function($log) {
+			    return $log->created_at->format('Y-m-d');
+		    });
+
+		    foreach($daily as $day => $logs)
+		    {
+		    	$avg[$miner->id][$day] = round($logs->avg('hr')/1024, 2);
+		    }
+	    }
+
+	    $temp = [];
+
+	    foreach($avg as $miner_id => $data)
+	    {
+	    	foreach($data as $date => $avg_hashrate)
+		    {
+		    	if(key_exists($date, $temp))
+			    {
+			    	$temp[$date] = ($temp[$date] + $avg_hashrate);
+			    }
+			    else
+			    {
+				    $temp[$date] = $avg_hashrate;
+				    $date_array[] = $date;
+			    }
+		    }
+	    }
+
+	    $hashrate_array = [];
+
+
+	    foreach($temp as $date_index => $hasrate)
+	    {
+	    	$hashrate_array[] = $hasrate;
+	    }
+
+
+
 
         $chartjs_th = app()->chartjs
             ->name('OverallHashrate')
             ->type('line')
             ->size(['width' => 400, 'height' => 150])
-            ->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'])
+            ->labels($date_array)
             ->datasets([
                 [
                     "label" => "Hashrate",
@@ -42,7 +100,7 @@ class HomeController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    'data' => [12, 20, 25, 28, 24, 38, 39,43],
+                    'data' => $hashrate_array,
                 ]
             ]);
 
@@ -56,7 +114,7 @@ class HomeController extends Controller
                     "label" => "Miners Types",
                     "backgroundColor" => ['rgb(255, 99, 132)', 'rgb(255, 205, 86)'],
 
-                    'data' => [$s7, $st9],
+                    'data' => [$s7->count(), $st9->count()],
                 ]
             ]);
 
