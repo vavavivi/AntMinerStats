@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') AntStats (v.1.5)</title>
+    <title>@yield('title') AntStats (v.0.2b)</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
@@ -35,7 +35,7 @@
 
             <!-- Logo -->
             <a href="/" class="logo">
-                <i class="fa fa-envira"></i> AntSTATS <sup>1.5</sup>
+                <i class="fa fa-envira"></i> AntSTATS <sup>0.2b</sup>
             </a>
 
             <!-- Header Navbar -->
