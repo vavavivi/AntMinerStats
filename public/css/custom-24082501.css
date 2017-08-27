@@ -24,13 +24,13 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .color-red       { color: #dd4b39;}
-
 .color-white       { color: #ffffff;}
 .color-white:hover { color: #ccc;}
+
 .ths         { width: 43px; }
 
 .chip-status {
-    width: 24px;
+    width: 28px;
     font-size: 90%;
 }
 
@@ -39,7 +39,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .miner-temp  {
-    width: 28px;
+    width: 34px;
     font-size: 90%;
     position: relative;
     top: 1px;

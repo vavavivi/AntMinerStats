@@ -16,7 +16,7 @@
                 @foreach($antMiners->sortBy('user_id') as $antMiner)
                     <tr>
                         <!-- TITLE -->
-                        <td class="small" nowrap>
+                        <td nowrap>
                             <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
                         </td>
 
@@ -33,7 +33,7 @@
 
                         <!-- HASHRATE -->
                         <td class="text-center">
-                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs'>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</a>
+                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</a>
                         </td>
 
                         <!-- ERRORS -->
@@ -42,7 +42,7 @@
                         </td>
 
                         <!-- TEMP -->
-                        <td class="text-left small" nowrap="">
+                        <td class="text-left" nowrap="">
                             @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                                 @if($antMiner->type == 'bmminer')
                                     <div class="btn-group">
@@ -62,7 +62,7 @@
                         </td>
 
                         <!-- Chips -->
-                        <td class="text-left small" nowrap>
+                        <td class="text-left" nowrap>
                             @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                                 <div class="btn-group">
                                     <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
@@ -88,7 +88,7 @@
                         </td>
 
                         <!-- FANS -->
-                        <td class="text-left small" nowrap>
+                        <td class="text-left" nowrap>
                             @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
                                 <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
                             @endforeach

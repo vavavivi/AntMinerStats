@@ -41,42 +41,6 @@
 
             <div class="col-sm-8 col-xs-12">
                 <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Overall miners hashrate</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="m-t-5">
-                            <button type="button" class="btn btn-xs btn-info" data-widget="collapse">1D</button>
-                            <button type="button" class="btn btn-xs btn-default" data-widget="collapse">1H</button>
-                        </div>
-                        <div class="chart-container">
-                            {!! $chartjs_th->render() !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 col-xs-12">
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Miners</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div id="chart-container">
-                            {!! $chartjs_miners->render() !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="box box-default">
                     <div class="box-header">
                         <h2>Welcome to AntSTATS <sup>v.1.0</sup></h2>
                         <div class="box-tools pull-right">
@@ -101,6 +65,21 @@
                 </div>
             </div>
 
+            <div class="col-sm-4 col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Miners</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="chart-container">
+                            {!! $chartjs_miners->render() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
@@ -108,88 +87,4 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    <script>
-        window.chartColors = {
-            red:    'rgb(255, 99, 132)',
-            orange: 'rgb(255, 159, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green:  'rgb(75, 192, 192)',
-            blue:   'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey:   'rgb(201, 203, 207)'
-        };
-
-        var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100);
-        };
-
-        var config1 = {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
-                    backgroundColor: [
-                        window.chartColors.red,
-                        window.chartColors.yellow,
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    "AntMiner S7",
-                    "AntMiner S9/T9",
-                ]
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: false
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                }
-            }
-        };
-
-        var config2 = {
-            type: 'line',
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August",],
-                datasets: [{
-                    label: "Hashrate, TH/s ",
-                    fill: false,
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
-                    data: [18, 33, 35, 15, 39, 40, 46, 49],
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
-                            suggestedMin: 0
-                        }
-                    }]
-                }
-            }
-        };
-
-        {{--
-        window.onload = function() {
-            var ctx = document.getElementById("miners-graph").getContext("2d");
-            window.myDoughnut = new Chart(ctx, config1);
-
-            var ctx = document.getElementById("ths-graph").getContext("2d");
-            window.myLine = new Chart(ctx, config2);
-        };
-        --}}
-</script>
 @endsection
