@@ -162,6 +162,7 @@ table thead th {
     display: inline-flex;
 }
 
+
 .btn-primary {
     background-color: #dd4b39 !important;
     border-color: #cc3b29 !important;
@@ -174,6 +175,11 @@ table thead th {
 
 .box.box-primary {
     border-top-color: #dd4b39;
+}
+
+.btn-white {
+    background-color: #fff !important;
+    border-color: #efefef !important;
 }
 
 .project-list {

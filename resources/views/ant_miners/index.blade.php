@@ -14,28 +14,24 @@
 
         <div class="clearfix"></div>
 
+        <div class="btn-group">
+            {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
+            <input type="hidden" name="view" value="table">
+            <button class="btn btn-md {{session()->get('miners_view','table') == 'table' ? 'btn-primary' : 'btn-white'}} m-r-5">
+                <i class="fa fa-table"></i> Table mode
+            </button>
+            {!! Form::close() !!}
+
+            {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
+            <input type="hidden" name="view" value="widget">
+            <button class="btn btn-md {{session()->get('miners_view') == 'widget' ? 'btn-primary' : 'btn-white'}}">
+                <i class="fa fa-th-large"></i> Widget mode
+            </button>
+            {!! Form::close() !!}
+        </div>
         <div class="m-t-5">
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="{{session()->get('miners_view','table') == 'table' ? 'active' : ''}}">
-                        {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
-                            <input type="hidden" name="view" value="table">
-                            <button class="btn btn-default">
-                                <i class="fa fa-table"></i> Table mode
-                            </button>
-                        {!! Form::close() !!}
-
-                    </li>
-                    <li class="{{session()->get('miners_view') == 'widget' ? 'active' : ''}}">
-                        {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
-                            <input type="hidden" name="view" value="widget">
-                            <button class="btn btn-default">
-                                <i class="fa fa-th-large"></i> Widget mode
-                            </button>
-                        {!! Form::close() !!}
-                    </li>
-                </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_1">
                         @if(session()->get('miners_view','table') == 'table')

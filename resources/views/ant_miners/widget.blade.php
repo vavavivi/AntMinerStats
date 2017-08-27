@@ -51,30 +51,45 @@
                                     @endforeach
 
                                     <h5 class="description-header">{{ round($board_freq/3,0) }} <small class="hidden-xs">Mhz</small></h5>
+
                                     @if(round($board_freq/3,0) > 774)
                                     <div class="progress progress-xxs">
                                         <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: 100%"></div>
                                     </div>
                                     @elseif(round($board_freq/3,0) > 749)
                                     <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: 60%"></div>
+                                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: 60%"></div>
                                     </div>
                                     @else
                                     <div class="progress progress-xxs">
-                                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"  style="width: 30%"></div>
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: 30%"></div>
                                     </div>
                                     @endif
                                 @else
                                     <h5 class="description-header"> 0</h5>
-
                                 @endif
                             </div>
                         </div>
-                        <!-- /.col -->
+
+                        <!-- ERRORS-->
                         <div class="col-xs-4">
                             <div class="description-block">
                                 <span class="description-text small">HW</span>
-                                <h5 class="description-header">&mdash;</h5>
+                                <h5 class="description-header">{!! $data[$antMiner->id]['hw'] !!}</h5>
+
+                                @if($data[$antMiner->id]['hw'] > 0.01)
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"  style="width: 100%"></div>
+                                    </div>
+                                @elseif($data[$antMiner->id]['hw'] > 0.003)
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar"  style="width: 60%"></div>
+                                    </div>
+                                @else
+                                    <div class="progress progress-xxs">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: 30%"></div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -122,7 +137,7 @@
                             </div>
                         </div>
 
-                        <!-- B.FREQ -->
+                        <!-- CHIPS -->
                         <div class="col-xs-6 col-sm-4">
                             <div class="description-block">
                                 <span class="description-text small">CHIPS</span>
@@ -142,7 +157,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /.col -->
+
+                        <!-- FAN -->
                         <div class="col-xs-6 col-sm-4 hidden-xs">
                             <div class="description-block">
                                 <span class="description-text small">FANs</span>

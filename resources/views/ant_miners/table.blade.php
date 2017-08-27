@@ -1,15 +1,16 @@
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-valign-middle" id="antMiners-table">
+            <table class="table table-border table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                <th width="1%" class="text-center" colspan="2">Title</th>
-                <th width="1%" class="text-left">Hashrate</th>
-                <th width="1%" class="text-left">Errors</th>
-                <th width="1%" class="text-left">Board Temperatures,°C</th>
-                <th width="1%" class="text-left">Board Chips</th>
-                <th width="1%" class="text-left">Board Frequency</th>
-                <th width="1%" class="text-right"><i class="fa fa-cogs"></i> </th>
+                    <th width="1%" class="text-center" colspan="2">Title</th>
+                    <th width="1%" class="text-center">Hashrate</th>
+                    <th width="" class="text-center">Errors</th>
+                    <th width="" class="text-left">Board Temperatures,°C</th>
+                    <th width="" class="text-left">Board Chips</th>
+                    <th width="" class="text-left">Board Frequency</th>
+                    <th width="" class="text-left">FANs</th>
+                    <th width="" class="text-center"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
                 @foreach($antMiners->sortBy('user_id') as $antMiner)
@@ -22,20 +23,22 @@
                         <!-- MANAGE URL -->
                         <td>
                             @if($antMiner->url)
-                                <a href="{{$antMiner->url}}" class='btn btn-default btn-xs' target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                                <a href="{{$antMiner->url}}" class='btn btn-xs btn-default' target="_blank"><i class="fa fa-external-link"></i></a>
                             @else
                                 &nbsp;
                             @endif
                         </td>
 
-                    @if($data[$antMiner->id])
+                        @if($data[$antMiner->id])
+
                         <!-- HASHRATE -->
                         <td class="text-center">
-                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs pull-left'>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</a>
+                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs'>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</a>
                         </td>
-                        <!-- HW ERR -->
-                        <td>
-                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.001 ? 'success' : 'warning'}} btn-xs pull-left'>{!! $data[$antMiner->id]['hw'] !!} %</a>
+
+                        <!-- ERRORS -->
+                        <td class="text-center">
+                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
                         </td>
 
                         <!-- TEMP -->
@@ -74,8 +77,7 @@
                                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                                     <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
                                     <div class="progress vertical progress-xxs">
-                                        <div class="progress-bar progress-bar-info progress-bar-striped"
-                                             role="progressbar"
+                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                              aria-valuenow="{{intval($chain_data['brd_freq'])}}"
                                              aria-valuemin="100" aria-valuemax="1000"
                                              style="height: {{round(intval($chain_data['brd_freq']) * 100 / (1000 - 100))}}%">
@@ -84,12 +86,20 @@
                                 @endforeach
                             @endif
                         </td>
-                    @else
-                        <td colspan="5" class="text-center alert-danger">ERROR: miner is offline or unable to connect.</td>
-                    @endif
+
+                        <!-- FANS -->
+                        <td class="text-left small" nowrap>
+                            @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
+                                <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
+                            @endforeach
+                        </td>
+
+                        @else
+                        <td colspan="6" class="text-center">ERROR: miner is offline or unable to connect.</td>
+                        @endif
 
 
-                        <td class="text-right">
+                        <td class="text-center">
                             {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
                                 <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cog"></i></a>
