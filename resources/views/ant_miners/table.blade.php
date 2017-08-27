@@ -6,11 +6,11 @@
                     <th width="1%" class="text-center" colspan="2">Title</th>
                     <th width="1%" class="text-center">Hashrate</th>
                     <th width="1%" class="text-center">Errors</th>
-                    <th width="10%" class="text-left">Board Temperatures,°C</th>
-                    <th width="10%" class="text-left">Board Chips</th>
-                    <th width="10%" class="text-left">Board Frequency</th>
-                    <th width="10%" class="text-left">FANs</th>
-                    <th width="50%" class="text-center"><i class="fa fa-cogs"></i></th>
+                    <th width="15%" class="text-left">Board Temperatures,°C</th>
+                    <th width="15%" class="text-left">Board Chips</th>
+                    <th width="15%" class="text-left">Board Frequency</th>
+                    <th width="15%" class="text-left">FANs</th>
+                    <th width="30%" class="text-center"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
                 @foreach($antMiners->sortBy('user_id') as $antMiner)
