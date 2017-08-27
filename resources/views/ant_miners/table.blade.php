@@ -9,7 +9,7 @@
                     <th width="15%" class="text-left">Board Temperatures,°C</th>
                     <th width="15%" class="text-left">Board Chips</th>
                     <th width="20%" class="text-left">Board Frequency</th>
-                    <th width="15%" class="text-left">FANs</th>
+                    <th width="15%" class="text-left">Fans</th>
                     <th width="15%" class="text-center"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
 
                         <!-- ERRORS -->
                         <td class="text-center">
-                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
+                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.001 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
                         </td>
 
                         <!-- TEMP -->
