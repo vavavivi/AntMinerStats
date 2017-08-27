@@ -32,4 +32,18 @@ class User extends Authenticatable
     {
     	return $this->hasMany(AntMiner::class);
     }
+
+    public function getHashRateAttribute()
+    {
+    	$miners = $this->miners->pluck('id');
+
+	    $hr = 0;
+
+		foreach($miners as $miner)
+		{
+			$hr = $hr + $miner->antlogs->last()->hr;
+		}
+
+    	return round($hr/1024, 2);
+    }
 }

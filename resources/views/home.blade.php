@@ -17,8 +17,8 @@
                     <span class="info-box-icon bg-aqua"><i class="fa fa-rocket animated infinite pulse"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Total productivity</span>
-                        <span class="info-box-number">xxxx TH/s</span>
+                        <span class="info-box-text">Total hashrate</span>
+                        <span class="info-box-number">{{Auth::user()->hashrate}} TH/s</span>
                     </div>
                 </div>
             </div>
