@@ -28,7 +28,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Alerts</span>
-                        <span class="info-box-number">0</span>
+                        <span class="info-box-number">{{Auth::user()->alerts->where('status','new')->count()}}</span>
                     </div>
                 </div>
             </div>

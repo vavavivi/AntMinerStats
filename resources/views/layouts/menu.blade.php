@@ -22,3 +22,15 @@
 </li>
 
 
+<li class="{{ Request::is('alerts*') ? 'active' : '' }}">
+    <a href="{!! route('alerts.index') !!}">
+        <i class="fa fa-warning"></i>
+        <span>Alerts</span>
+        @if(Auth::user()->alerts->where('status','new')->count() > 0)
+            <span class="pull-right-container">
+              <span class="label label-danger pull-right">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+            </span>
+        @endif
+    </a>
+</li>
+

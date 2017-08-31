@@ -14,8 +14,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/antMiners/{antMiner}/log', 'LogController@show')->name('log.show');
 
 	Route::resource('antMiners', 'AntMinerController');
-	;
+
+	Route::resource('alerts', 'AlertController');
 
 });
+
 
 

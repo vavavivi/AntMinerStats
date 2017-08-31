@@ -64,4 +64,9 @@ class AntMiner extends Model
 		return $this->hasMany(AntMinerLog::class);
 	}
 
+	public function alerts()
+	{
+		return $this->hasMany(Alert::class);
+	}
+
 }

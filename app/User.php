@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Alert;
 use App\Models\AntMiner;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,6 +32,11 @@ class User extends Authenticatable
     public function miners()
     {
     	return $this->hasMany(AntMiner::class);
+    }
+
+    public function alerts()
+    {
+    	return $this->hasMany(Alert::class);
     }
 
     public function getHashRateAttribute()
