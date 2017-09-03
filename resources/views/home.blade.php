@@ -51,8 +51,19 @@
                             <li><i class="fa fa-check"></i> Adaptive & responsive design</li>
                             <li><i class="fa fa-check"></i> 3 days statistics with charts</li>
                             <li><i class="fa fa-check"></i> Free for home use (up to 3 miners)</li>
-                            <li><i class="fa fa-check"></i> Easy setup</li>
+                            <li>
+                                <i class="fa fa-check"></i> Easy setup:
+                                <ol >
+                                    <li>Alow acceess to ASIC API port (4028) on your router</li>
+                                    <li>Add miner to your miners list</li>
+                                    <li>Setup triggers for hashrate & temperature</li>
+                                    <li>Talk to <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a> to get your api key</li>
+                                    <li>Done</li>
+                                </ol>
+                            </li>
                         </ul>
+                        <br>
+                        <p>Detailed instructions can be found at Information section</p>
                     </div>
                 </div>
             </div>
