@@ -29,12 +29,6 @@ class AntMinerController extends AppBaseController
     public function index(Request $request)
     {
 	    $antMiners = \Auth::user()->miners->sortBy('type');
-
-	    if(\Auth::id() == 1)
-	    {
-		    $antMiners = AntMiner::all();
-	    }
-
         $data = [];
 
 		foreach($antMiners as $antMiner)
