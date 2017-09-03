@@ -41,13 +41,17 @@ class User extends Authenticatable
 
     public function getHashRateAttribute()
     {
-    	$miners = $this->miners->pluck('id');
+    	$miners = $this->miners;
 
 	    $hr = 0;
 
 		foreach($miners as $miner)
 		{
-			$hr = $hr + $miner->antlogs->last()->hr;
+			if($miner->antlogs)
+			{
+				$hr = $hr + $miner->antlogs->last()->hr;
+			}
+
 		}
 
     	return round($hr/1024, 2);
