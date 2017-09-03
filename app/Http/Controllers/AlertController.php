@@ -29,9 +29,6 @@ class AlertController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->alertRepository->pushCriteria(new RequestCriteria($request));
-        $alerts = $this->alertRepository->all();
-
         $alerts = \Auth::user()->alerts;
 
         return view('alerts.index')
