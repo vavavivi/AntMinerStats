@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Alert;
 use App\Models\AntMiner;
 use App\Traits\MinerTrait;
 use Illuminate\Console\Command;
@@ -78,66 +79,94 @@ class PollMiner extends Command
 
 		        $antMiner->antlogs()->create($data);
 
-		        if($chat_id)
-		        {
-			        if($antMiner->hr_limit && $data['hr'] < $antMiner->hr_limit)
-			        {
-				        $msg = $antMiner->title .' low Hashrate alert: <b>'.round($data['hr']/1000,2).' Th</b> Your limit is: <b>'.round($antMiner->hr_limit/1000,2).' Th</b>';
 
+		        if($antMiner->hr_limit && $data['hr'] < $antMiner->hr_limit)
+		        {
+			        $msg = $antMiner->title .' low Hashrate alert: <b>'.round($data['hr']/1000,2).' Th</b> Your limit is: <b>'.round($antMiner->hr_limit/1000,2).' Th</b>';
+
+			        Alert::create([
+				        'user_id' => $antMiner->user->id,
+				        'ant_miner_id' => $antMiner->id,
+				        'subject' => 'Low Hashrate alert',
+				        'body' => $msg,
+				        'status' => 'new',
+			        ]);
+
+			        if($chat_id)
+			        {
 				        Telegram::sendMessage([
 					        'chat_id' => $chat_id,
 					        'text' => $msg,
 					        'parse_mode' =>'HTML'
 				        ]);
-
-				        $a++;
-
-				        //Restart Experemental. Requires Write Access to miner via cgminer.conf
-
-				        if($data['hr'] < 500 && $antMiner->restart )
-				        {
-					        $resp = $this->read_from_socket($antMiner, 'restart');
-
-					        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate. Restart cmd result: '.$resp;
-
-					        Telegram::sendMessage([
-						        'chat_id' => $chat_id,
-						        'text' => $msg,
-						        'parse_mode' =>'HTML'
-					        ]);
-
-					        $a++;
-				        }
 			        }
 
-			        if($antMiner->temp_limit)
+			        $a++;
+
+			        //Restart Experemental. Requires Write Access to miner via cgminer.conf
+
+			        if($data['hr'] < 500 && $antMiner->restart )
 			        {
-				        $max_temp = 0;
+				        $resp = $this->read_from_socket($antMiner, 'restart');
 
-				        if(key_exists('temp1',$data) && $data['temp1'] > $antMiner->temp_limit) $max_temp = $data['temp1'];
-				        if(key_exists('temp2',$data) && $data['temp2'] > $antMiner->temp_limit && $data['temp2'] > $max_temp ) $max_temp = $data['temp2'];
-				        if(key_exists('temp3',$data) && $data['temp3'] > $antMiner->temp_limit && $data['temp3'] > $max_temp ) $max_temp = $data['temp3'];
+				        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate. Restart cmd result: '.$resp;
 
-				        if(key_exists('temp11',$data) && $data['temp11'] > $antMiner->temp_limit && $data['temp11'] > $max_temp ) $max_temp = $data['temp11'];
-				        if(key_exists('temp21',$data) && $data['temp21'] > $antMiner->temp_limit && $data['temp21'] > $max_temp ) $max_temp = $data['temp21'];
-				        if(key_exists('temp31',$data) && $data['temp31'] > $antMiner->temp_limit && $data['temp31'] > $max_temp ) $max_temp = $data['temp31'];
+				        Alert::create([
+					        'user_id' => $antMiner->user->id,
+					        'ant_miner_id' => $antMiner->id,
+					        'subject' => 'Miner restart',
+					        'body' => $msg,
+					        'status' => 'new',
+				        ]);
 
-
-				        if($max_temp > 0)
+				        if($chat_id)
 				        {
-					        $msg = $antMiner->title .' high temperature alert: <b>'.$max_temp.'C</b> Your limit is: <b>'.$antMiner->temp_limit.'C</b>';
-
-
 					        Telegram::sendMessage([
-						        'chat_id' => $chat_id,
-						        'text' => $msg,
-						        'parse_mode' =>'HTML'
+						        'chat_id'    => $chat_id,
+						        'text'       => $msg,
+						        'parse_mode' => 'HTML'
 					        ]);
-
-					        $a++;
 				        }
-
+				        $a++;
 			        }
+		        }
+
+		        if($antMiner->temp_limit)
+		        {
+			        $max_temp = 0;
+
+			        if(key_exists('temp1',$data) && $data['temp1'] > $antMiner->temp_limit) $max_temp = $data['temp1'];
+			        if(key_exists('temp2',$data) && $data['temp2'] > $antMiner->temp_limit && $data['temp2'] > $max_temp ) $max_temp = $data['temp2'];
+			        if(key_exists('temp3',$data) && $data['temp3'] > $antMiner->temp_limit && $data['temp3'] > $max_temp ) $max_temp = $data['temp3'];
+
+			        if(key_exists('temp11',$data) && $data['temp11'] > $antMiner->temp_limit && $data['temp11'] > $max_temp ) $max_temp = $data['temp11'];
+			        if(key_exists('temp21',$data) && $data['temp21'] > $antMiner->temp_limit && $data['temp21'] > $max_temp ) $max_temp = $data['temp21'];
+			        if(key_exists('temp31',$data) && $data['temp31'] > $antMiner->temp_limit && $data['temp31'] > $max_temp ) $max_temp = $data['temp31'];
+
+
+			        if($max_temp > 0)
+			        {
+				        $msg = $antMiner->title .' high temperature alert: <b>'.$max_temp.'C</b> Your limit is: <b>'.$antMiner->temp_limit.'C</b>';
+
+				        Alert::create([
+					        'user_id' => $antMiner->user->id,
+					        'ant_miner_id' => $antMiner->id,
+					        'subject' => 'Miner high temperature alert',
+					        'body' => $msg,
+					        'status' => 'new',
+				        ]);
+
+				        if($chat_id)
+				        {
+					        Telegram::sendMessage([
+						        'chat_id'    => $chat_id,
+						        'text'       => $msg,
+						        'parse_mode' => 'HTML'
+					        ]);
+				        }
+				        $a++;
+			        }
+
 		        }
 
 		        $data = null;
@@ -148,22 +177,27 @@ class PollMiner extends Command
 	        else
 	        {
 		        $f++;
+		        $msg = $antMiner->title .' is offline or unable to connect.';
+
+		        Alert::create([
+			        'user_id' => $antMiner->user->id,
+			        'ant_miner_id' => $antMiner->id,
+			        'subject' => 'Miner offline or unable to connect',
+			        'body' => $msg,
+			        'status' => 'new',
+		        ]);
 
 		        if($chat_id)
 		        {
-			        $msg = $antMiner->title .' is offline or unable to connect.';
-
 			        Telegram::sendMessage([
 				        'chat_id' => $chat_id,
 				        'text' => $msg,
 				        'parse_mode' =>'HTML'
 			        ]);
-
-			        $a++;
 		        }
 
+		        $a++;
 	        }
-
         }
 
         $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.". $a." alerts were send.\n";
