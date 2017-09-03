@@ -37,25 +37,22 @@
             <div class="col-sm-8 col-xs-12">
                 <div class="box box-default">
                     <div class="box-header">
-                        <h2>Welcome to AntSTATS <sup>v.0.2b</sup></h2>
+                        <h2>Welcome to Bitmain ASIC statistics</h2>
+                        <h3>Real time monitoring system for Bitmain <b>ANT</b>MINERs</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
-                        <p>
-                            Fast monitoring system of <b>BITMAIN ANTMINER</b> information received by API
-                        </p>
-                        <h3>Syestem features:</h3>
+                        <h3>System features:</h3>
                         <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i> Add/Remove miners to list</li>
-                            <li><i class="fa fa-check"></i> Adaptive design</li>
-                            <li><i class="fa fa-check"></i> Color indications of stats</li>
+                            <li><i class="fa fa-check"></i> Support for S7, S9 & T9 ASICs (support for L3+ & D3 will be added later)</li>
+                            <li><i class="fa fa-check"></i> Alerts & notifications via telegram bot <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a></li>
+                            <li><i class="fa fa-check"></i> Adaptive & responsive design</li>
+                            <li><i class="fa fa-check"></i> 3 days statistics with charts</li>
+                            <li><i class="fa fa-check"></i> Free for home use (up to 3 miners)</li>
+                            <li><i class="fa fa-check"></i> Easy setup</li>
                         </ul>
-                    </div>
-                    <div class="box-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-widget="remove">Hide this message</button>
-                        <input type="checkbox"> <span>Don't show again</span>
                     </div>
                 </div>
             </div>
