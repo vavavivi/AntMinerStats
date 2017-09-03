@@ -14,7 +14,7 @@
     </a>
     <ul class="treeview-menu">
         @foreach(Auth::user()->miners as $antMiner)
-            <li class="treeview">
+            <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
                 <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->title}}</a>
             </li>
         @endforeach
