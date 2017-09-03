@@ -21,7 +21,8 @@
                                     @foreach(Auth::user()->alerts as $alert)
                                         <tr>
                                             <td class="mailbox-name"><a href="{{route('alerts.read',$alert->id)}}">{{$alert->antMiner->title}}</a></td>
-                                            <td class="mailbox-subject">{!! $alert->status == 'new' ? '<b>' : '' !!}{{$alert->subject}}{!!$alert->status == 'new' ? '</b>' : '' !!} - {{$alert->body}}
+                                            <td class="mailbox-subject">
+                                                {!! $alert->status == 'new' ? '<b>' : '' !!}{{$alert->subject}}{!!$alert->status == 'new' ? '</b>' : '' !!} - {!! $alert->body !!}
                                             </td>
                                             <td class="mailbox-attachment"></td>
                                             <td class="mailbox-date">{{$alert->created_at->diffForHumans()}}</td>
