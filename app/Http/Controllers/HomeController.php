@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
 
-    	$miners = AntMiner::all();
+    	$miners = \Auth::user()->miners;
 
     	$st9 = $miners->where('type','bmminer');
     	$s7 = $miners->where('type','cgminer');
