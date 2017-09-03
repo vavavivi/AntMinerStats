@@ -4,7 +4,7 @@
     <div class="login-box">
         <div class="login-box-body">
             <div class="login-logo">
-                <i class="fa fa-envira fa-2x"></i>
+                <i class="fa fa-btc fa-2x"></i>
                 <br>
                 <a href="{{ url('/home') }}">AntSTATS <sup>1.0</sup></a>
             </div>
@@ -13,7 +13,7 @@
                 {!! csrf_field() !!}
 
                 <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email адрес">
+                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="user@domain.com">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="form-group has-feedback{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input type="password" class="form-control" placeholder="Пароль" name="password">
+                    <input type="password" class="form-control" placeholder="Password" name="password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -36,15 +36,19 @@
                     <div class="col-xs-12">
                         <div class="checkbox pull-left">
                             <label>
-                                <input type="checkbox" name="remember"> Запомни меня
+                                <input type="checkbox" name="remember"> Remember me
                             </label>
                         </div>
-                        <a class="btn btn-sm btn-default btn-flat pull-right" href="{{ url('/password/reset') }}" style="margin-left: 5px; margin-top: 5px;">Забыл пароль</a>
-                        <button type="submit" class="btn btn-sm btn-primary btn-flat  pull-right" style="margin-left: 5px;  margin-top: 5px;">Вход &rarr;</button>
+                        <a class="btn btn-sm btn-default btn-flat pull-right" href="{{ url('/password/reset') }}" style="margin-left: 5px; margin-top: 5px;">Forgot password</a>
+                        <button type="submit" class="btn btn-sm btn-primary btn-flat  pull-right" style="margin-left: 5px;  margin-top: 5px;">Login &rarr;</button>
                     </div>
-                    <!-- /.col -->
                 </div>
             </form>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="pull-right" href="{{ url('/register') }}" style="margin-left: 5px; margin-top: 5px;">Dont have account ? Register!</a>
+                </div>
+            </div>
 
         </div>
     </div>
