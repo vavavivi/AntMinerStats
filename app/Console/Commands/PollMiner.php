@@ -67,6 +67,15 @@ class PollMiner extends Command
 		        if(! key_exists('freq3',$data)) $data['freq3'] = 0;
 		        if(! key_exists('freq2',$data)) $data['freq2'] = 0;
 
+		        if($antMiner->antlogs->count() > 1440)
+		        {
+
+		        	foreach($antMiner->antlogs->take($antMiner->antlogs->count() - 1440) as $log)
+			        {
+			        	$log->delete();
+			        }
+		        }
+
 		        $antMiner->antlogs()->create($data);
 
 		        if($chat_id)
