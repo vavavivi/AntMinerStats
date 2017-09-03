@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::resource('antMiners', 'AntMinerController');
 
+	Route::get('/alerts/{alert}/read', 'AlertController@read')->name('alerts.read');
 	Route::resource('alerts', 'AlertController');
 
 });

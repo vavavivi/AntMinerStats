@@ -154,4 +154,28 @@ class AlertController extends AppBaseController
 
         return redirect(route('alerts.index'));
     }
+
+    public function read($id)
+    {
+	    $alert = $this->alertRepository->findWithoutFail($id);
+
+	    if (empty($alert)) {
+		    Flash::error('Alert not found');
+
+		    return redirect(route('alerts.index'));
+	    }
+
+	    if($alert->user->id != \Auth::id())
+	    {
+		    Flash::error('You dont have permissions to mark alert as read');
+
+		    return redirect(route('alerts.index'));
+	    }
+
+	    $alert->update([
+	    	'status' => 'read'
+	    ]);
+
+    	return redirect()->back();
+    }
 }

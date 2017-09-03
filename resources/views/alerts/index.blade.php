@@ -3,10 +3,12 @@
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Alerts</h1>
-        <h1 class="pull-right">
-        </h1>
+
     </section>
     <div class="content">
+        <div class="clearfix"></div>
+        @include('adminlte-templates::common.errors')
+        @include('flash::message')
         <div class="clearfix"></div>
         <div class="row">
                 <div class="col-md-12">
@@ -18,7 +20,7 @@
                                     <tbody>
                                     @foreach(Auth::user()->alerts as $alert)
                                         <tr>
-                                            <td class="mailbox-name"><a href="read-mail.html">{{$alert->antMiner->title}}</a></td>
+                                            <td class="mailbox-name"><a href="{{route('alerts.read',$alert->id)}}">{{$alert->antMiner->title}}</a></td>
                                             <td class="mailbox-subject">{!! $alert->status == 'new' ? '<b>' : '' !!}{{$alert->subject}}{!!$alert->status == 'new' ? '</b>' : '' !!} - {{$alert->body}}
                                             </td>
                                             <td class="mailbox-attachment"></td>
