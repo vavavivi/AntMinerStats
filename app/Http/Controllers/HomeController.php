@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\AntMinerLog;
 use App\Models\AntMiner;
 use Carbon\Carbon;
+use Flash;
 use Illuminate\Http\Request;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -47,5 +49,40 @@ class HomeController extends Controller
             ]);
 
         return view('home', compact('chartjs_th','chartjs_miners'));
+    }
+
+    public function getProfile()
+    {
+		return view('profile');
+    }
+
+    public function postProfile(Request $request)
+    {
+	    $messages = [
+		    'required' => 'The :attribute field is required.',
+		    'chat_id.unique' => 'This telegram chat id is associated with another account.',
+	    ];
+
+	    $rules = [
+		    'name' => 'required|string|max:255',
+		    'email' => 'required|string|email|max:255|unique:users,email,'.\Auth::id(),
+		    'chat_id' => 'nullable|integer|unique:users,chat_id,'.\Auth::id(),
+		    'password' => 'nullable|string|min:6',
+	    ];
+
+	    $this->validate($request, $rules, $messages);
+
+	    $input['name'] = $request->name;
+	    $input['email'] = $request->email;
+	    $input['chat_id'] = $request->chat_id;
+
+	    if($request->has('password')) $input['password'] = \Hash::make($request->password);
+
+	    \Auth::user()->update($input);
+
+	    Flash::success('Profile updated successfully.');
+
+	    return redirect(route('profile'));
+
     }
 }
