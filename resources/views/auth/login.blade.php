@@ -40,7 +40,7 @@
                             </label>
                         </div>
                         <a class="btn btn-sm btn-default btn-flat pull-right" href="{{ url('/password/reset') }}" style="margin-left: 5px; margin-top: 5px;">Forgot password</a>
-                        <button type="submit" class="btn btn-sm btn-primary btn-flat  pull-right" style="margin-left: 5px;  margin-top: 5px;">Login &rarr;</button>
+                        <button type="submit" class="btn btn-sm btn-primary btn-flat  pull-right" style="margin-left: 5px;  margin-top: 5px;">Login</button>
                     </div>
                 </div>
             </form>
