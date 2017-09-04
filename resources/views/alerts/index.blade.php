@@ -18,7 +18,7 @@
                             <div class="table-responsive mailbox-messages">
                                 <table class="table table-hover table-striped">
                                     <tbody>
-                                    @foreach(Auth::user()->alerts as $alert)
+                                    @foreach($alerts as $alert)
                                         <tr>
                                             <td class="mailbox-name"><a href="{{route('alerts.read',$alert->id)}}">{{$alert->antMiner->title}}</a></td>
                                             <td class="mailbox-subject">

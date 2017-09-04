@@ -29,7 +29,7 @@ class AlertController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $alerts = \Auth::user()->alerts;
+        $alerts = \Auth::user()->alerts->sortByDesc('id');
 
         return view('alerts.index')
             ->with('alerts', $alerts);
