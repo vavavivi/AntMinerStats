@@ -9,7 +9,7 @@ class ApiController extends Controller
 {
     public function set_webhook()
     {
-	    $response = Telegram::setWebhook(['url' => 'https://ant.hippie.com.ua/api/webhook']);
+	    $response = Telegram::setWebhook(['url' => route('webHook')]);
 
 	    return $response;
 
