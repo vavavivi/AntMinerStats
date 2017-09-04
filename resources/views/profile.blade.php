@@ -36,10 +36,15 @@
                         <div class="form-group col-sm-6 {{$errors->has('chat_id') ? 'has-error' : ''}}">
                             {!! Form::label('chat_id', 'Telegram Chat ID:') !!}
                             {!! Form::text('chat_id', null, ['class' => 'form-control']) !!}
+
                             @if ($errors->has('chat_id'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('chat_id') }}</strong>
                                 </span>
+                            @else
+                                <span class="help-block">
+                                <p>To get your chat ID for telegram notifications please say hello to <a href="https://telegram.me/AntMinerNotify_bot" target="_blank">@AntMinerNotify_bot</a></p>
+                            </span>
                             @endif
                         </div>
                         <div class="clearfix"></div>
