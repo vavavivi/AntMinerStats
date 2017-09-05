@@ -28,7 +28,7 @@ class AntMinerController extends AppBaseController
 
     public function index(Request $request)
     {
-	    $antMiners = \Auth::user()->miners->sortBy('type');
+	    $antMiners = \Auth::user()->miners;
         $data = [];
 
 		foreach($antMiners as $antMiner)
@@ -52,7 +52,19 @@ class AntMinerController extends AppBaseController
         $input = $request->all();
         $input['user_id'] = \Auth::id();
 
-        $antMiner = $this->antMinerRepository->create($input);
+        //order routine
+	    $last_antMiner = \Auth::user()->miners->sortBy('order')->last();
+
+	    if($last_antMiner)
+	    {
+	    	$input['order'] = $last_antMiner->order + 1;
+	    }
+	    else
+	    {
+		    $input['order'] = 10;
+	    }
+
+	    $antMiner = $this->antMinerRepository->create($input);
 
         Flash::success('Ant Miner saved successfully.');
 
@@ -293,6 +305,84 @@ class AntMinerController extends AppBaseController
 	    session(['miners_view' => $request->view]);
 
 		return redirect()->back();
+    }
+
+    public function set_desc($id)
+    {
+	    $antMiner = $this->antMinerRepository->findWithoutFail($id);
+
+	    if (empty($antMiner)) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    $cur_order = $antMiner->order;
+
+	    $antMiners = \Auth::user()->miners->sortBy('order');
+
+	    $next_antMiner = $antMiners->where('order', '>', $cur_order)->first();
+
+	    if($next_antMiner)
+	    {
+		    $des_order = $next_antMiner->order;
+		    $next_antMiner->update(['order' => $cur_order]);
+		    $antMiner->update(['order' => $des_order]);
+	    }
+	    else
+	    {
+		    $antMiner->update(['order' => $cur_order + 1]);
+	    }
+
+
+
+
+
+
+
+	    return redirect()->back();
+
+    }
+
+    public function set_asc($id)
+    {
+	    $antMiner = $this->antMinerRepository->findWithoutFail($id);
+
+	    if (empty($antMiner)) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    $cur_order = $antMiner->order;
+
+	    $antMiners = \Auth::user()->miners->sortByDesc('order');
+	    $next_antMiner = $antMiners->where('order', '<', $cur_order)->first();
+
+	    if($next_antMiner)
+	    {
+		    $des_order = $next_antMiner->order;
+		    $next_antMiner->update(['order' => $cur_order]);
+		    $antMiner->update(['order' => $des_order]);
+	    }
+	    else
+	    {
+		    $antMiner->update(['order' => $cur_order - 1]);
+	    }
+
+	    return redirect()->back();
     }
 
 }

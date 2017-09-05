@@ -3,7 +3,7 @@
         <div class="table-responsive">
             <table class="table table-border table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                    <th width="1%" class="text-center" colspan="2">Title</th>
+                    <th width="1%" class="text-center" colspan="3">Title</th>
                     <th width="1%" class="text-center">Hashrate</th>
                     <th width="10%" class="text-center">Errors</th>
                     <th width="15%" class="text-left">Board Temperatures,°C</th>
@@ -13,8 +13,18 @@
                     <th width="15%" class="text-center"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
-                @foreach($antMiners->sortBy('user_id') as $antMiner)
+                @foreach($antMiners->sortBy('order') as $antMiner)
                     <tr>
+                        <td>
+                            @if($loop->first)
+                                <a href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-desc"></i></a>
+                            @elseif($loop->last)
+                                <a href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-asc"></i></a>
+                            @else
+                                <a href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-asc"></i></a>
+                                <a href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-desc"></i></a>
+                            @endif
+                        </td>
                         <!-- TITLE -->
                         <td nowrap>
                             <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
