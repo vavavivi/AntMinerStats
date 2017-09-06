@@ -62,7 +62,7 @@
                                         </a>
                                     </div>
                                 @else
-                                    <a class='btn btn-{{ intval($chain_data['brd_temp']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
+                                    <a class='btn btn-{{ intval($chain_data['brd_temp']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp2'>
                                         {{$chain_data['brd_temp']}}°
                                     </a>
                                 @endif
