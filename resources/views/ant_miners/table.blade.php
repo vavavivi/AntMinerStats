@@ -3,28 +3,24 @@
         <div class="table-responsive">
             <table class="table table-border table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                    <th width="1%" class="text-center" colspan="3">Title</th>
-                    <th width="1%" class="text-center">Hashrate</th>
-                    <th width="10%" class="text-center">Errors</th>
-                    <th width="15%" class="text-left">Board Temperatures,°C</th>
-                    <th width="15%" class="text-left">Board Chips</th>
-                    <th width="20%" class="text-left">Board Frequency</th>
-                    <th width="15%" class="text-left">Fans</th>
-                    <th width="15%" class="text-center"><i class="fa fa-cogs"></i></th>
+                    <th width="1%" class="text-center"><i class="fa fa-info-circle"></i></th>
+                    <th width="5%" class="text-center" colspan="2">Title</th>
+                    <th width="5%" class="text-center">Errors</th>
+                    <th width="10%" class="text-center">TH/S</th>
+                    <th width="13%" class="text-left">Board Temp,°C</th>
+                    <th width="18%" class="text-left">Board Chips</th>
+                    <th width="21%" class="text-left">Board Frequency</th>
+                    <th width="7%" class="text-left">Fans</th>
+                    <th width="10%" class="text-center"><i class="fa fa-arrows-v"></i></th>
+                    <th width="100%" class="text-left"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
                 @foreach($antMiners->sortBy('order') as $antMiner)
                     <tr>
-                        <td>
-                            @if($loop->first)
-                                <a href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-desc"></i></a>
-                            @elseif($loop->last)
-                                <a href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-asc"></i></a>
-                            @else
-                                <a href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-asc"></i></a>
-                                <a href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-sort-desc"></i></a>
-                            @endif
+                        <td class="bg-green">
+                            <span style="margin-left: 3px;"><i class="fa fa-check-circle"></i></span>
                         </td>
+
                         <!-- TITLE -->
                         <td nowrap>
                             <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
@@ -41,15 +37,17 @@
 
                         @if($data[$antMiner->id])
 
-                        <!-- HASHRATE -->
-                        <td class="text-center">
-                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</a>
-                        </td>
-
                         <!-- ERRORS -->
                         <td class="text-center">
                             <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.001 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
                         </td>
+
+                        <!-- HASHRATE -->
+                        <td class="text-center">
+                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! number_format(round(intval($data[$antMiner->id]['hash_rate'])/1000,2),2) !!}</a>
+                        </td>
+
+
 
                         <!-- TEMP -->
                         <td class="text-left" nowrap="">
@@ -108,14 +106,26 @@
                         <td colspan="6" class="text-center">ERROR: miner is offline or unable to connect.</td>
                         @endif
 
+                        <td class="text-center" nowrap>
+                            @if($loop->first)
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
+                            @elseif($loop->last)
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
+                            @else
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
+                            @endif
+                        </td>
 
-                        <td class="text-center">
+                        <td class="text-left">
                             {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
                                 <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cog"></i></a>
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             </div>
                             {!! Form::close() !!}
+
+
                         </td>
                     </tr>
                 @endforeach
