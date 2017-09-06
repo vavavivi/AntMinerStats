@@ -175,4 +175,29 @@ class AlertController extends AppBaseController
 
     	return redirect()->back();
     }
+
+    public function purge(Request $request)
+    {
+    	if($request->has('messages'))
+	    {
+	    	foreach($request->messages as $id => $message_id)
+		    {
+			    $alert = $this->alertRepository->findWithoutFail($message_id);
+
+			    if(!$alert)
+			    {
+
+			    }
+			    else
+			    {
+			    	if($alert->user_id == \Auth::id())
+				    {
+					    $alert->delete();
+				    }
+			    }
+		    }
+	    }
+
+	    return json_encode(true);
+    }
 }
