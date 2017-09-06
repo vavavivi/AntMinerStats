@@ -144,10 +144,9 @@
                                 <div style="white-space: nowrap;">
                                     @if($data[$antMiner->id])
                                         @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                            @if(intval($chain_data['chips_condition']['ok']) > 0)
+                                            @if     (intval($chain_data['chips_condition']['ok']) > 0)
                                                 <span class="label bg-green"> <i class="fa fa-check"></i></span>
-                                            @endif
-                                            @if(intval($chain_data['chips_condition']['er']) > 0)
+                                            @elseif (intval($chain_data['chips_condition']['er']) > 0)
                                                 <span class="label bg-red"> <i class="fa fa-times"></i></span>
                                             @endif
                                         @endforeach
