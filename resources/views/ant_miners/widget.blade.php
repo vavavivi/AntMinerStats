@@ -1,7 +1,7 @@
 <div class="row">
     @foreach($antMiners->sortBy('user_id') as $antMiner)
 
-        <section class="col-xs-12 col-sm-6 col-lg-3 connectedSortable">
+        <section class="col-xs-12 col-sm-6 col-lg-4 connectedSortable">
 
             <div class="box" style="border: 0px;">
                 <div class="box-header @if($data[$antMiner->id]) bg-gray @else bg-red-active @endif">
@@ -75,7 +75,7 @@
                         <div class="col-xs-4">
                             <div class="description-block">
                                 <span class="description-text small">HW</span>
-                                <h5 class="description-header">{!! $data[$antMiner->id]['hw'] !!} <small>%</small></h5>
+                                <h5 class="description-header">{!! $data[$antMiner->id]['hw'] !!}</h5>
 
                                 @if($data[$antMiner->id]['hw'] > 0.01)
                                     <div class="progress progress-xxs">

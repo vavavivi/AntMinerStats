@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title',"Monitoring -")
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Available AntMiners</h1>
