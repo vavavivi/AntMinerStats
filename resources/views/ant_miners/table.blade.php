@@ -4,14 +4,14 @@
             <table class="table table-border table-hover table-valign-middle" id="antMiners-table">
                 <thead>
                     <th width="1%" class="text-center"><i class="fa fa-info-circle"></i></th>
-                    <th width="5%" class="text-center" colspan="2">Title</th>
-                    <th width="5%" class="text-center">Errors</th>
-                    <th width="10%" class="text-center">TH/S</th>
-                    <th width="13%" class="text-left">Board Temp,°C</th>
-                    <th width="18%" class="text-left">Board Chips</th>
-                    <th width="21%" class="text-left">Board Frequency</th>
-                    <th width="7%" class="text-left">Fans</th>
-                    <th width="10%" class="text-center"><i class="fa fa-arrows-v"></i></th>
+                    <th width="1%" class="text-center" colspan="2">Title</th>
+                    <th width="1%" class="text-center">Errors</th>
+                    <th width="1%" class="text-center">TH/S</th>
+                    <th width="1%" class="text-left">Board Temp,°C</th>
+                    <th width="1%" class="text-left">Board Chips</th>
+                    <th width="1%" class="text-left">Board Frequency</th>
+                    <th width="1%" class="text-left">Fans</th>
+                    <th width="1%" class="text-center"><i class="fa fa-arrows-v"></i></th>
                     <th width="100%" class="text-left"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@
                         </td>
 
                         <!-- MANAGE URL -->
-                        <td>
+                        <td class="text-left">
                             @if($antMiner->url)
                                 <a href="{{$antMiner->url}}" class='btn btn-xs btn-default' target="_blank"><i class="fa fa-external-link"></i></a>
                             @else
