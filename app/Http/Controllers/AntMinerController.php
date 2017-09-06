@@ -340,12 +340,6 @@ class AntMinerController extends AppBaseController
 		    $antMiner->update(['order' => $cur_order + 1]);
 	    }
 
-
-
-
-
-
-
 	    return redirect()->back();
 
     }
