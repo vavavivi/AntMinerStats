@@ -1,7 +1,7 @@
 <div class="row">
     @foreach($antMiners->sortBy('user_id') as $antMiner)
 
-        <section class="col-xs-6 col-sm-6 col-lg-3 connectedSortable">
+        <section class="col-xs-12 col-sm-6 col-lg-3 connectedSortable">
 
             <div class="box" style="border: 0px;">
                 <div class="box-header @if($data[$antMiner->id]) bg-gray @else bg-red-active @endif">
@@ -138,7 +138,7 @@
                         </div>
 
                         <!-- CHIPS -->
-                        <div class="col-xs-6 col-sm-4">
+                        <div class="col-xs-12 col-sm-4">
                             <div class="description-block">
                                 <span class="description-text small">CHIPS</span>
                                 <div style="white-space: nowrap;">
@@ -159,7 +159,7 @@
                         </div>
 
                         <!-- FAN -->
-                        <div class="col-xs-6 col-sm-4 hidden-xs">
+                        <div class="col-xs-12 col-sm-4 hidden-xs">
                             <div class="description-block">
                                 <span class="description-text small">FANs</span>
                                 <div>
