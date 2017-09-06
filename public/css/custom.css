@@ -66,7 +66,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .table tr td { padding: 4px !important; }
 .table-border { border: 1px solid #efefef; border-top: 0px; }
 
-#antMiners-table td { padding-right: 6px !important; }
+#antMiners-table td { padding: 6px 6px 6px 5px !important; }
 
 .connectedSortable .bg-gray { background-color: #888 !important; color: #fff; }
 .connectedSortable .box-title { color: #fff; font-size: 100%;}
@@ -142,8 +142,9 @@ table thead th {
 }
 
 @media (max-width: 1024px) {
-    #antMiners-table td { padding-right: 3px !important; font-size: 11px; }
-    #antMiners-table .btn { font-size: 10px; }
+    #antMiners-table td { padding: 3px 2px 3px 5px !important; font-size: 12px; }
+
+    #antMiners-table .btn { font-size: 11px; }
     .miner-temp { width: 28px; }
     .miner-temp2 { width: 56px; }
 }

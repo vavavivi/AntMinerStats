@@ -26,14 +26,14 @@
                                 <span class="description-text small">H.Rate</span>
                                 @if (isset($antMiner->temp_limit))
                                     @if(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) == 0)
-                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</h5>
+                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!} <small>TH/s</small></h5>
                                     @elseif(round(intval($data[$antMiner->id]['hash_rate'])/1000,2) > $antMiner->temp_limit)
-                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</h5>
+                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!} <small>TH/s</small></h5>
                                     @else
-                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</h5>
+                                        <h5 class="description-header">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!} <small>TH/s</small></h5>
                                     @endif
                                 @else
-                                    <h5 class="description-header ">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!}</h5>
+                                    <h5 class="description-header ">{!! round(intval($data[$antMiner->id]['hash_rate'])/1000,2) !!} <small>TH/s</small></h5>
                                 @endif
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                         @php ( $board_freq = $board_freq + round(intval($chain_data['brd_freq']),0) )
                                     @endforeach
 
-                                    <h5 class="description-header">{{ round($board_freq/3,0) }} <small class="hidden-xs">Mhz</small></h5>
+                                    <h5 class="description-header">{{ round($board_freq/3,0) }} <small>Mhz</small></h5>
 
                                     @if(round($board_freq/3,0) > 774)
                                     <div class="progress progress-xxs">
@@ -75,7 +75,7 @@
                         <div class="col-xs-4">
                             <div class="description-block">
                                 <span class="description-text small">HW</span>
-                                <h5 class="description-header">{!! $data[$antMiner->id]['hw'] !!}</h5>
+                                <h5 class="description-header">{!! $data[$antMiner->id]['hw'] !!} <small>%</small></h5>
 
                                 @if($data[$antMiner->id]['hw'] > 0.01)
                                     <div class="progress progress-xxs">
@@ -138,7 +138,7 @@
                         </div>
 
                         <!-- CHIPS -->
-                        <div class="col-xs-12 col-sm-4">
+                        <div class="col-xs-4 col-sm-4">
                             <div class="description-block">
                                 <span class="description-text small">CHIPS</span>
                                 <div style="white-space: nowrap;">
@@ -159,7 +159,7 @@
                         </div>
 
                         <!-- FAN -->
-                        <div class="col-xs-12 col-sm-4 hidden-xs">
+                        <div class="col-xs-4 col-sm-4">
                             <div class="description-block">
                                 <span class="description-text small">FANs</span>
                                 <div>
