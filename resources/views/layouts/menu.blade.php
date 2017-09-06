@@ -6,6 +6,19 @@
     <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i> <span>Monitoring</span></a>
 </li>
 
+<li class="{{ Request::is('alerts*') ? 'active' : '' }}">
+    <a href="{!! route('alerts.index') !!}">
+        <i class="fa fa-warning"></i>
+        <span>Alerts</span>
+        @if(Auth::user()->alerts->where('status','new')->count() > 0)
+            <span class="pull-right-container">
+              <span class="label label-danger pull-right">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+            </span>
+        @endif
+    </a>
+</li>
+
+
 <li class="treeview {{ Route::is('antMiners.show') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-folder"></i>
@@ -22,15 +35,4 @@
 </li>
 
 
-<li class="{{ Request::is('alerts*') ? 'active' : '' }}">
-    <a href="{!! route('alerts.index') !!}">
-        <i class="fa fa-warning"></i>
-        <span>Alerts</span>
-        @if(Auth::user()->alerts->where('status','new')->count() > 0)
-            <span class="pull-right-container">
-              <span class="label label-danger pull-right">{{Auth::user()->alerts->where('status','new')->count()}}</span>
-            </span>
-        @endif
-    </a>
-</li>
 

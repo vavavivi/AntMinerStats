@@ -6,7 +6,7 @@
             <div class="login-logo">
                 <i class="fa fa-btc fa-2x"></i>
                 <br>
-                <a href="{{ url('/home') }}">AntSTATS <sup>1.0</sup></a>
+                <a href="{{ url('/home') }}">{!! env('APP_FULL_NAME') !!}</a>
             </div>
 
             <form method="post" action="{{ url('/login') }}">

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <title>AntStats - Auth</title>
+    <title>Login - {!! env('APP_NAME') !!}</title>
 
     <!-- BASE CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- CUSTOM -->
-    <link rel="stylesheet" href="css/custom-24082501.css">
+    <link rel="stylesheet" href="/css/custom.css?060917">
 @yield('css')
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

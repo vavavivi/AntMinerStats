@@ -36,15 +36,14 @@ class HomeController extends Controller
 
         $chartjs_miners = app()->chartjs
             ->name('MinersType')
-            ->type('doughnut')
-            ->size(['width' => 400, 'height' => 265])
+            ->type('horizontalBar')
+            ->size(['width' => 400, 'height' => 140])
             ->labels(['AntMiner S7', 'AntMiner S9/T9'])
             ->datasets([
                 [
                     "label" => "Miners Types",
                     "backgroundColor" => ['rgb(255, 99, 132)', 'rgb(255, 205, 86)'],
-
-                    'data' => [$s7->count(), $st9->count()],
+                    'data' => [$s7->count(), $st9->count(),0],
                 ]
             ]);
 

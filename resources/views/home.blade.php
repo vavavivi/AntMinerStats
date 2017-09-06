@@ -1,93 +1,92 @@
 @extends('layouts.app')
 
+@section('title','Dashboard - ')
+
 @section('content')
     <section class="content">
+
         <div class="row">
-            <div class="col-sm-4 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-cog fa-spin"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Active / Total Miners</span>
-                        <span class="info-box-number">{{Auth::user()->miners->count()}} / {{Auth::user()->miners->count()}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-rocket animated infinite pulse"></i></span>
+                    <span class="info-box-icon bg-blue"><img src="/images/hashrate-64.png"></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Total hashrate</span>
                         <span class="info-box-number">{{Auth::user()->hashrate}} TH/s</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-warning"></i></span>
+                        <span class="info-box-text">Total Hashrate</span>
 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-olive"><img src="/images/miners-64.png"></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Alerts</span>
+                        <span class="info-box-number">{{Auth::user()->miners->count()}} / {{Auth::user()->miners->count()}}</span>
+                        <span class="info-box-text">Active / Total Miners</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-warning animated tada"></i></span>
+                    <div class="info-box-content">
                         <span class="info-box-number">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+                        <span class="info-box-text">Miners alerts</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="clearfix"></div>
+
         <div class="row">
-            <div class="col-sm-8 col-xs-12">
+            <div class="col-sm-12 col-xs-12">
                 <div class="box box-default">
                     <div class="box-header">
-                        <h2>Welcome to Bitmain ASIC statistics</h2>
-                        <h3>Real time monitoring system for Bitmain <b>ANT</b>MINERs</h3>
+                        <h1 class="text-center">Welcome to {!! env('APP_NAME') !!}</h1>
+                        <h2 class="text-center">Real time monitoring system for Bitmain <b>ANT</b>MINERs</h2>
+
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
-                        <h3>System features:</h3>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i> Support for S7, S9 & T9 ASICs (support for L3+ & D3 will be added later)</li>
-                            <li><i class="fa fa-check"></i> Alerts & notifications via telegram bot <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a></li>
-                            <li><i class="fa fa-check"></i> Adaptive & responsive design</li>
-                            <li><i class="fa fa-check"></i> 3 days statistics with charts</li>
-                            <li><i class="fa fa-check"></i> Free for home use (up to 3 miners)</li>
-                            <li>
-                                <i class="fa fa-check"></i> Easy setup:
-                                <ol >
-                                    <li>Alow acceess to ASIC API port (4028) on your router</li>
-                                    <li>Add miner to your miners list</li>
-                                    <li>Setup triggers for hashrate & temperature</li>
-                                    <li>Talk to <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a> to get your api key</li>
-                                    <li>Done</li>
-                                </ol>
-                            </li>
-                        </ul>
-                        <br>
-                        <p>Detailed instructions can be found at Information section</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-xs-12">
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Miners</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div id="chart-container">
-                            {!! $chartjs_miners->render() !!}
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <h3>System features:</h3>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-check"></i> Support for S7, S9 & T9 ASICs (support for L3+ & D3 will be added later)</li>
+                                    <li><i class="fa fa-check"></i> Adaptive & responsive design</li>
+                                    <li><i class="fa fa-check"></i> Easy setup and instalation</li>
+                                    <li><i class="fa fa-check"></i> 3 days statistics with charts</li>
+                                    <li><i class="fa fa-check"></i> Alerts & notifications via telegram bot <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a></li>
+                                    <li><i class="fa fa-check"></i> Free for home use (up to 3 miners)</li>
+                                    <li><i class="fa fa-check"></i> Online support (paid subscription)</li>
+                                </ul>
+                                <br>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="well well-sm">
+                                    <h3 class="no-margin m-b-10">How to setup AntSTATS:</h3>
+                                    <ol>
+                                        <li>Alow acceess to ASIC API port (4028) on your router</li>
+                                        <li>Add miner to your miners list</li>
+                                        <li>Setup triggers for hashrate & temperature</li>
+                                        <li>Talk to <a href="https://telegram.me/AntMinerNotify_bot">@AntMinerNotify_bot</a> to get your api key</li>
+                                        <li>Done</li>
+                                    </ol>
+                                    <p>Detailed instructions can be found at Information section</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-8 col-xs-12">
+
+            <div class="col-sm-12 col-xs-12">
                 <div class="box box-default">
                     <div class="box-header">
-                        <h2>Change Log</h2>
+                        <h2>Change log:</h2>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         </div>
@@ -255,6 +254,25 @@
                 </div>
             </div>
         </div>
+
+        {{--
+           <div class="col-sm-4 col-xs-12">
+               <div class="box box-default">
+                   <div class="box-header with-border">
+                       <h3 class="box-title">Miners types</h3>
+                       <div class="box-tools pull-right">
+                           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                       </div>
+                   </div>
+                   <div class="box-body">
+                       <div id="chart-container">
+                           {!! $chartjs_miners->render() !!}
+                       </div>
+                   </div>
+               </div>
+           </div>
+           --}}
+
     </section>
 @endsection
 
