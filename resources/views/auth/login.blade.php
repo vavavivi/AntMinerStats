@@ -4,7 +4,7 @@
     <div class="login-box">
         <div class="login-box-body">
             <div class="login-logo">
-                <i class="fa fa-btc fa-2x"></i>
+                <img src="/images/antstats-logo-bw.png">
                 <br>
                 <a href="{{ url('/home') }}">{!! env('APP_FULL_NAME') !!}</a>
             </div>

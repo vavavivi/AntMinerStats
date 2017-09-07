@@ -24,6 +24,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .color-red       { color: #dd4b39;}
+.color-green     { color: #00a65a;}
 .color-white       { color: #ffffff;}
 .color-white:hover { color: #ccc;}
 
@@ -63,10 +64,22 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     top: -2px;
 }
 
-.table tr td { padding: 4px !important; }
-.table-border { border: 1px solid #efefef; border-top: 0px; }
-
 #antMiners-table td { padding: 6px 6px 6px 5px !important; }
+
+.table thead th { background-color: #dfdfdf !important; }
+.table>thead>tr>th {border-bottom: 1px solid #cfcfcf; }
+
+.table tr td { padding: 4px !important; }
+
+.table-td-valign-middle td, .table-th-valign-middle th, .table-valign-middle td, .table-valign-middle th, .td-valign-middle {
+    vertical-align: middle !important;
+}
+
+.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th
+{
+    padding: 3px 4px;
+    font-size: 95%;
+}
 
 .connectedSortable .bg-gray { background-color: #888 !important; color: #fff; }
 .connectedSortable .box-title { color: #fff; font-size: 100%;}
@@ -114,67 +127,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .login-logo i { color: #444;}
-
-table thead th {
-    background-color: #dfdfdf !important;
-}
-
-.table-td-valign-middle td, .table-th-valign-middle th, .table-valign-middle td, .table-valign-middle th, .td-valign-middle {
-    vertical-align: middle !important;
-}
-
-.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th
-{
-    padding: 3px 4px;
-    font-size: 95%;
-}
-
 .button-block { margin-bottom: 10px; }
 
-@media (min-width: 1680px) {
-    #antMiners-table td { padding-right: 25px !important; }
-}
-
-@media (min-width: 767px) {
-    .navbar .title {
-        display: none;
-    }
-}
-
-@media (max-width: 1024px) {
-    #antMiners-table td { padding: 3px 2px 3px 5px !important; font-size: 12px; }
-
-    #antMiners-table .btn { font-size: 11px; }
-    .miner-temp { width: 28px; }
-    .miner-temp2 { width: 56px; }
-}
-
-@media (max-width: 767px) {
-    .main-header .logo {
-        display: none;
-    }
-    .navbar .title {
-        display: inherit;
-    }
-    .main-sidebar, .left-side {
-        padding-top: 50px;
-    }
-}
-
-@media (max-width: 480px) {
-    .content-header {
-        padding-bottom: 15px;
-    }
-
-    .table-condensed { font-size: 82%;}
-    .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
-    .button-block { margin-top: 10px; margin-bottom: 10px; }
-    .pagination>li>a, .pagination>li>span {
-        padding: 3px 7px;
-        line-height: 1.3857143;
-        font-size: 90%;
-    }
-}
 
 .btn-group {
     display: inline-flex;
@@ -182,47 +136,46 @@ table thead th {
 
 .info-box-number { margin-top: 12px; font-size: 180%; }
 
+/* ---- COLORING ---- */
 
-
-/* COLORING */
-
+/* Основная плашка */
 .skin-yellow .main-header .navbar {
-    background-color: #878787;
-}
-
-.skin-yellow .main-header .logo {
-    background-color: #a1a1a1;
-}
-
-.skin-yellow .main-header .logo:hover {
-    background-color: #717171;
-}
+    background-color: #437096; }
 .skin-yellow .main-header .navbar .sidebar-toggle:hover {
-    background-color: #717171;
-}
+    background-color: #497ba5; }
 
+/* Фон под логотипом */
+.skin-yellow .main-header .logo {
+    background-color: #3b6284; }
+.skin-yellow .main-header .logo:hover {
+    background-color: #497ba5; }
+
+/* Активная менюшка */
 .skin-yellow .sidebar-menu>li:hover>a, .skin-yellow .sidebar-menu>li.active>a {
+    border-left-color: #497ba5;
     background: #1e282c;
-    border-left-color: #9a9a9a;
 }
 
+/* Плашка основного блока */
+.box.box-primary { border-top-color: #497ba5; }
+
+/* Основная кнопка */
 .btn-primary {
-    background-color: #878787 !important;
-    border-color: #7c7c7c !important;
+    background-color: #497ba5 !important;
+    border-color: #437096 !important;
 }
 
+/* Кнопки пагинации */
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     background-color: #878787 !important;
     border-color: #7c7c7c !important;
 }
 
-.box.box-primary {
-    border-top-color: #878787;
-}
-
 .nav-tabs-custom>.nav-tabs>li.active {
     border-top-color: #878787;
 }
+
+/* ---- COLORING END ---- */
 
 .btn-white {
     background-color: #fff !important;
@@ -333,3 +286,47 @@ table thead th {
 .p-l-30 { padding-left: 30px !important; }
 .p-l-35 { padding-left: 35px !important; }
 .p-l-40 { padding-left: 40px !important; }
+
+@media (min-width: 1680px) {
+    #antMiners-table td { padding-right: 25px !important; }
+}
+
+@media (min-width: 767px) {
+    .navbar .title {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    #antMiners-table td { padding: 3px 2px 3px 5px !important; font-size: 12px; }
+
+    #antMiners-table .btn { font-size: 11px; }
+    .miner-temp { width: 28px; }
+    .miner-temp2 { width: 56px; }
+}
+
+@media (max-width: 767px) {
+    .main-header .logo {
+        display: none;
+    }
+    .navbar .title {
+        display: inherit;
+    }
+    .main-sidebar, .left-side {
+        padding-top: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-header { padding-bottom: 15px; }
+
+    .table-condensed { font-size: 82%;}
+    .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
+    .button-block { margin-top: 10px; margin-bottom: 10px; }
+    .pagination>li>a, .pagination>li>span {
+        padding: 3px 7px;
+        line-height: 1.3857143;
+        font-size: 90%;
+    }
+    .table thead th { font-size: 85%; }
+}

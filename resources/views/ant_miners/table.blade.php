@@ -1,10 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
-            <table class="table table-border table-hover table-valign-middle" id="antMiners-table">
+            <table class="table table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                    <th width="1%" class="text-center"><i class="fa fa-info-circle"></i></th>
-                    <th width="1%" class="text-center" colspan="2">Title</th>
+                    <th width="1%" class="text-center" colspan="3">Title</th>
                     <th width="1%" class="text-center">Errors</th>
                     <th width="1%" class="text-center">TH/S</th>
                     <th width="1%" class="text-left">Board Temp,°C</th>
@@ -15,10 +14,12 @@
                     <th width="100%" class="text-left"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
+                @php ( $error_status = 0 )
+
                 @foreach($antMiners->sortBy('order') as $antMiner)
                     <tr>
-                        <td class="bg-green">
-                            <span style="margin-left: 3px;"><i class="fa fa-check-circle"></i></span>
+                        <td class="text-center">
+                            <span style="margin-left: 3px;"><i class="fa fa-check-circle color-green"></i></span>
                         </td>
 
                         <!-- TITLE -->
@@ -47,52 +48,50 @@
                             <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! number_format(round(intval($data[$antMiner->id]['hash_rate'])/1000,2),2) !!}</a>
                         </td>
 
-
-
                         <!-- TEMP -->
                         <td class="text-left" nowrap="">
-                            @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                @if($antMiner->type == 'bmminer')
-                                    <div class="btn-group">
-                                        <a class='btn btn-{{ intval($chain_data['brd_temp1']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
-                                            {{$chain_data['brd_temp1']}}°
-                                        </a>
-                                        <a class='btn btn-{{ intval($chain_data['brd_temp2']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
-                                            {{$chain_data['brd_temp2']}}°
-                                        </a>
-                                    </div>
-                                @else
-                                    <a class='btn btn-{{ intval($chain_data['brd_temp']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp2'>
-                                        {{$chain_data['brd_temp']}}°
+                        @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                            @if($antMiner->type == 'bmminer')
+                                <div class="btn-group">
+                                    <a class='btn btn-{{ intval($chain_data['brd_temp1']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
+                                        {{$chain_data['brd_temp1']}}°
                                     </a>
-                                @endif
-                            @endforeach
+                                    <a class='btn btn-{{ intval($chain_data['brd_temp2']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
+                                        {{$chain_data['brd_temp2']}}°
+                                    </a>
+                                </div>
+                            @else
+                                <a class='btn btn-{{ intval($chain_data['brd_temp']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp2'>
+                                    {{$chain_data['brd_temp']}}°
+                                </a>
+                            @endif
+                        @endforeach
                         </td>
 
                         <!-- Chips -->
                         <td class="text-left" nowrap>
-                            @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                <div class="btn-group">
-                                    <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
-                                    <a class="btn btn-{{ $chain_data['chips_condition']['er'] <= 0 ? 'default' : 'danger'}} btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</a>
-                                </div>
-                            @endforeach
+                        @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                            <div class="btn-group">
+                                <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
+                                <a class="btn btn-{{ $chain_data['chips_condition']['er'] <= 0 ? 'default' : 'danger'}} btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</a>
+                            </div>
+                        @endforeach
                         </td>
 
                         <!--Board Freq -->
                         <td class="text-left" nowrap>
-                            @if($data[$antMiner->id])
-                                @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                    <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
-                                    <div class="progress vertical progress-xxs">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                             aria-valuenow="{{intval($chain_data['brd_freq'])}}"
-                                             aria-valuemin="100" aria-valuemax="1000"
-                                             style="height: {{round(intval($chain_data['brd_freq']) * 100 / (1000 - 100))}}%">
-                                        </div>
+                        @if($data[$antMiner->id])
+                            @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                                <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
+                                <div class="progress vertical progress-xxs">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                         aria-valuenow="{{intval($chain_data['brd_freq'])}}"
+                                         aria-valuemin="100" aria-valuemax="1000"
+                                         style="height: {{round(intval($chain_data['brd_freq']) * 100 / (1000 - 100))}}%">
                                     </div>
-                                @endforeach
-                            @endif
+                                </div>
+                            @endforeach
+                        @endif
                         </td>
 
                         <!-- FANS -->
@@ -108,9 +107,9 @@
 
                         <td class="text-center" nowrap>
                             @if($loop->first)
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-angle-down"></i></a>
                             @elseif($loop->last)
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
+                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-angle-up"></i></a>
                             @else
                                 <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
                                 <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
