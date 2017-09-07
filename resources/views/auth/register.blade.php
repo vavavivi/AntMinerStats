@@ -1,13 +1,12 @@
 @extends('layouts.auth')
 
 @section('content')
-
     <div class="login-box">
         <div class="login-box-body">
             <div class="login-logo">
-                <i class="fa fa-btc fa-2x"></i>
-                <br>
-                <a href="{{ url('/home') }}">AntSTATS <sup>1.0</sup></a>
+                <img src="/images/antstats-logo-bw.png"><br>
+                <a href="{{ url('/home') }}">{!! env('APP_FULL_NAME') !!}</a><br>
+                <p class="text-center">Real time monitoring system</p>
             </div>
 
             <form  method="POST" action="{{ route('register') }}">
@@ -48,12 +47,12 @@
                 </div>
 
                 <div class="row">
-
-                    <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                    <div class="col-xs-6 text-left">
+                        <a href="/login/" class="btn btn-default btn-flat btn-sm">&larr; Back to Login</a>
                     </div>
-                    <!-- /.col -->
+                    <div class="col-xs-6 text-right">
+                        <button type="submit" class="btn btn-primary btn-flat btn-sm">Register new user &rarr;</button>
+                    </div>
                 </div>
             </form>
         </div>

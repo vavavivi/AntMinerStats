@@ -6,10 +6,10 @@
             <div class="login-logo">
                 <img src="/images/antstats-logo-bw.png"><br>
                 <a href="{{ url('/home') }}">{!! env('APP_FULL_NAME') !!}</a><br>
-
+                <p class="text-center">Real time monitoring system</p>
             </div>
 
-            <p>AntMiners monitoring</p>
+
 
             <form method="post" action="{{ url('/login') }}">
                 {!! csrf_field() !!}

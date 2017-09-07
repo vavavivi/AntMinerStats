@@ -127,8 +127,18 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .login-logo i { color: #444;}
-.button-block { margin-bottom: 10px; }
+.login-logo p { font-size: 13px; text-transform: uppercase; }
 
+.login-box, .register-box {
+    margin: 11% auto;
+    box-shadow: 1px 1px 15px #888;
+}
+
+.login-page, .register-page {
+    background: url('/images/logon-wp.jpg');
+}
+
+.button-block { margin-bottom: 10px; }
 
 .btn-group {
     display: inline-flex;
