@@ -55,8 +55,6 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 
 .freq        {
     width: 60px;
-    position: relative;
-    top: -3px;
 }
 
 .label {
@@ -64,7 +62,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     top: -2px;
 }
 
-#antMiners-table td { padding: 6px 6px 6px 5px !important; }
+#antMiners-table { border: 1px solid #efefef; }
+#antMiners-table td { padding: 7px 6px 7px 5px !important; }
 
 .table thead th { background-color: #dfdfdf !important; }
 .table>thead>tr>th {border-bottom: 1px solid #cfcfcf; }
@@ -308,8 +307,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 @media (max-width: 1024px) {
-    #antMiners-table td { padding: 3px 2px 3px 5px !important; font-size: 12px; }
-
+    #antMiners-table th { padding: 5px 2px 5px 5px !important; font-size: 12px; }
+    #antMiners-table td { padding: 5px 2px 5px 5px !important; font-size: 12px; }
     #antMiners-table .btn { font-size: 11px; }
     .miner-temp { width: 28px; }
     .miner-temp2 { width: 56px; }

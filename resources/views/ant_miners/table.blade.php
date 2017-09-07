@@ -1,6 +1,4 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
+<div class="table-responsive">
             <table class="table table-hover table-valign-middle" id="antMiners-table">
                 <thead>
                     <th width="1%" class="text-center" colspan="3">Title</th>
@@ -83,13 +81,6 @@
                         @if($data[$antMiner->id])
                             @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                                 <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
-                                <div class="progress vertical progress-xxs">
-                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                                         aria-valuenow="{{intval($chain_data['brd_freq'])}}"
-                                         aria-valuemin="100" aria-valuemax="1000"
-                                         style="height: {{round(intval($chain_data['brd_freq']) * 100 / (1000 - 100))}}%">
-                                    </div>
-                                </div>
                             @endforeach
                         @endif
                         </td>
@@ -131,5 +122,3 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
