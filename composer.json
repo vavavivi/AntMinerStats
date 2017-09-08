@@ -11,6 +11,7 @@
         "infyomlabs/laravel-generator": "5.4.x-dev",
         "irazasyed/telegram-bot-sdk": "^2.0",
         "khill/lavacharts": "3.0.*",
+        "kozz/laravel-guzzle-provider": "~6.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0"

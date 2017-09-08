@@ -186,6 +186,9 @@ return [
 	    Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
+	    Kozz\Laravel\Providers\Guzzle::class,
+
+
     ],
 
     /*
@@ -240,6 +243,7 @@ return [
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
 
         'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'Guzzle' => Kozz\Laravel\Facades\Guzzle::class,
 
 
     ],

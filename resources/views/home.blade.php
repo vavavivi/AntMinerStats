@@ -82,7 +82,62 @@
                     </div>
                 </div>
             </div>
-
+            @if($whattomine)
+                <div class="col-sm-12 col-xs-12">
+                    <div class="box box-default">
+                        <div class="box-header">
+                            <h1 class="text-center">Mining profit calculator (based on <a href="https://whattomine.com" target="_blank">whattomine.com</a> )</h1>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <table class="table table-hover table-valign-middle" id="antMiners-table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                @foreach($whattomine as $coin)
+                                                    @if($coin['btc_revenue'] > 0)
+                                                        <th>{{$coin['tag']}}</th>
+                                                    @endif
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>approx btc per day</td>
+                                            @foreach($whattomine as $coin)
+                                                @if($coin['btc_revenue'] > 0)
+                                                    <td>± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i></td>
+                                                @endif
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>current profability</td>
+                                            @foreach($whattomine as $coin)
+                                                @if($coin['btc_revenue'] > 0)
+                                                    <td>{{$coin['profitability']}} %</td>
+                                                @endif
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td>24 hour profability</td>
+                                            @foreach($whattomine as $coin)
+                                                @if($coin['btc_revenue'] > 0)
+                                                    <td>{{$coin['profitability24']}} %</td>
+                                                @endif
+                                            @endforeach
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="col-sm-12 col-xs-12">
                 <div class="box box-default">
                     <div class="box-header">
@@ -254,6 +309,9 @@
                 </div>
             </div>
         </div>
+
+
+
 
         {{--
            <div class="col-sm-4 col-xs-12">

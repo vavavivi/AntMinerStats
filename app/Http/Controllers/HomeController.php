@@ -6,7 +6,9 @@ use App\AntMinerLog;
 use App\Models\AntMiner;
 use Carbon\Carbon;
 use Flash;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Kozz\Laravel\Facades\Guzzle;
 use Validator;
 
 class HomeController extends Controller
@@ -28,26 +30,48 @@ class HomeController extends Controller
      */
     public function index()
     {
+	    $whattomine = null;
 
-    	$miners = \Auth::user()->miners;
+    	if(\Auth::user()->hashrate > 1)
+	    {
+		    $response = null;
 
-    	$st9 = $miners->where('type','bmminer');
-    	$s7 = $miners->where('type','cgminer');
+		    try{
+		    	$response = Guzzle::get('https://whattomine.com/asic.json');
+		    } catch (\Exception $e){
 
-        $chartjs_miners = app()->chartjs
-            ->name('MinersType')
-            ->type('horizontalBar')
-            ->size(['width' => 400, 'height' => 140])
-            ->labels(['AntMiner S7', 'AntMiner S9/T9'])
-            ->datasets([
-                [
-                    "label" => "Miners Types",
-                    "backgroundColor" => ['rgb(255, 99, 132)', 'rgb(255, 205, 86)'],
-                    'data' => [$s7->count(), $st9->count(),0],
-                ]
-            ]);
+		    }
 
-        return view('home', compact('chartjs_th','chartjs_miners'));
+		    if($response)
+		    {
+			    $reply = json_decode($response->getBody()->getContents(), true);
+
+
+
+			    $i = 1;
+			    $hashrate_k = \Auth::user()->hashrate / 14;
+
+			    foreach($reply['coins'] as $coin)
+			    {
+				    if($coin['algorithm'] == 'SHA-256')
+				    {
+					    $whattomine[$i]['tag'] = $coin['tag'];
+					    $whattomine[$i]['btc_revenue'] = round(doubleval($coin['btc_revenue']) * $hashrate_k  , 5) ;
+					    $whattomine[$i]['btc_revenue_r'] = round($coin['btc_revenue'],8) ;
+					    $whattomine[$i]['profitability'] = $coin['profitability'];
+					    $whattomine[$i]['profitability24'] = $coin['profitability24'];
+
+					    $i++;
+				    }
+
+			    }
+
+		    }
+	    }
+
+    	return view('home')
+		    ->with('whattomine',$whattomine)
+		    ;
     }
 
     public function getProfile()
