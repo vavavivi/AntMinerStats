@@ -36,9 +36,39 @@ class HomeController extends Controller
 	    {
 		    $response = null;
 
+		    $client = new Client();
+
+		    $q = [
+			    'query' => [
+				    'utf8'    => '✓',
+				    'sha256f' => 'true',
+				    'factor'  => [
+					    'sha256_hr' => \Auth::user()->hashrate * 1024,
+					    'sha256_p'  => '1400',
+					    'cost'      => '0',
+					    'exchanges' => [
+						    '',
+						    'bittrex',
+						    'bleutrade',
+						    'bter',
+						    'c_cex',
+						    'cryptopia',
+						    'poloniex',
+						    'yobit',
+					    ],
+				    ],
+				    'sort'    => 'Profit',
+				    'volume'  => '0',
+				    'revenue' => '24h',
+				    'dataset' => 'Main',
+				    'commit'  => 'Calculate',
+			    ]
+		    ];
+
 		    try{
-		    	$response = Guzzle::get('http://whattomine.com/asic.json');
-		    } catch (\Exception $e){
+			    $response = $client->request('GET', 'http://whattomine.com/asic.json', $q);
+		    }
+		    catch (\Exception $e){
 
 		    }
 
@@ -46,25 +76,7 @@ class HomeController extends Controller
 		    {
 			    $reply = json_decode($response->getBody()->getContents(), true);
 
-
-
-			    $i = 1;
-			    $hashrate_k = \Auth::user()->hashrate / 14;
-
-			    foreach($reply['coins'] as $coin)
-			    {
-				    if($coin['algorithm'] == 'SHA-256')
-				    {
-					    $whattomine[$i]['tag'] = $coin['tag'];
-					    $whattomine[$i]['btc_revenue'] = round(doubleval($coin['btc_revenue']) * $hashrate_k  , 5) ;
-					    $whattomine[$i]['btc_revenue_r'] = round($coin['btc_revenue'],8) ;
-					    $whattomine[$i]['profitability'] = $coin['profitability'];
-					    $whattomine[$i]['profitability24'] = $coin['profitability24'];
-
-					    $i++;
-				    }
-
-			    }
+			    $whattomine = $reply['coins'];
 
 		    }
 	    }

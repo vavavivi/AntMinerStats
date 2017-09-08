@@ -106,30 +106,30 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>approx btc per day</td>
-                                            @foreach($whattomine as $coin)
-                                                @if($coin['btc_revenue'] > 0)
-                                                    <td>± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i></td>
-                                                @endif
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>current profability</td>
-                                            @foreach($whattomine as $coin)
-                                                @if($coin['btc_revenue'] > 0)
-                                                    <td>{{$coin['profitability']}} %</td>
-                                                @endif
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            <td>24 hour profability</td>
-                                            @foreach($whattomine as $coin)
-                                                @if($coin['btc_revenue'] > 0)
-                                                    <td>{{$coin['profitability24']}} %</td>
-                                                @endif
-                                            @endforeach
-                                        </tr>
+                                            <tr>
+                                                <td>Est. Rewards</td>
+                                                @foreach($whattomine as $coin)
+                                                    @if($coin['btc_revenue'] > 0)
+                                                        <td bgcolor="#{{ $coin['profitability'] < 100 ? 'FF0000' : '00FF00' }}">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                    @endif
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Profitability</td>
+                                                @foreach($whattomine as $coin)
+                                                    @if($coin['btc_revenue'] > 0)
+                                                        <td bgcolor="#{{ $coin['profitability'] < 100 ? 'FF0000' : '00FF00' }}">{{$coin['profitability']}} %</td>
+                                                    @endif
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td>Profitability 24 hours</td>
+                                                @foreach($whattomine as $coin)
+                                                    @if($coin['btc_revenue'] > 0)
+                                                        <td bgcolor="#{{ $coin['profitability24'] < 100 ? 'FF0000' : '00FF00' }}">{{$coin['profitability24']}} %</td>
+                                                    @endif
+                                                @endforeach
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
