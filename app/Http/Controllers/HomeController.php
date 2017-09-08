@@ -37,9 +37,9 @@ class HomeController extends Controller
 		    $response = null;
 
 		    try{
-		    	$response = Guzzle::get('https://whattomine.com/asic.json');
+		    	$response = Guzzle::get('http://whattomine.com/asic.json');
 		    } catch (\Exception $e){
-				return $e;
+
 		    }
 
 		    if($response)
