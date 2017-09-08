@@ -94,7 +94,8 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
-                                    <table class="table table-hover table-valign-middle" id="antMiners-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-valign-middle" id="antMiners-table">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -132,6 +133,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
