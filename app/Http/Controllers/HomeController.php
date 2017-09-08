@@ -39,10 +39,8 @@ class HomeController extends Controller
 		    try{
 		    	$response = Guzzle::get('https://whattomine.com/asic.json');
 		    } catch (\Exception $e){
-
+				return $e;
 		    }
-
-		    return $reply = json_decode($response->getBody()->getContents(), true);
 
 		    if($response)
 		    {
