@@ -34,8 +34,6 @@ class HomeController extends Controller
 
     	if(\Auth::user()->hashrate > 1)
 	    {
-	    	return 123;
-
 		    $response = null;
 
 		    try{
@@ -43,6 +41,8 @@ class HomeController extends Controller
 		    } catch (\Exception $e){
 
 		    }
+
+		    return $reply = json_decode($response->getBody()->getContents(), true);
 
 		    if($response)
 		    {
