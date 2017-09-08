@@ -34,6 +34,8 @@ class HomeController extends Controller
 
     	if(\Auth::user()->hashrate > 1)
 	    {
+	    	return 123;
+
 		    $response = null;
 
 		    try{
