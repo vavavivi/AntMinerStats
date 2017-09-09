@@ -9,8 +9,6 @@
                 <p class="text-center">Real time monitoring system</p>
             </div>
 
-
-
             <form method="post" action="{{ url('/login') }}">
                 {!! csrf_field() !!}
 
@@ -41,9 +39,9 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-sm btn-primary btn-flat" style="margin-top: 5px;"><i class="fa fa-sign-in"></i> Login</button>
+                        <button type="submit" class="btn btn-sm btn-success btn-flat" style="margin-top: 5px;"><i class="fa fa-sign-in"></i> Login</button>
                         <a class="btn btn-sm btn-warning btn-flat" href="{{ url('/password/reset') }}" style="margin-left: 5px; margin-top: 5px;">Forgot password</a>
-                        <a class="btn btn-sm btn-danger btn-flat pull-right" href="{{ url('/register') }}" style="margin-left: 5px; margin-top: 5px;"><i class="fa fa-user-plus"></i> Register</a>
+                        <a class="btn btn-sm btn-primary btn-flat pull-right" href="{{ url('/register') }}" style="margin-left: 5px; margin-top: 5px;"><i class="fa fa-user-plus"></i> Register</a>
                     </div>
                 </div>
             </form>

@@ -101,7 +101,7 @@
                                                 <th></th>
                                                 @foreach($whattomine as $coin)
                                                     @if($coin['btc_revenue'] > 0)
-                                                        <th>{{$coin['tag']}}</th>
+                                                        <th class="text-center">{{$coin['tag']}}</th>
                                                     @endif
                                                 @endforeach
                                             </tr>
@@ -110,24 +110,36 @@
                                             <tr>
                                                 <td>Est. Rewards</td>
                                                 @foreach($whattomine as $coin)
-                                                    @if($coin['btc_revenue'] > 0)
-                                                        <td bgcolor="#{{ $coin['profitability'] < 100 ? 'FF0000' : '00FF00' }}">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                    @if ($coin['tag'] == "BTC")
+                                                            <td class="text-center btn-warning">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                    @else
+                                                        @if($coin['btc_revenue'] > 0)
+                                                            <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </tr>
                                             <tr>
                                                 <td>Profitability</td>
                                                 @foreach($whattomine as $coin)
-                                                    @if($coin['btc_revenue'] > 0)
-                                                        <td bgcolor="#{{ $coin['profitability'] < 100 ? 'FF0000' : '00FF00' }}">{{$coin['profitability']}} %</td>
+                                                    @if ($coin['tag'] == "BTC")
+                                                        <td class="text-center btn-warning">{{$coin['profitability']}} %</td>
+                                                    @else
+                                                        @if($coin['btc_revenue'] > 0)
+                                                            <td class="text-center btn-{{ ($coin['profitability'] < 100 ? 'danger' : 'success')  }}">{{$coin['profitability']}} %</td>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </tr>
                                             <tr>
                                                 <td>Profitability 24 hours</td>
                                                 @foreach($whattomine as $coin)
-                                                    @if($coin['btc_revenue'] > 0)
-                                                        <td bgcolor="#{{ $coin['profitability24'] < 100 ? 'FF0000' : '00FF00' }}">{{$coin['profitability24']}} %</td>
+                                                    @if ($coin['tag'] == "BTC")
+                                                        <td class="text-center btn-warning">{{$coin['profitability24']}} %</td>
+                                                    @else
+                                                        @if($coin['btc_revenue'] > 0)
+                                                            <td class="text-center btn-{{ $coin['profitability24'] < 100 ? 'danger' : 'success' }}">{{$coin['profitability24']}} %</td>
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </tr>
