@@ -111,7 +111,7 @@
                                                 <td>Est. Rewards</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
-                                                            <td class="text-center btn-warning">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                            <td class="text-center bg-warning">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
                                                     @else
                                                         @if($coin['btc_revenue'] > 0)
                                                             <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
