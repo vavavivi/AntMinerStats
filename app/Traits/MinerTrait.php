@@ -138,12 +138,7 @@ trait MinerTrait
 
         $stats = null;
 
-	    $stats['hash_rate'] = 0;
-
-        if(key_exists('GHS 5s',$miner_stats))
-        {
-	        $stats['hash_rate'] = round($miner_stats['GHS 5s']);
-        }
+	    $stats['hash_rate'] = round($miner_stats['GHS 5s']);
 
         $stats['hw'] = floatval($miner_stats['Device Hardware%']);
 
