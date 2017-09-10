@@ -52,13 +52,13 @@
 
             <!-- Welcome BOX-->
             <div class="col-sm-12 col-xs-12">
-                <div class="box box-default">
+                <div class="box box-default collapsed-box">
                     <div class="box-header">
                         <h1 class="text-center">Welcome to {!! env('APP_NAME') !!}</h1>
                         <h4 class="text-center">Real time monitoring system for Bitmain Miners</h4>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
