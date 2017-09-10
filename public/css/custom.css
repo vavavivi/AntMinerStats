@@ -1,44 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700&subset=cyrillic');
 
-@font-face {
-    font-family: "Flaticon";
-    src: url("/fonts/Flaticon.eot");
-    src: url("/fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/Flaticon.woff") format("woff"),
-    url("/fonts/Flaticon.ttf") format("truetype"),
-    url("/fonts/Flaticon.svg#Flaticon") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    @font-face {
-        font-family: "Flaticon";
-        src: url("/fonts/Flaticon.svg#Flaticon") format("svg");
-    }
-}
-
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
-[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-    font-family: Flaticon;
-    font-size: 20px;
-    font-style: normal;
-    margin-left: 20px;
-}
-
-.flaticon-mobile:before { content: "\f100"; }
-.flaticon-bitcoin-4:before { content: "\f101"; }
-.flaticon-bitcoin-3:before { content: "\f102"; }
-.flaticon-folder:before { content: "\f103"; }
-.flaticon-smartphone:before { content: "\f104"; }
-.flaticon-alert-hand-drawn-symbol:before { content: "\f105"; }
-.flaticon-analytics:before { content: "\f106"; }
-.flaticon-bitcoin-2:before { content: "\f107"; }
-.flaticon-monitor:before { content: "\f108"; }
-.flaticon-bitcoin-1:before { content: "\f109"; }
-.flaticon-bitcoin:before { content: "\f10a"; }
-
-
 body {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -182,7 +143,30 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     display: inline-flex;
 }
 
+.info-box-icon i { padding: 10px;
+    display: block;
+    font-size: 64px;
+    line-height: 1; }
 .info-box-number { margin-top: 12px; font-size: 180%; }
+
+ul.sidebar-menu li span {
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 100%;
+    padding-left: 5px;
+}
+
+ul.sidebar-menu li i {
+    font-size: 145%;
+    position: relative;
+    top: 3px;
+    left: -3px;
+}
+
+.box-header>.box-tools {
+    top: 20px;
+}
+
 
 /* ---- COLORING ---- */
 

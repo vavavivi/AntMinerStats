@@ -8,30 +8,39 @@
         <div class="row">
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-blue"><img src="/images/hashrate-64.png"></span>
-
+                    <span class="info-box-icon bg-blue">
+                        <a href="{!! route('antMiners.index') !!}">
+                            <img src="/images/icons/wh/004-bitcoin.png" width="64">
+                        </a>
+                    </span>
                     <div class="info-box-content">
-                        <span class="info-box-number">{{Auth::user()->hashrate}} TH/s</span>
-                        <span class="info-box-text">Total Hashrate</span>
+                        <span class="info-box-number text-center">{{Auth::user()->hashrate}} TH/s</span>
+                        <span class="info-box-text text-center">Total Hashrate</span>
 
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-olive"><img src="/images/miners-64.png"></span>
+                    <span class="info-box-icon bg-olive">
+                        <a href="{!! route('antMiners.index') !!}">
+                            <img src="/images/icons/wh/010-monitor.png" width="64">
+                        </a>
+                    </span>
                     <div class="info-box-content">
-                        <span class="info-box-number">{{Auth::user()->miners->count()}} / {{Auth::user()->miners->count()}}</span>
-                        <span class="info-box-text">Active / Total Miners</span>
+                        <span class="info-box-number text-center">{{Auth::user()->miners->count()}} / {{Auth::user()->miners->count()}}</span>
+                        <span class="info-box-text text-center">Active / Total Miners</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-warning animated tada"></i></span>
+                    <span class="info-box-icon bg-red">
+                        <a href="{!! route('alerts.index') !!}"><img src="/images/icons/wh/006-smartphone.png" width="64"></a>
+                    </span>
                     <div class="info-box-content">
-                        <span class="info-box-number">{{Auth::user()->alerts->where('status','new')->count()}}</span>
-                        <span class="info-box-text">Miners alerts</span>
+                        <span class="info-box-number text-center">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+                        <span class="info-box-text text-center">Miners alerts</span>
                     </div>
                 </div>
             </div>
@@ -40,11 +49,13 @@
         <div class="clearfix"></div>
 
         <div class="row">
+
+            <!-- Welcome BOX-->
             <div class="col-sm-12 col-xs-12">
                 <div class="box box-default">
                     <div class="box-header">
                         <h1 class="text-center">Welcome to {!! env('APP_NAME') !!}</h1>
-                        <h2 class="text-center">Real time monitoring system for Bitmain <b>ANT</b>MINERs</h2>
+                        <h4 class="text-center">Real time monitoring system for Bitmain Miners</h4>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -82,11 +93,14 @@
                     </div>
                 </div>
             </div>
+
             @if($whattomine)
+                <!-- Mining calculator -->
                 <div class="col-sm-12 col-xs-12">
                     <div class="box box-default">
                         <div class="box-header">
-                            <h1 class="text-center">Mining profit calculator (based on <a href="https://whattomine.com" target="_blank">whattomine.com</a> )</h1>
+                            <h1 class="text-center">Mining profit calculator</h1>
+                            <h4 class="text-center">based on <a href="https://whattomine.com" target="_blank">whattomine.com</a></h4>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
@@ -95,13 +109,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-valign-middle" id="antMiners-table">
+                                        <table class="table table-bordered table-hover table-valign-middle" id="antMiners-table">
                                         <thead>
                                             <tr>
                                                 <th></th>
                                                 @foreach($whattomine as $coin)
                                                     @if($coin['btc_revenue'] > 0)
-                                                        <th class="text-center">{{$coin['tag']}}</th>
+                                                        <th class="text-center"  @if ($coin['tag'] == "BTC") style="font-size: 130%;  border: 2px dashed #333; border-bottom: 0px;" @endif>{{$coin['tag']}}</th>
                                                     @endif
                                                 @endforeach
                                             </tr>
@@ -111,10 +125,10 @@
                                                 <td>Est. Rewards</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
-                                                            <td class="text-center bg-warning">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                            <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">± {{$coin['btc_revenue']}} <small>BTC</small></td>
                                                     @else
                                                         @if($coin['btc_revenue'] > 0)
-                                                            <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">± {{$coin['btc_revenue']}} <i class="fa fa-btc" aria-hidden="true"></i> </td>
+                                                            <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">± {{$coin['btc_revenue']}} <small>BTC</small> </td>
                                                         @endif
                                                     @endif
                                                 @endforeach
@@ -123,7 +137,7 @@
                                                 <td>Profitability</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
-                                                        <td class="text-center btn-warning">{{$coin['profitability']}} %</td>
+                                                        <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">{{$coin['profitability']}} %</td>
                                                     @else
                                                         @if($coin['btc_revenue'] > 0)
                                                             <td class="text-center btn-{{ ($coin['profitability'] < 100 ? 'danger' : 'success')  }}">{{$coin['profitability']}} %</td>
@@ -135,7 +149,7 @@
                                                 <td>Profitability 24 hours</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
-                                                        <td class="text-center btn-warning">{{$coin['profitability24']}} %</td>
+                                                        <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;">{{$coin['profitability24']}} %</td>
                                                     @else
                                                         @if($coin['btc_revenue'] > 0)
                                                             <td class="text-center btn-{{ $coin['profitability24'] < 100 ? 'danger' : 'success' }}">{{$coin['profitability24']}} %</td>
@@ -152,12 +166,14 @@
                     </div>
                 </div>
             @endif
+
+            <!-- Change log -->
             <div class="col-sm-12 col-xs-12">
-                <div class="box box-default">
+                <div class="box box-default collapsed-box">
                     <div class="box-header">
-                        <h2>Change log:</h2>
+                        <h1 class="text-center">Change log</h1>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                     <div class="box-body">

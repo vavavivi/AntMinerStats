@@ -1,14 +1,17 @@
+<!-- DASHBOARD -->
 <li class="{{ Route::is('home') ? 'active' : '' }}">
-    <a href="/"><i class="fa fa-desktop"></i> <span>Dashboard</span></a>
+    <a href="/"><i class="ion-monitor"></i> <span>Dashboard</span></a>
 </li>
 
+<!-- MINER STATUS -->
 <li class="{{ Route::is('antMiners.index') ? 'active' : '' }}">
-    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i> <span>Monitoring</span></a>
+    <a href="{!! route('antMiners.index') !!}"><i class="ion-stats-bars"></i> <span>Monitoring</span></a>
 </li>
 
+<!-- ALERTS -->
 <li class="{{ Request::is('alerts*') ? 'active' : '' }}">
     <a href="{!! route('alerts.index') !!}">
-        <i class="fa fa-warning"></i>
+        <i class="ion-alert-circled"></i>
         <span>Alerts</span>
         @if(Auth::user()->alerts->where('status','new')->count() > 0)
             <span class="pull-right-container">
@@ -18,10 +21,10 @@
     </a>
 </li>
 
-
+<!-- MINER LIST -->
 <li class="treeview {{ Route::is('antMiners.show') ? 'active' : '' }}">
     <a href="#">
-        <i class="fa fa-folder"></i>
+        <i class="ion-cube"></i>
         <span>AntMiners</span>
         <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
     </a>
