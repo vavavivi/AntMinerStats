@@ -36,14 +36,12 @@ class AntMinerController extends AppBaseController
 		{
 			if($antMiner->active)
 			{
-				$miner_data = $this->formatMinerData($antMiner);
-				$data[$antMiner->id] = $miner_data;
+				$data[$antMiner->id] = $antMiner->antlogs->last();
 			}
 			else
 			{
 				$data[$antMiner->id] = null;
 			}
-
 		}
 
         return view('ant_miners.index')
@@ -171,35 +169,53 @@ class AntMinerController extends AppBaseController
 
 	    foreach($hourly as $hour => $data)
 	    {
-		    $temp1 = null;
-		    $temp2 = null;
-		    $temp3 = null;
 
-		    $freq1 = null;
-		    $freq2 = null;
-		    $freq3 = null;
-
-		    $hr1 = null;
+		    $temperatures_data = [];
+		    $freq_data = [];
+		    $hr_data = 0;
 
 		    foreach($data as $sdata)
 		    {
-			    $temp1 = $temp1 + $sdata->temp1;
-			    $temp2 = $temp2 + $sdata->temp2;
-			    $temp3 = $temp3 + $sdata->temp3;
+		    	//return $sdata;
+		    	foreach($sdata['chains'] as $c_id => $chain)
+			    {
+			    	if(! array_key_exists($c_id, $temperatures_data))
+				    {
+					    $temperatures_data[$c_id] = 0;
+				    }
 
-			    $freq1 = $freq1 + $sdata->freq1;
-			    $freq2 = $freq2 + $sdata->freq2;
-			    $freq3 = $freq3 + $sdata->freq3;
+				    if(! array_key_exists($c_id, $freq_data))
+				    {
+					    $freq_data[$c_id] = 0;
+				    }
 
-			    $hr1 = $hr1 + $sdata->hr;
+				    $temperatures_data[$c_id] = array_sum($chain['brd_temp']) / count($chain['brd_temp']) + $temperatures_data[$c_id];
+
+				    $freq_data[$c_id] = $chain['brd_freq'] + $freq_data[$c_id];
+			    }
+
+			    $hr_data = $sdata->hash_rate + $hr_data;
+
 		    }
 
-		    $a = $data->count();
+
 		    $date = $data->first()->created_at;
 
-		    $data_temp  = [$date, round($temp1/$a, 0), round($temp2/$a, 0), round($temp3/$a, 0)];
-		    $data_freq  = [$date, round($freq1/$a, 0), round($freq2/$a, 0), round($freq3/$a, 0)];
-		    $data_hr    = [$date, round($hr1/$a, 0)];
+		    $data_temp  = [$date];
+
+		    foreach($temperatures_data as $c_id => $sum_temp)
+		    {
+			    array_push($data_temp, round($sum_temp/$data->count(), 0));
+		    }
+
+		    $data_freq  = [$date];
+
+		    foreach($freq_data as $c_id => $sum_freq)
+		    {
+			    array_push($data_freq, round($sum_freq/$data->count(), 0));
+		    }
+
+		    $data_hr    = [$date, round($hr_data/$data->count(), 0)];
 
 
 		    $temperatures->addRow($data_temp);

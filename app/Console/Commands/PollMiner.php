@@ -24,210 +24,107 @@ class PollMiner extends Command
 
     public function handle()
     {
-        $antMiners = AntMiner::active()->get();
-        $s = 0;
-        $f = 0;
-        $a = 0;
-        foreach($antMiners as $antMiner)
-        {
-	        $chat_id = $antMiner->user->chat_id;
+	    $antMiners = AntMiner::active()->get();
+	    $s = 0; // success count
+	    $f = 0; // failure count
+	    $a = 0; // alerts count
+	    $msg = []; //Message array
 
-	        $miner_data = $this->formatMinerData($antMiner);
+	    foreach($antMiners as $antMiner)
+	    {
+		    $chat_id = $antMiner->user->chat_id;
+		    $miner_data = $this->formatMinerData($antMiner);
 
-	        if($miner_data)
-	        {
-		        if($antMiner->type == 'bmminer')
-		        {
-			        $data['hr']  = intval (round($miner_data['hash_rate'],0));
-			        $i = 1;
-			        foreach($miner_data['chains'] as $chain_id => $chain)
-			        {
-				        $data['temp'.$i]  = intval ($chain['brd_temp1']);
-				        $data['temp'.$i.'1'] = intval ($chain['brd_temp2']);
-				        $data['freq'.$i]  = intval ($chain['brd_freq']);
-				        $i++;
+		    if( $miner_data )
+		    {
+			    if( $antMiner->antlogs->count() > 1440 )
+			    {
+				    foreach($antMiner->antlogs->take($antMiner->antlogs->count() - 1440) as $log)
+				    {
+					    $log->delete();
+				    }
+			    }
 
-			        }
+			    $antMiner->antlogs()->create($miner_data);
 
-		        }
-		        else
-		        {
-			        $data['hr']  = intval (round($miner_data['hash_rate'],0));
-			        $i = 1;
-			        foreach($miner_data['chains'] as $chain_id => $chain)
-			        {
-				        $data['temp'.$i]  = intval ($chain['brd_temp']);
-				        $data['temp'.$i.'1'] = null;
-				        $data['freq'.$i]  = intval ($chain['brd_freq']);
-				        $i++;
-			        }
+			    if( $antMiner->hr_limit && $miner_data['hash_rate'] < $antMiner->hr_limit )
+			    {
+				    $msg[] = $antMiner->title . ' low Hashrate alert: <b>' . round($miner_data['hash_rate'] / 1024, 2) . ' Th</b> Your limit is: <b>' . round($antMiner->hr_limit / 1024, 2) . ' Th</b>';
+				    if( $miner_data['hash_rate'] < 500 && $antMiner->restart )
+				    {
+					    $resp = $this->read_from_socket($antMiner, 'restart');
+					    $msg[] = 'Trying to restart ' . $antMiner->title . ' due to <b>0</b> hashrate. Restart cmd result: ' . $resp;
+				    }
+			    }
 
-		        }
+			    if( $antMiner->temp_limit )
+			    {
+				    $max_temp = 0;
+				    foreach($miner_data['chains'] as $chain)
+				    {
+					    foreach($chain['brd_temp'] as $cur_temp)
+					    {
+						    if( $cur_temp > $max_temp )
+						    {
+							    $max_temp = $cur_temp;
+						    }
+					    }
+				    }
 
-		        if(! key_exists('temp3',$data)) $data['temp3'] = 0;
-		        if(! key_exists('temp2',$data)) $data['temp2'] = 0;
-		        if(! key_exists('freq3',$data)) $data['freq3'] = 0;
-		        if(! key_exists('freq2',$data)) $data['freq2'] = 0;
+				    if( $max_temp > $antMiner->temp_limit )
+				    {
+					    $msg[] = $antMiner->title . ' high temperature alert: <b>' . $max_temp . 'C</b> Your limit is: <b>' . $antMiner->temp_limit . 'C</b>';
+				    }
 
-		        if($antMiner->antlogs->count() > 1440)
-		        {
+			    }
 
-		        	foreach($antMiner->antlogs->take($antMiner->antlogs->count() - 1440) as $log)
-			        {
-			        	$log->delete();
-			        }
-		        }
+			    $data = null;
+			    $s++;
 
-		        $antMiner->antlogs()->create($data);
+			    $antMiner->update(['f_count' => 0]);
 
+		    } else
+		    {
+			    $f++;
+			    $msg[] = $antMiner->title . ' is offline or unable to connect.';
+			    $antMiner->increment('f_count');
+			    if( $antMiner->f_count >= 5 )
+			    {
+				    $reason = 'Auto disabled due to 5 unsuccessful attempts to connect to ASIC in a row on : ' . Carbon::now()->format('d.m.Y H:i:s');
+				    $msg[] = $reason;
+				    $antMiner->update([
+					    'active'   => false,
+					    'd_reason' => $reason,
+					    'f_count'  => 0,
+				    ]);
+			    }
+		    }
 
-		        if($antMiner->hr_limit && $data['hr'] < $antMiner->hr_limit)
-		        {
-			        $msg = $antMiner->title .' low Hashrate alert: <b>'.round($data['hr']/1000,2).' Th</b> Your limit is: <b>'.round($antMiner->hr_limit/1000,2).' Th</b>';
+		    foreach($msg as $message)
+		    {
+			    Alert::create([
+				    'user_id'      => $antMiner->user->id,
+				    'ant_miner_id' => $antMiner->id,
+				    'subject'      => '',
+				    'body'         => $message,
+				    'status'       => 'new',
+			    ]);
 
-			        Alert::create([
-				        'user_id' => $antMiner->user->id,
-				        'ant_miner_id' => $antMiner->id,
-				        'subject' => 'Low Hashrate alert',
-				        'body' => $msg,
-				        'status' => 'new',
-			        ]);
+			    if( $chat_id )
+			    {
+				    Telegram::sendMessage([
+					    'chat_id'    => $chat_id,
+					    'text'       => $message,
+					    'parse_mode' => 'HTML',
+				    ]);
+			    }
 
-			        if($chat_id)
-			        {
-				        Telegram::sendMessage([
-					        'chat_id' => $chat_id,
-					        'text' => $msg,
-					        'parse_mode' =>'HTML'
-				        ]);
-			        }
+			    $a++;
+		    }
+		    $msg = [];
+	    }
+	    $console_res = $s . " Miners were polled. " . $f . " Miners failed to fetch." . $a . " alerts were send.\n";
 
-			        $a++;
-
-			        //Restart Experemental. Requires Write Access to miner via cgminer.conf
-
-			        if($data['hr'] < 500 && $antMiner->restart )
-			        {
-				        $resp = $this->read_from_socket($antMiner, 'restart');
-
-				        $msg = 'Trying to restart '. $antMiner->title .' due to <b>0</b> hashrate. Restart cmd result: '.$resp;
-
-				        Alert::create([
-					        'user_id' => $antMiner->user->id,
-					        'ant_miner_id' => $antMiner->id,
-					        'subject' => 'Miner restart',
-					        'body' => $msg,
-					        'status' => 'new',
-				        ]);
-
-				        if($chat_id)
-				        {
-					        Telegram::sendMessage([
-						        'chat_id'    => $chat_id,
-						        'text'       => $msg,
-						        'parse_mode' => 'HTML'
-					        ]);
-				        }
-				        $a++;
-			        }
-		        }
-
-		        if($antMiner->temp_limit)
-		        {
-			        $max_temp = 0;
-
-			        if(key_exists('temp1',$data) && $data['temp1'] > $antMiner->temp_limit) $max_temp = $data['temp1'];
-			        if(key_exists('temp2',$data) && $data['temp2'] > $antMiner->temp_limit && $data['temp2'] > $max_temp ) $max_temp = $data['temp2'];
-			        if(key_exists('temp3',$data) && $data['temp3'] > $antMiner->temp_limit && $data['temp3'] > $max_temp ) $max_temp = $data['temp3'];
-
-			        if(key_exists('temp11',$data) && $data['temp11'] > $antMiner->temp_limit && $data['temp11'] > $max_temp ) $max_temp = $data['temp11'];
-			        if(key_exists('temp21',$data) && $data['temp21'] > $antMiner->temp_limit && $data['temp21'] > $max_temp ) $max_temp = $data['temp21'];
-			        if(key_exists('temp31',$data) && $data['temp31'] > $antMiner->temp_limit && $data['temp31'] > $max_temp ) $max_temp = $data['temp31'];
-
-
-			        if($max_temp > 0)
-			        {
-				        $msg = $antMiner->title .' high temperature alert: <b>'.$max_temp.'C</b> Your limit is: <b>'.$antMiner->temp_limit.'C</b>';
-
-				        Alert::create([
-					        'user_id' => $antMiner->user->id,
-					        'ant_miner_id' => $antMiner->id,
-					        'subject' => 'Miner high temperature alert',
-					        'body' => $msg,
-					        'status' => 'new',
-				        ]);
-
-				        if($chat_id)
-				        {
-					        Telegram::sendMessage([
-						        'chat_id'    => $chat_id,
-						        'text'       => $msg,
-						        'parse_mode' => 'HTML'
-					        ]);
-				        }
-				        $a++;
-			        }
-
-		        }
-
-		        $data = null;
-		        $s++;
-
-		        $antMiner->update([
-			        'f_count' => 0
-		        ]);
-
-	        }
-	        else
-	        {
-		        $f++;
-		        $msg = $antMiner->title .' is offline or unable to connect.';
-
-		        Alert::create([
-			        'user_id' => $antMiner->user->id,
-			        'ant_miner_id' => $antMiner->id,
-			        'subject' => 'Miner offline or unable to connect',
-			        'body' => $msg,
-			        'status' => 'new',
-		        ]);
-
-		        if($chat_id)
-		        {
-			        Telegram::sendMessage([
-				        'chat_id' => $chat_id,
-				        'text' => $msg,
-				        'parse_mode' =>'HTML'
-			        ]);
-		        }
-
-		        $a++;
-
-		        $antMiner->increment('f_count');
-
-		        if($antMiner->f_count >= 5)
-		        {
-			        $reason = 'Auto disabled due to 5 unsuccessful attempts to connect to ASIC in a row on : '. Carbon::now()->format('d.m.Y H:i:s');
-			        $antMiner->update([
-			        	'active' => false,
-				        'd_reason' => $reason,
-				        'f_count' => 0
-			        ]);
-
-			        if($chat_id)
-			        {
-				        Telegram::sendMessage([
-					        'chat_id' => $chat_id,
-					        'text' => $antMiner->title. ' ' .$reason,
-					        'parse_mode' =>'HTML'
-				        ]);
-			        }
-		        }
-	        }
-        }
-
-        $msg = $s ." Miners were polled. ".$f ." Miners failed to fetch.". $a." alerts were send.\n";
-
-        echo  $msg;
-
+	    echo $console_res;
     }
 }

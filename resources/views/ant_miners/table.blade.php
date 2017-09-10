@@ -1,23 +1,20 @@
 <div class="table-responsive">
             <table class="table table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                    <th width="1%" class="text-center" colspan="3">Title</th>
+                    <th width="1%" class="text-center" colspan="4">Title</th>
                     <th width="1%" class="text-center">Errors</th>
                     <th width="1%" class="text-center">TH/S</th>
                     <th width="1%" class="text-left">Board Temp,°C</th>
                     <th width="1%" class="text-left">Board Chips</th>
                     <th width="1%" class="text-left">Board Frequency</th>
                     <th width="1%" class="text-left">Fans</th>
+                    <th width="1%" class="text-left">Updated</th>
                     <th width="1%" class="text-center"><i class="fa fa-arrows-v"></i></th>
                     <th width="100%" class="text-left"><i class="fa fa-cogs"></i></th>
                 </thead>
                 <tbody>
                 @foreach($antMiners->sortBy('order') as $antMiner)
                     <tr>
-                        <td class="text-center">
-                            <span style="margin-left: 3px;"><i class="fa fa-check-circle color-green"></i></span>
-                        </td>
-
                         <!-- TITLE -->
                         <td nowrap>
                             <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
@@ -31,71 +28,76 @@
                                 &nbsp;
                             @endif
                         </td>
+                    @if($data[$antMiner->id])
+                        <td class="text-center">
+                            <span style="margin-left: 3px;"><i class="fa fa-check-circle color-{{$data[$antMiner->id]->ok ? 'green' : 'red'}}"></i></span>
+                        </td>
+                        <td class="text-center">
+                            <span ><i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i></span>
+                        </td>
 
-                        @if($data[$antMiner->id])
 
-                            <!-- ERRORS -->
-                            <td class="text-center">
-                                <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.001 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
-                            </td>
 
-                            <!-- HASHRATE -->
-                            <td class="text-center">
-                                <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! number_format(round(intval($data[$antMiner->id]['hash_rate'])/1000,2),2) !!}</a>
-                            </td>
+                        <!-- ERRORS -->
+                        <td class="text-center">
+                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
+                        </td>
 
-                            <!-- TEMP -->
-                            <td class="text-left" nowrap="">
-                            @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                @if($antMiner->type == 'bmminer')
-                                    <div class="btn-group">
-                                        <a class='btn btn-{{ intval($chain_data['brd_temp1']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
-                                            {{$chain_data['brd_temp1']}}°
-                                        </a>
-                                        <a class='btn btn-{{ intval($chain_data['brd_temp2']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
-                                            {{$chain_data['brd_temp2']}}°
-                                        </a>
-                                    </div>
-                                @else
-                                    <a class='btn btn-{{ intval($chain_data['brd_temp']) < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp2'>
-                                        {{$chain_data['brd_temp']}}°
+                        <!-- HASHRATE -->
+                        <td class="text-center">
+                            <a class='btn btn-{{ $data[$antMiner->id]['hash_rate'] > $antMiner->hr_limit ? 'success' : 'warning'}} btn-xs ths'>{!! number_format(round(intval($data[$antMiner->id]['hash_rate'])/1000,2),2) !!}</a>
+                        </td>
+
+                        <!-- TEMP -->
+                        <td class="text-left" nowrap="">
+                        @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                            <div class="btn-group">
+                                @foreach($chain_data['brd_temp'] as $temperature)
+                                    <a class='btn btn-{{$temperature < $antMiner->temp_limit ? 'success' : 'warning'}} btn-xs miner-temp'>
+                                        {{$temperature}}°
                                     </a>
-                                @endif
-                            @endforeach
-                            </td>
+                                @endforeach
+                            </div>
+                        @endforeach
+                        </td>
 
-                            <!-- Chips -->
-                            <td class="text-left" nowrap>
+                        <!-- Chips -->
+                        <td class="text-left" nowrap>
+                        @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                            <div class="btn-group">
+                                <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
+                                <a class="btn btn-{{ $chain_data['chips_condition']['er'] <= 0 ? 'default' : 'danger'}} btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</a>
+                            </div>
+                        @endforeach
+                        </td>
+
+                        <!--Board Freq -->
+                        <td class="text-left" nowrap>
+                        @if($data[$antMiner->id])
                             @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                <div class="btn-group">
-                                    <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
-                                    <a class="btn btn-{{ $chain_data['chips_condition']['er'] <= 0 ? 'default' : 'danger'}} btn-xs chip-status">{{$chain_data['chips_condition']['er']}}</a>
-                                </div>
+                                <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
                             @endforeach
-                            </td>
-
-                            <!--Board Freq -->
-                            <td class="text-left" nowrap>
-                            @if($data[$antMiner->id])
-                                @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                                    <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
-                                @endforeach
-                            @endif
-                            </td>
-
-                            <!-- FANS -->
-                            <td class="text-left" nowrap>
-                                @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                                    <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
-                                @endforeach
-                            </td>
-                        @else
-                            @if($antMiner->active)
-                                <td colspan="6" class="text-left">ERROR: ASIC is offline or unable to connect.</td>
-                            @else
-                                <td colspan="6" class="text-left">{{$antMiner->d_reason}}</td>
-                            @endif
                         @endif
+                        </td>
+
+                        <!-- Fans -->
+                        <td class="text-left" nowrap>
+                            @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
+                                <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
+                            @endforeach
+                        </td>
+
+                        <!-- Updated -->
+                        <td class="text-left" nowrap>
+                            {{$data[$antMiner->id]['created_at']->diffForHumans()}}
+                        </td>
+                    @else
+                        @if($antMiner->active)
+                            <td colspan="9" class="text-left">No data to display</td>
+                        @else
+                            <td colspan="9" class="text-left">{{$antMiner->d_reason}}</td>
+                        @endif
+                    @endif
                         <td class="text-center" nowrap>
                             @if($loop->first)
                                 <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-angle-down"></i></a>
