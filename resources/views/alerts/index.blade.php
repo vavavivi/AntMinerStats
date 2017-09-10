@@ -33,7 +33,7 @@
                                         <a href="{{route('alerts.read',$alert->id)}}">{{$alert->antMiner->title}}</a>
                                     </td>
                                     <td class="mailbox-subject">
-                                        {!! $alert->status == 'new' ? '<b>' : '' !!}{{$alert->subject}}{!!$alert->status == 'new' ? '</b>' : '' !!} - {!! $alert->body !!}
+                                        {!! $alert->status == 'new' ? '<b>' : '' !!}{!! $alert->body !!}{!!$alert->status == 'new' ? '</b>' : '' !!}
                                     </td>
                                     <td class="mailbox-date">{{$alert->created_at->diffForHumans()}}</td>
                                 </tr>
