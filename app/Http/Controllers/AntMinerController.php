@@ -8,6 +8,7 @@ use App\Models\AntMiner;
 use App\Repositories\AntMinerRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Traits\MinerTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 use Lava;
@@ -28,13 +29,21 @@ class AntMinerController extends AppBaseController
 
     public function index(Request $request)
     {
-	    $antMiners = \Auth::user()->miners;
+	    $antMiners = AntMiner::all()->where('user_id',\Auth::id());
         $data = [];
 
 		foreach($antMiners as $antMiner)
 		{
-            $miner_data = $this->formatMinerData($antMiner);
-			$data[$antMiner->id] = $miner_data;
+			if($antMiner->active)
+			{
+				$miner_data = $this->formatMinerData($antMiner);
+				$data[$antMiner->id] = $miner_data;
+			}
+			else
+			{
+				$data[$antMiner->id] = null;
+			}
+
 		}
 
         return view('ant_miners.index')
@@ -377,6 +386,38 @@ class AntMinerController extends AppBaseController
 	    }
 
 	    return redirect()->back();
+    }
+
+    public function state($id)
+    {
+	    $antMiner = $this->antMinerRepository->findWithoutFail($id);
+
+	    if (empty($antMiner)) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    if ($antMiner->user_id != \Auth::id()) {
+		    Flash::error('Ant Miner not found');
+
+		    return redirect(route('antMiners.index'));
+	    }
+
+	    $new_state = $antMiner->active ? false : true;
+
+	    if(!$new_state)
+	    {
+	    	$reason = 'Disabled manualy on: '. Carbon::now()->format('d.m.Y H:i:s').' from IP: ' .request()->ip();
+	    }
+	    else
+	    {
+	    	$reason = null;
+	    }
+
+	    $antMiner->update(['active' => $new_state, 'd_reason' => $reason]);
+
+	    return redirect(route('antMiners.index'));
     }
 
 }

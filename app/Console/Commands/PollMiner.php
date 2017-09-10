@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Alert;
 use App\Models\AntMiner;
 use App\Traits\MinerTrait;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Telegram;
 
@@ -23,7 +24,7 @@ class PollMiner extends Command
 
     public function handle()
     {
-        $antMiners = AntMiner::all();
+        $antMiners = AntMiner::active()->get();
         $s = 0;
         $f = 0;
         $a = 0;
@@ -172,6 +173,9 @@ class PollMiner extends Command
 		        $data = null;
 		        $s++;
 
+		        $antMiner->update([
+			        'f_count' => 0
+		        ]);
 
 	        }
 	        else
@@ -197,6 +201,27 @@ class PollMiner extends Command
 		        }
 
 		        $a++;
+
+		        $antMiner->increment('f_count');
+
+		        if($antMiner->f_count >= 5)
+		        {
+			        $reason = 'Auto disabled due to 5 unsuccessful attempts to connect to ASIC in a row on : '. Carbon::now()->format('d.m.Y H:i:s');
+			        $antMiner->update([
+			        	'active' => false,
+				        'd_reason' => $reason,
+				        'f_count' => 0
+			        ]);
+
+			        if($chat_id)
+			        {
+				        Telegram::sendMessage([
+					        'chat_id' => $chat_id,
+					        'text' => $antMiner->title. ' ' .$reason,
+					        'parse_mode' =>'HTML'
+				        ]);
+			        }
+		        }
 	        }
         }
 

@@ -12,6 +12,8 @@ class AntMiner extends Model
     public $table = 'ant_miners';
 
     public $fillable = [
+    	'active',
+    	'd_reason',
     	'order',
         'user_id',
     	'title',
@@ -23,10 +25,13 @@ class AntMiner extends Model
         'restart',
 	    'temp_limit',
 	    'hr_limit',
-        'url'
+        'url',
+        'f_count',
     ];
 
     protected $casts = [
+	    'active' => 'boolean',
+    	'd_reason' => 'string',
     	'order' => 'integer',
 	    'user_id' => 'integer',
         'title' => 'string',
@@ -36,6 +41,7 @@ class AntMiner extends Model
         'log' => 'boolean',
         'restart' => 'boolean',
         'url' => 'string',
+        'f_count' => 'integer',
     ];
 
     public static $rules = [
@@ -69,6 +75,11 @@ class AntMiner extends Model
 	public function alerts()
 	{
 		return $this->hasMany(Alert::class);
+	}
+
+	public function scopeActive($query)
+	{
+		return $query->where('active', 1);
 	}
 
 }
