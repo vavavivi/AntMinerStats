@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
+@section('title',"Edit: \"$antMiner->title\" -")
+
 @section('content')
     <section class="content-header">
         <h1>
-            Ant Miner
+            Edit miner: {!! $antMiner->title !!}
         </h1>
    </section>
    <div class="content">

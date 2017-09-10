@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+
+@section('title',"Alets -")
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Alerts</h1>

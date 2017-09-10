@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title',"View: \"$antMiner->title\" -")
+
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">View: {!! $antMiner->title !!} <small>({{$stats['stats']['Type']}})</small></h1>
