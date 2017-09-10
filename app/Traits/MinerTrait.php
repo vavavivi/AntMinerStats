@@ -134,7 +134,7 @@ trait MinerTrait
             return false;
         }
 
-        $miner_stats = $this->parseStats($this->get_api_stats($antMiner));
+        $miner_stats = $this->parseStats($miner_data);
 
         $stats = null;
 
