@@ -32,6 +32,37 @@ class AntMinerLog extends Model
 
 	public function getOkAttribute()
 	{
+		$hr_limit = $this->antMiner->hr_limit;
+		$temp_limit = $this->antMiner->temp_limit;
+
+
+		if($this->hash_rate < $hr_limit)
+		{
+			return false;
+		}
+
+		if($this->hw > 0.002)
+		{
+			return false;
+		}
+
+		foreach($this->chains as $chain)
+		{
+			if($chain['chips_condition']['er'] > 0)
+			{
+				return false;
+			}
+
+			foreach($chain['brd_temp'] as $temperature)
+			{
+				if($temperature > $temp_limit)
+				{
+					return false;
+				}
+			}
+
+		}
+
 		return true;
 	}
 }
