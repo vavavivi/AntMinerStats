@@ -109,7 +109,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-valign-middle" id="antMiners-table">
+                                        <table class="table table-bordered table-hover table-valign-middle">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -122,7 +122,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Est. Rewards</td>
+                                                <td class="text-center small">Est. Rewards</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
                                                             <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">± {{$coin['btc_revenue']}} <small>BTC</small></td>
@@ -134,7 +134,7 @@
                                                 @endforeach
                                             </tr>
                                             <tr>
-                                                <td>Profitability</td>
+                                                <td class="text-center small">Profitability</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
                                                         <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">{{$coin['profitability']}} %</td>
@@ -146,7 +146,7 @@
                                                 @endforeach
                                             </tr>
                                             <tr>
-                                                <td>Profitability 24 hours</td>
+                                                <td class="text-center small">Profitability 24H</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
                                                         <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;">{{$coin['profitability24']}} %</td>
