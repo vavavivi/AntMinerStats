@@ -12,8 +12,8 @@
 <meta property="og:url"         content="https://antstats.info">
 
 <!-- FAVICONS -->
-<link rel="icon" href="/images/icons/favicon-64.png" type="image/x-icon" />
-<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/favicon-180.png">
+<link rel="icon" href="/images/icons/favicon-128.png" type="image/x-icon" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-apple-180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-apple-180.png">
+<link rel="apple-touch-icon" href="/images/icons/favicon-apple-180.png">
 <link rel="manifest" href="/images/icons/manifest.json">
