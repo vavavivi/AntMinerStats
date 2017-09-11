@@ -41,7 +41,7 @@ class AntMinerLog extends Model
 			return false;
 		}
 
-		if($this->hw > 0.002)
+		if($this->hw > 0.01)
 		{
 			return false;
 		}

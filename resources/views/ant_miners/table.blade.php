@@ -28,15 +28,17 @@
                                 &nbsp;
                             @endif
                         </td>
+
                     @if($data[$antMiner->id])
+                        <!-- Check status -->
                         <td class="text-center">
                             <span style="margin-left: 3px;"><i class="fa fa-check-circle color-{{$data[$antMiner->id]->ok ? 'green' : 'red'}}"></i></span>
                         </td>
+
+                        <!-- Check status -->
                         <td class="text-center">
                             <span ><i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i></span>
                         </td>
-
-
 
                         <!-- ERRORS -->
                         <td class="text-center">
@@ -88,7 +90,7 @@
                         </td>
 
                         <!-- Updated -->
-                        <td class="text-left" nowrap>
+                        <td class="text-left small" nowrap>
                             {{$data[$antMiner->id]['created_at']->diffForHumans()}}
                         </td>
                     @else
