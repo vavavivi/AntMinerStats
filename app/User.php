@@ -49,7 +49,7 @@ class User extends Authenticatable
 		{
 			if($miner->antlogs)
 			{
-				$hr = $hr + $miner->antlogs->last()->hr;
+				$hr = $hr + $miner->antlogs->last()->hash_rate;
 			}
 
 		}
