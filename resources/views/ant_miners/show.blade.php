@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">View: {!! $antMiner->title !!} <small>({{$stats['stats']['Type']}})</small></h1>
+        <h1 class="pull-left">View: {!! $antMiner->title !!} <small>{{$stats['stats']['Type'] != '' ? $stats['stats']['Type'] : ''}}</small></h1>
         <h1 class="pull-right hidden-xs">
             <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class="btn btn-sm  btn-warning pull-right"><i class="fa fa-cog"></i> Configuration</a>
             @if($antMiner->url)
