@@ -32,7 +32,7 @@
                     @if($data[$antMiner->id])
                         <!-- Check status -->
                         <td class="text-center">
-                            <span style="margin-left: 3px;"><i class="fa fa-check-circle color-{{$data[$antMiner->id]->ok ? 'green' : 'red'}}"></i></span>
+                            <span style="margin-left: 3px;"><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span>
                         </td>
 
                         <!-- Check status -->
@@ -41,7 +41,7 @@
                         </td>
 
                         <!-- ERRORS -->
-                        <td class="text-center">
+                        <td class="text-center hw-errors">
                             <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
                         </td>
 

@@ -30,6 +30,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 
 .ths { width: 40px; }
 
+.hw-errors { width: 50px; }
+
 .chip-status {
     width: 28px;
     font-size: 90%;
@@ -38,6 +40,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .fan {
     font-size: 90%;
 }
+
+
 
 .miner-temp  {
     width: 34px;
