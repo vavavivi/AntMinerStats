@@ -102,14 +102,6 @@
 -->
 @endif
 
-<div class="form-group col-sm-12">
-    <div class="checkbox">
-        <label>
-            {{Form::checkbox('log' ,null, null)}}
-            Log data
-        </label>
-    </div>
-</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
