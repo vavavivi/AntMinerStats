@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Available AntMiners</h1>
+       {{-- --}} <h1 class="pull-left">AntMiners</h1>
         <h1 class="pull-right">
 
            <div class="btn-group">
