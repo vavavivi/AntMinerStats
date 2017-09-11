@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAntMinerRequest;
 use App\Http\Requests\UpdateAntMinerRequest;
+use App\Jobs\PollMinerQ;
 use App\Models\AntMiner;
 use App\Repositories\AntMinerRepository;
 use App\Http\Controllers\AppBaseController;
@@ -434,6 +435,23 @@ class AntMinerController extends AppBaseController
 	    $antMiner->update(['active' => $new_state, 'd_reason' => $reason]);
 
 	    return redirect(route('antMiners.index'));
+    }
+
+    public function force()
+    {
+	    $antMiners = AntMiner::all()->where('user_id',\Auth::id());
+
+	    foreach($antMiners as $antMiner)
+	    {
+		    if($antMiner->active)
+		    {
+			    PollMinerQ::dispatch($antMiner);
+		    }
+	    }
+
+	    sleep(3);
+
+	    return redirect()->back();
     }
 
 }

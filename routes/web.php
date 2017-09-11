@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/antMiners/{antMiner}/desc', 'AntMinerController@set_desc')->name('antMiners.desc');
 	Route::get('/antMiners/{antMiner}/asc', 'AntMinerController@set_asc')->name('antMiners.asc');
 	Route::get('/antMiners/{antMiner}/enable', 'AntMinerController@state')->name('antMiners.state');
+	Route::post('/antMiners/force', 'AntMinerController@force')->name('antMiners.force');
 
     Route::get('/antMiners/{antMiner}/log_old', 'LogController@show_old')->name('log.show_old');
     Route::get('/antMiners/{antMiner}/log', 'LogController@show')->name('log.show');

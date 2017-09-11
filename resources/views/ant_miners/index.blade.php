@@ -8,6 +8,14 @@
         <h1 class="pull-right">
 
            <div class="btn-group">
+
+               {!! Form::open(['route' => ['antMiners.force'], 'method' => 'post']) !!}
+
+               <button class="btn btn-sm btn-primary">
+                   <i class="fa fa-retweet"></i> Force reload
+               </button>
+               {!! Form::close() !!}
+
                <a class="btn btn-sm btn-success" href="{!! route('antMiners.create') !!}"><span class="hidden-xs">Add miner </span> <i class="fa fa-plus"></i> </a>
 
                 {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
