@@ -138,10 +138,14 @@
                 <div id="temps_div"></div>
                 <div id="freqs_div"></div>
                 <div id="hr_div"></div>
+                <div id="hw_div"></div>
+                <div id="cc_div"></div>
 
                 <?= Lava::render('LineChart', 'Temps', 'temps_div') ?>
                 <?= Lava::render('LineChart', 'Freqs', 'freqs_div') ?>
                 <?= Lava::render('LineChart', 'HashRate', 'hr_div') ?>
+                <?= Lava::render('LineChart', 'HWERR', 'hw_div') ?>
+                <?= Lava::render('LineChart', 'Chips', 'cc_div') ?>
 
             </div>
         </div>
