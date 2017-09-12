@@ -20,7 +20,7 @@
             @foreach($location_antMiners as $antMiner)
             <tr>
                 @if($loop->first)
-                    <td rowspan="{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->miners->count() : 1 }}">
+                    <td rowspan="{{$location_antMiners->count() }}">
                         {{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}
                     </td>
                 @endif
