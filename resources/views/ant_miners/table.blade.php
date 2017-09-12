@@ -68,7 +68,7 @@
                 </td>
 
                 <!-- Chips -->
-                <td class="text-center" nowrap>
+                <td class="text-left" nowrap>
                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                     <div class="btn-group">
                         <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
