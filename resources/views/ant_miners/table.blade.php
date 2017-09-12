@@ -104,7 +104,12 @@
 
                 <!-- Updated -->
                 <td class="text-left small" nowrap>
-                    {{$data[$antMiner->id]['created_at']->diffForHumans()}}
+                    @if($data[$antMiner->id]['created_at']->diffInMinutes() < 1)
+                        {{$data[$antMiner->id]['created_at']->diffInSeconds()}}s
+                    @else
+                        {{$data[$antMiner->id]['created_at']->diffInMinutes()}}m
+                    @endif
+                        ago
                 </td>
             @else
                 @if($antMiner->active)
