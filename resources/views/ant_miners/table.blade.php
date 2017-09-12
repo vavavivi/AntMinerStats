@@ -7,7 +7,7 @@
             <th width="1%" class="text-center">TH/S</th>
             <th width="1%" class="text-left">Board Temp,°C</th>
             <th width="1%" class="text-left">Board Chips</th>
-            <th width="1%" class="text-left">Board Frequency, Mhz</th>
+            <th width="1%" class="text-left">Board Freq</th>
             <th width="1%" class="text-left">Fans, rpm</th>
             <th width="1%" class="text-left">Updated</th>
             <th width="1%" class="text-center"></th>
