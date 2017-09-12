@@ -29,8 +29,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     top: 5px;
 }
 
-.color-red       { color: #dd4b39;}
-.color-green     { color: #00a65a;}
+.color-red         { color: #dd4b39;}
+.color-green       { color: #00a65a;}
 .color-white       { color: #ffffff;}
 .color-white:hover { color: #ccc;}
 
@@ -38,12 +38,12 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     font-size: 90%;
 }
 
-.hw-errors   { width: 58px; }
-.ths         { width: 42px; }
-.miner-temp  { width: 33px; position: relative; top: 1px; }
-.chip-status { width: 27px; }
-.freq        { width: 60px; }
-.fan         { width: 73px; }
+.hw-errors   { width: 73px; }
+.ths         { width: 50px; }
+.miner-temp  { width: 35px; }
+.chip-status { width: 30px; }
+.freq        { width: 65px; }
+.fan         { width: 75px; }
 .sort        { width: 22px; }
 
 .label {
@@ -52,13 +52,14 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 #antMiners-table {
+    font-size: 16px;
     box-shadow: 1px 1px 5px #eee;
     background: #fff;
     border-bottom: 1px solid #efefef;
     margin-top: 5px;
     margin-bottom: 0px;
 }
-#antMiners-table th { padding: 8px 2px 7px 5px !important; font-size: 13px; }
+#antMiners-table th { padding: 8px 2px 7px 5px !important; }
 #antMiners-table td { padding: 7px 0px 7px 9px !important; }
 
 .table thead th    { background-color: #437096 !important; color: #fff;}
@@ -351,6 +352,13 @@ ul.sidebar-menu li i {
         margin-top: 20% auto;
     }
 
+    .hw-errors   { width: 58px; }
+    .ths         { width: 42px; }
+    .miner-temp  { width: 33px; position: relative; top: 1px; }
+    .chip-status { width: 27px; }
+    .freq        { width: 60px; }
+    .fan         { width: 73px; }
+    .sort        { width: 22px; }
 }
 
 @media (max-width: 768px) {
