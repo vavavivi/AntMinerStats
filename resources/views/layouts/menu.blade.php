@@ -36,8 +36,6 @@
         @endforeach
     </ul>
 </li>
-\
-
 
 <li class="{{ Request::is('locations*') ? 'active' : '' }}">
     <a href="{!! route('locations.index') !!}"><i class="fa fa-edit"></i><span>Locations</span></a>
