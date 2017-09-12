@@ -5,13 +5,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Alerts</h1>
-        <h1 class="pull-right">
-            <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm checkbox-toggle"><i class="fa fa-check-square-o"></i></button>
-                <button type="button" class="btn btn-danger btn-sm checkbox-trash"><i class="fa fa-trash-o"></i></button>
-            </div>
-        </h1>
+        <h1 class="pull-left">Alert list</h1>
+        <div class="btn-inline">
+            <button type="button" class="btn btn-primary btn-sm checkbox-toggle"><i class="fa fa-check-square-o"></i></button>
+            <button type="button" class="btn btn-danger btn-sm checkbox-trash"><i class="fa fa-trash-o"></i></button>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

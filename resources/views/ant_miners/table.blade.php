@@ -2,13 +2,13 @@
     <table class="table table-hover table-valign-middle" id="antMiners-table">
         <thead>
             <th width="1%" class="text-left" colspan="2">Miner title</th>
-            <th width="1%" class="text-left" colspan="2">Status</th>
+            <th width="1%" class="text-center" colspan="2">Status</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
-            <th width="1%" class="text-left">Board Temp,°C</th>
-            <th width="1%" class="text-left">Board Chips</th>
-            <th width="1%" class="text-left">Board Freq</th>
-            <th width="1%" class="text-left">Fans, rpm</th>
+            <th width="1%" class="text-center">Board Temp,°C</th>
+            <th width="1%" class="text-center">Board Chips</th>
+            <th width="1%" class="text-center">B.Freq</th>
+            <th width="1%" class="text-center">Fans, rpm</th>
             <th width="1%" class="text-left">Updated</th>
             <th width="1%" class="text-center"></th>
             <th width="1%" class="text-center">Manage</th>
@@ -16,12 +16,12 @@
             <th width="100%" class="text-center"></th>
         </thead>
         <tbody>
+        @php ($i = 1)
         @foreach($antMiners->sortBy('order') as $antMiner)
             <tr>
-
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}"><i class="ion-cube"></i>  {!! $antMiner->title !!}</a>
+                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{{ $i }}. {!! $antMiner->title !!}</a>
                 </td>
 
                 <!-- MANAGE URL -->
@@ -68,7 +68,7 @@
                 </td>
 
                 <!-- Chips -->
-                <td class="text-left" nowrap>
+                <td class="text-center" nowrap>
                 @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
                     <div class="btn-group">
                         <a class="btn btn-success btn-xs chip-status">{{$chain_data['chips_condition']['ok']}}</a>
@@ -78,9 +78,7 @@
                 </td>
 
                 <!--Board Freq -->
-                <td class="text-left" nowrap>
-
-
+                <td class="text-center" nowrap>
                 @if($data[$antMiner->id])
                     @php
                         $board_freq = 0;
@@ -90,7 +88,7 @@
                         }
                     @endphp
                     <a class="btn btn-default btn-xs freq">
-                        <i class="fa fa-bar-chart"></i> {{round($board_freq / count($data[$antMiner->id]['chains']), 0)}}
+                        {{round($board_freq / count($data[$antMiner->id]['chains']), 0)}} <small>Mhz</small>
                     </a>
                 @endif
                 </td>
@@ -98,7 +96,7 @@
                 <!-- Fans -->
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <button class="btn btn-default btn-xs fan"><i class="fa fa-life-ring"></i> {{$fan_speed}}</button>
+                        <button class="btn btn-default btn-xs fan">{{$fan_speed}} <small>rpm</small></button>
                     @endforeach
                 </td>
 
@@ -149,6 +147,7 @@
                 </td>
                 <td></td>
             </tr>
+            @php ($i++)
         @endforeach
         </tbody>
     </table>

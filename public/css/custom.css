@@ -58,7 +58,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     margin-top: 5px;
     margin-bottom: 0px;
 }
-#antMiners-table td { padding: 7px 0px 7px 11px !important; }
+#antMiners-table th { padding: 8px 2px 7px 5px !important; font-size: 13px; }
+#antMiners-table td { padding: 7px 0px 7px 9px !important; }
 
 .table thead th    { background-color: #437096 !important; color: #fff;}
 .table>thead>tr>th { border-bottom: 1px solid #cfcfcf; }
@@ -82,7 +83,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     height: 12px;
 }
 
-
+/* WIDGETs */
 .connectedSortable .bg-gray { background-color: #888 !important; color: #fff; }
 .connectedSortable .box-title { color: #fff; font-size: 100%;}
 .connectedSortable .box-title:hover { text-decoration: underline; }
@@ -160,7 +161,7 @@ ul.sidebar-menu li span {
 }
 
 ul.sidebar-menu li i {
-    font-size: 145%;
+    font-size: 135%;
     position: relative;
     top: 3px;
     left: -3px;
@@ -326,10 +327,6 @@ ul.sidebar-menu li i {
 .p-l-35 { padding-left: 35px !important; }
 .p-l-40 { padding-left: 40px !important; }
 
-@media (min-width: 1680px) {
-    #antMiners-table td { padding-right: 25px !important; }
-}
-
 @media (min-width: 767px) {
     .navbar .title {
         display: none;
@@ -343,13 +340,13 @@ ul.sidebar-menu li i {
 }
 
 @media (max-width: 1024px) {
-    #antMiners-table { margin: 0px;}
-    #antMiners-table th { padding: 6px 2px 5px 5px !important; font-size: 13px; }
-    #antMiners-table td { padding: 8px 2px 4px 5px !important; font-size: 12px; }
+    #antMiners-table      { margin: 0px;}
+    #antMiners-table th   { padding: 6px 2px 5px 5px !important; font-size: 13px; }
+    #antMiners-table td   { padding: 8px 2px 4px 5px !important; font-size: 12px; }
     #antMiners-table .btn { font-size: 11px; }
-    .table-responsive {margin-top: 5px;}
-    .miner-temp { width: 28px; }
-    .miner-temp2 { width: 56px; }
+    .table-responsive     { margin-top: 5px;}
+    .miner-temp           { width: 28px; }
+    .miner-temp2          { width: 56px; }
     .login-box, .register-box {
         margin-top: 20% auto;
     }

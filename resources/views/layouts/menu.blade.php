@@ -1,17 +1,17 @@
 <!-- DASHBOARD -->
 <li class="{{ Route::is('home') ? 'active' : '' }}">
-    <a href="/"><i class="ion-monitor"></i> <span>Dashboard</span></a>
+    <a href="/"><i class="fa fa-desktop"></i> <span>Dashboard</span></a>
 </li>
 
 <!-- MINER STATUS -->
 <li class="{{ Route::is('antMiners.index') ? 'active' : '' }}">
-    <a href="{!! route('antMiners.index') !!}"><i class="ion-stats-bars"></i> <span>Monitoring</span></a>
+    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i> <span>Monitoring</span></a>
 </li>
 
 <!-- ALERTS -->
 <li class="{{ Request::is('alerts*') ? 'active' : '' }}">
     <a href="{!! route('alerts.index') !!}">
-        <i class="ion-alert-circled"></i>
+        <i class="fa fa-exclamation-triangle"></i>
         <span>Alerts</span>
         @if(Auth::user()->alerts->where('status','new')->count() > 0)
             <span class="pull-right-container">
