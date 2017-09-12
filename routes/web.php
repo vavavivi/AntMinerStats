@@ -20,14 +20,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/antMiners/{antMiner}/log_old', 'LogController@show_old')->name('log.show_old');
     Route::get('/antMiners/{antMiner}/log', 'LogController@show')->name('log.show');
 
-
 	Route::resource('antMiners', 'AntMinerController');
 
 	Route::get('/alerts/{alert}/read', 'AlertController@read')->name('alerts.read');
 	Route::post('/alerts/purge', 'AlertController@purge')->name('alerts.purge');
 	Route::resource('alerts', 'AlertController');
 
+	Route::resource('locations', 'LocationController');
 });
-
-
-

@@ -15,6 +15,7 @@ class AntMiner extends Model
     	'active',
     	'd_reason',
     	'order',
+        'location_id',
         'user_id',
     	'title',
         'host',
@@ -33,6 +34,7 @@ class AntMiner extends Model
 	    'active' => 'boolean',
     	'd_reason' => 'string',
     	'order' => 'integer',
+	    'location_id' => 'integer',
 	    'user_id' => 'integer',
         'title' => 'string',
         'host' => 'string',
@@ -77,9 +79,16 @@ class AntMiner extends Model
 		return $this->hasMany(Alert::class);
 	}
 
+	public function location()
+	{
+		return $this->belongsTo(Location::class);
+	}
+
 	public function scopeActive($query)
 	{
 		return $query->where('active', 1);
 	}
+
+
 
 }
