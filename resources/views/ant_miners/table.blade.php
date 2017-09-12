@@ -79,17 +79,26 @@
 
                 <!--Board Freq -->
                 <td class="text-left" nowrap>
+
+
                 @if($data[$antMiner->id])
-                    @foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
-                        <a class="btn btn-default btn-xs freq">B{{$loop->index + 1}}: {{intval($chain_data['brd_freq'])}}</a>
-                    @endforeach
+                    @php
+                        $board_freq = 0;
+                        foreach($data[$antMiner->id]['chains'] as $chain_index => $chain_data)
+                        {
+                            $board_freq = $board_freq + $chain_data['brd_freq'];
+                        }
+                    @endphp
+                    <a class="btn btn-default btn-xs freq">
+                        <i class="fa fa-bar-chart"></i> {{round($board_freq / count($data[$antMiner->id]['chains']), 0)}}
+                    </a>
                 @endif
                 </td>
 
                 <!-- Fans -->
                 <td class="text-left" nowrap>
                     @foreach($data[$antMiner->id]['fans'] as $fan_id => $fan_speed)
-                        <button class="btn btn-default btn-xs fan">{{title_case($fan_id)}}: {{$fan_speed}}</button>
+                        <button class="btn btn-default btn-xs fan"><i class="fa fa-life-ring"></i> {{$fan_speed}}</button>
                     @endforeach
                 </td>
 
