@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table table-hover table-valign-middle" id="antMiners-table">
         <thead>
-            <th width="1%" class="text-left" colspan="2">Miner title</th>
+            <th width="1%" class="text-left" colspan="3">Miner title</th>
             <th width="1%" class="text-center" colspan="2">Status</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
@@ -16,11 +16,17 @@
             <th width="100%" class="text-center"></th>
         </thead>
         <tbody>
-        @foreach($antMiners->sortBy('order') as $antMiner)
+        @foreach($antMiners as $location_id => $location_antMiners)
+            @foreach($location_antMiners as $antMiner)
             <tr>
+                @if($loop->first)
+                    <td rowspan="{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->miners->count() : 1 }}">
+                        {{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}
+                    </td>
+                @endif
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{{ $loop->index + 1 }}. {!! $antMiner->title !!}</a>
+                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
                 </td>
 
                 <!-- MANAGE URL -->
@@ -146,6 +152,12 @@
                 </td>
                 <td></td>
             </tr>
+            @endforeach
+            @if(! $loop->last)
+                <tr>
+                    <td colspan="11"></td>
+                </tr>
+            @endif
         @endforeach
         </tbody>
     </table>

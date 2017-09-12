@@ -41,7 +41,7 @@ class LocationController
 
         Flash::success('Location saved successfully.');
 
-        return redirect(route('locations.index'));
+        return redirect(route('locations.edit', $location->id));
     }
 
     public function show($id)

@@ -29,18 +29,23 @@ class AntMinerController extends AppBaseController
 
     public function index(Request $request)
     {
-	    $antMiners = AntMiner::all()->where('user_id',\Auth::id());
+	    $antMiners = AntMiner::all()->where('user_id',\Auth::id())->groupBy('location_id')->sortBy('order');
+
+	    //return $antMiners;
         $data = [];
 
-		foreach($antMiners as $antMiner)
+		foreach($antMiners as $location_id => $location_antMiners)
 		{
-			if($antMiner->active)
+			foreach($location_antMiners as $antMiner)
 			{
-				$data[$antMiner->id] = $antMiner->antlogs->last();
-			}
-			else
-			{
-				$data[$antMiner->id] = null;
+				if($antMiner->active)
+				{
+					$data[$antMiner->id] = $antMiner->antlogs->last();
+				}
+				else
+				{
+					$data[$antMiner->id] = null;
+				}
 			}
 		}
 
