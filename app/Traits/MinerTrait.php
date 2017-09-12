@@ -40,9 +40,28 @@ trait MinerTrait
 
     public function get_api_data(AntMiner $antMiner)
     {
-        $reply['stats'] = $this->get_api_stats($antMiner);
-        $reply['pools'] = $this->get_api_pools($antMiner);
-        $reply['summary'] = $this->get_api_summary($antMiner);
+    	$stats = null;
+	    $pools = null;
+	    $summary = null;
+
+	    $stats = $this->get_api_stats($antMiner);
+
+	    if(! $stats) goto end;
+
+	    $pools = $this->get_api_pools($antMiner);
+
+	    if(! $pools) goto end;
+
+	    $summary = $this->get_api_summary($antMiner);
+
+	    if(! $summary) goto end;
+
+	    end:
+
+	    $reply['stats']   = $stats;
+	    $reply['pools']   = $pools;
+	    $reply['summary'] = $summary;
+
 
         return $reply;
     }

@@ -95,52 +95,62 @@ class AntMinerController extends AppBaseController
 		    return redirect(route('antMiners.index'));
 	    }
 
-
         $stats_all = $this->get_api_data($antMiner);
 
-        $stats['summary'] = $this->parseStats($stats_all['summary']);
-	    $stats['pools'] = $this->parsePools($stats_all['pools']);
-	    $stats['stats'] = $this->parseStats($stats_all['stats']);
+        if(! $stats_all['summary'] || ! $stats_all['pools'] || ! $stats_all['stats'])
+        {
+	        Flash::error('Ant Miner is offline');
+	        $stats = null;
 
-	    foreach($antMiner->options as $option_key => $option_value)
-	    {
-	    	if(substr( $option_key, 0, 3 ) === "fan")
-		    {
-		    	$stats['selected']['fans'][$option_key] = $stats['stats'][$option_key];
-		    }
+        }
+        else
+        {
+	        $stats['summary'] = $this->parseStats($stats_all['summary']);
+	        $stats['pools'] = $this->parsePools($stats_all['pools']);
+	        $stats['stats'] = $this->parseStats($stats_all['stats']);
 
-		    if(substr( $option_key, 0, 9 ) === "chain_acn")
-		    {
-		    	$chain_index = substr( $option_key, -1, 1 );
+	        foreach($antMiner->options as $option_key => $option_value)
+	        {
+		        if(substr( $option_key, 0, 3 ) === "fan")
+		        {
+			        $stats['selected']['fans'][$option_key] = $stats['stats'][$option_key];
+		        }
 
-		    	$brd_chips_var = 'chain_acn'.$chain_index;
-		    	$brd_chips_stat_var = 'chain_acs'.$chain_index;
+		        if(substr( $option_key, 0, 9 ) === "chain_acn")
+		        {
+			        $chain_index = substr( $option_key, -1, 1 );
 
-
-			    $stats['selected']['chains'][$chain_index]['chips'] = $stats['stats'][$brd_chips_var];
-			    $stats['selected']['chains'][$chain_index]['chips_stat'] = str_split(str_replace(' ', '', $stats['stats'][$brd_chips_stat_var]));
-
-
-			    if($antMiner->type == 'bmminer')
-			    {
-				    $brd1_temp_var = 'temp2_'.$chain_index;
-				    $brd2_temp_var = 'temp3_'.$chain_index;
-
-				    $brd_freq_var = 'freq_avg'.$chain_index;
-
-				    $stats['selected']['chains'][$chain_index]['brd_temp1'] = $stats['stats'][$brd1_temp_var];
-				    $stats['selected']['chains'][$chain_index]['brd_temp2'] = $stats['stats'][$brd2_temp_var];
-				    $stats['selected']['chains'][$chain_index]['brd_freq'] = $stats['stats'][$brd_freq_var];
-			    }
-			    else
-			    {
-				    $brd_temp_var = 'temp'.$chain_index;
-				    $stats['selected']['chains'][$chain_index]['brd_temp'] = $stats['stats'][$brd_temp_var];
-			    }
+			        $brd_chips_var = 'chain_acn'.$chain_index;
+			        $brd_chips_stat_var = 'chain_acs'.$chain_index;
 
 
-		    }
-	    }
+			        $stats['selected']['chains'][$chain_index]['chips'] = $stats['stats'][$brd_chips_var];
+			        $stats['selected']['chains'][$chain_index]['chips_stat'] = str_split(str_replace(' ', '', $stats['stats'][$brd_chips_stat_var]));
+
+
+			        if($antMiner->type == 'bmminer')
+			        {
+				        $brd1_temp_var = 'temp2_'.$chain_index;
+				        $brd2_temp_var = 'temp3_'.$chain_index;
+
+				        $brd_freq_var = 'freq_avg'.$chain_index;
+
+				        $stats['selected']['chains'][$chain_index]['brd_temp1'] = $stats['stats'][$brd1_temp_var];
+				        $stats['selected']['chains'][$chain_index]['brd_temp2'] = $stats['stats'][$brd2_temp_var];
+				        $stats['selected']['chains'][$chain_index]['brd_freq'] = $stats['stats'][$brd_freq_var];
+			        }
+			        else
+			        {
+				        $brd_temp_var = 'temp'.$chain_index;
+				        $stats['selected']['chains'][$chain_index]['brd_temp'] = $stats['stats'][$brd_temp_var];
+			        }
+
+
+		        }
+	        }
+        }
+
+
 
 	    $logs = $antMiner->antlogs;
 
