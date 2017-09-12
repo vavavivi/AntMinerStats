@@ -1,32 +1,36 @@
 <div class="table-responsive">
             <table class="table table-hover table-valign-middle" id="antMiners-table">
                 <thead>
-                    <th width="1%" class="text-center" colspan="4">Title</th>
+                    <th width="1%" class="text-left" colspan="2">Miner title</th>
+                    <th width="1%" class="text-left" colspan="2">Status</th>
                     <th width="1%" class="text-center">Errors</th>
                     <th width="1%" class="text-center">TH/S</th>
                     <th width="1%" class="text-left">Board Temp,°C</th>
                     <th width="1%" class="text-left">Board Chips</th>
-                    <th width="1%" class="text-left">Board Frequency</th>
-                    <th width="1%" class="text-left">Fans</th>
+                    <th width="1%" class="text-left">Board Frequency, Mhz</th>
+                    <th width="1%" class="text-left">Fans, rpm</th>
                     <th width="1%" class="text-left">Updated</th>
-                    <th width="1%" class="text-center"><i class="fa fa-arrows-v"></i></th>
-                    <th width="100%" class="text-left"><i class="fa fa-cogs"></i></th>
+                    <th width="1%" class="text-center"></th>
+                    <th width="1%" class="text-center">Manage</th>
+                    <th width="1%" class="text-center">Sort</th>
+                    <th width="100%" class="text-center"></th>
                 </thead>
                 <tbody>
                 @foreach($antMiners->sortBy('order') as $antMiner)
                     <tr>
+
                         <!-- TITLE -->
-                        <td nowrap>
-                            <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
+                        <td class="small" nowrap>
+                            <a href="{!! route('antMiners.show', [$antMiner->id]) !!}"><i class="ion-cube"></i>  {!! $antMiner->title !!}</a>
                         </td>
 
                         <!-- MANAGE URL -->
                         <td class="text-left">
-                            @if($antMiner->url)
-                                <a href="{{$antMiner->url}}" class='btn btn-xs btn-default' target="_blank"><i class="fa fa-external-link"></i></a>
-                            @else
-                                &nbsp;
-                            @endif
+                            <div class='btn-group'>
+                                @if($antMiner->url)
+                                    <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-wrench"></i></a>
+                                @endif
+                            </div>
                         </td>
 
                     @if($data[$antMiner->id])
@@ -41,8 +45,8 @@
                         </td>
 
                         <!-- ERRORS -->
-                        <td class="text-center hw-errors">
-                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs'>{!! $data[$antMiner->id]['hw'] !!}%</a>
+                        <td class="text-center">
+                            <a class='btn btn-{{$data[$antMiner->id]['hw'] < 0.002 ? 'success' : 'warning'}} btn-xs hw-errors'>{!! $data[$antMiner->id]['hw'] !!}%</a>
                         </td>
 
                         <!-- HASHRATE -->
@@ -100,25 +104,36 @@
                             <td colspan="9" class="text-left">{{$antMiner->d_reason}}</td>
                         @endif
                     @endif
-                        <td class="text-center" nowrap>
-                            @if($loop->first)
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-fw fa-angle-down"></i></a>
-                            @elseif($loop->last)
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-fw fa-angle-up"></i></a>
-                            @else
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
-                                <a class="btn btn-default btn-xs" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
-                            @endif
+
+                        <!-- ON/OFF -->
+                        <td class="text-center">
+                            <a href="{!! route('antMiners.state', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-toggle-{{$antMiner->active ? 'on' : 'off'}}"></i></a>
                         </td>
-                        <td class="text-left">
+
+                        <!-- Manage -->
+                        <td class="text-center">
                             {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cog"></i></a>
-                                <a href="{!! route('antMiners.state', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-toggle-{{$antMiner->active ? 'on' : 'off'}}"></i></a>
+                                <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cogs"></i></a>
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             </div>
                             {!! Form::close() !!}
                         </td>
+
+                        <!-- Sorting -->
+                        <td class="text-center" nowrap>
+                            @if($loop->first)
+                                <a class="btn btn-default btn-xs sort" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
+                                <a class="btn btn-default btn-xs sort" disabled="disabled"> &dash; </a>
+                            @elseif($loop->last)
+                                <a class="btn btn-default btn-xs sort" disabled="disabled"> &dash; </a>
+                                <a class="btn btn-default btn-xs sort" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
+                            @else
+                                <a class="btn btn-default btn-xs sort" href="{{route('antMiners.asc',$antMiner->id)}}"> <i class="fa fa-angle-up"></i></a>
+                                <a class="btn btn-default btn-xs sort" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
+                            @endif
+                        </td>
+                        <td></td>
                     </tr>
                 @endforeach
                 </tbody>
