@@ -18,6 +18,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
+.btn-inline { display: inline-flex;}
+
 .content-header h1 .btn {
     margin-bottom: 5px;
     margin-left: 5px;
@@ -28,38 +30,17 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .color-white       { color: #ffffff;}
 .color-white:hover { color: #ccc;}
 
-.ths { width: 40px; }
-
-.hw-errors { width: 50px; }
-
-.chip-status {
-    width: 28px;
+.hw-errors, .ths, .miner-temp, .chip-status, .freq, .fan {
     font-size: 90%;
 }
 
-.fan {
-    font-size: 90%;
-}
-
-
-
-.miner-temp  {
-    width: 34px;
-    font-size: 90%;
-    position: relative;
-    top: 1px;
-}
-
-.miner-temp2  {
-    width: 67px;
-    font-size: 90%;
-    position: relative;
-    top: 1px;
-}
-
-.freq        {
-    width: 60px;
-}
+.hw-errors   { width: 58px; }
+.ths         { width: 42px; }
+.miner-temp  { width: 33px; position: relative; top: 1px; }
+.chip-status { width: 27px; }
+.freq        { width: 60px; }
+.fan         { width: 73px; }
+.sort        { width: 22px; }
 
 .label {
     position: relative;
@@ -171,6 +152,12 @@ ul.sidebar-menu li i {
     top: 20px;
 }
 
+.table-responsive::-webkit-scrollbar
+{
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+}
 
 /* ---- COLORING ---- */
 
@@ -201,6 +188,14 @@ ul.sidebar-menu li i {
     border-color: #437096 !important;
 }
 
+
+.table-responsive::-webkit-scrollbar-thumb
+{
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .2);
+}
+
 /* Кнопки пагинации */
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     background-color: #878787 !important;
@@ -224,6 +219,11 @@ ul.sidebar-menu li i {
 
 .project-list label {
     color: #fff;
+}
+
+.sidebar-menu>li .label, .sidebar-menu>li .badge {
+    font-size: 80%;
+    padding: 6px 5px 4px 4px;
 }
 
 .bordered  td { border: 1px solid #eee;}
@@ -333,15 +333,24 @@ ul.sidebar-menu li i {
     }
 }
 
+@media (max-width: 1366px) {
+    .login-box, .register-box {
+        margin-top: 22% auto;
+    }
+}
+
 @media (max-width: 1024px) {
     #antMiners-table th { padding: 5px 2px 5px 5px !important; font-size: 12px; }
-    #antMiners-table td { padding: 5px 2px 5px 5px !important; font-size: 12px; }
+    #antMiners-table td { padding: 8px 2px 4px 5px !important; font-size: 12px; }
     #antMiners-table .btn { font-size: 11px; }
     .miner-temp { width: 28px; }
     .miner-temp2 { width: 56px; }
+    .login-box, .register-box {
+        margin-top: 20% auto;
+    }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .main-header .logo {
         display: none;
     }
@@ -351,13 +360,19 @@ ul.sidebar-menu li i {
     .main-sidebar, .left-side {
         padding-top: 50px;
     }
+    .login-box, .register-box {
+        margin-top: 42% auto;
+    }
 }
 
 @media (max-width: 480px) {
     .content-header { padding-bottom: 15px; }
 
+    .table-responsive { margin-bottom: 0px; }
+
     .table-condensed { font-size: 82%;}
     .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
+
     .button-block { margin-top: 10px; margin-bottom: 10px; }
     .pagination>li>a, .pagination>li>span {
         padding: 3px 7px;
@@ -365,4 +380,14 @@ ul.sidebar-menu li i {
         font-size: 90%;
     }
     .table thead th { font-size: 85%; }
+
+    .login-box, .register-box {
+        margin-top: 42% auto;
+    }
+}
+
+@media (max-width: 320px) {
+    .login-box, .register-box {
+        margin-top: 28% auto;
+    }
 }
