@@ -31,12 +31,12 @@
     <ul class="treeview-menu">
         @foreach(Auth::user()->miners as $antMiner)
             <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
-                <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->title}}</a>
+                <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->location ? $antMiner->location->title : ''}}{{$antMiner->location ? ' / ' : ''}} {{$antMiner->title}}</a>
             </li>
         @endforeach
     </ul>
 </li>
-
+\
 
 
 <li class="{{ Request::is('locations*') ? 'active' : '' }}">
