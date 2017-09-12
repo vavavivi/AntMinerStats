@@ -15,7 +15,6 @@ use Flash;
 use Lava;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
-use Telegram\Bot\Api;
 
 class AntMinerController extends AppBaseController
 {
@@ -150,8 +149,6 @@ class AntMinerController extends AppBaseController
 	        }
         }
 
-
-
 	    $logs = $antMiner->antlogs;
 
 	    $hourly = $logs->groupBy(function($log) {
@@ -161,6 +158,8 @@ class AntMinerController extends AppBaseController
 	    $temperatures = Lava::DataTable();
 	    $freqs = Lava::DataTable();
 	    $hr = Lava::DataTable();
+	    $cc = Lava::DataTable();
+	    $hw = Lava::DataTable();
 
 	    $temperatures->addDateColumn('Date')
 		    ->addNumberColumn('HB#1')
@@ -178,18 +177,31 @@ class AntMinerController extends AppBaseController
 		    ->addNumberColumn($antMiner->title);
 	    ;
 
+	    $hw->addDateColumn('Date')
+		    ->addNumberColumn('hw %');
+	    ;
+
+	    $cc->addDateColumn('Date')
+		    ->addNumberColumn('Chips OK')
+		    ->addNumberColumn('Chips Error')
+	    ;
+
 	    foreach($hourly as $hour => $data)
 	    {
 
 		    $temperatures_data = [];
 		    $freq_data = [];
+		    $cc_data = [];
 		    $hr_data = 0;
+		    $hw_data = 0;
 
 		    foreach($data as $sdata)
 		    {
 		    	//return $sdata;
+
 		    	foreach($sdata['chains'] as $c_id => $chain)
 			    {
+
 			    	if(! array_key_exists($c_id, $temperatures_data))
 				    {
 					    $temperatures_data[$c_id] = 0;
@@ -200,15 +212,27 @@ class AntMinerController extends AppBaseController
 					    $freq_data[$c_id] = 0;
 				    }
 
+				    if(! array_key_exists('OK', $cc_data))
+				    {
+					    $cc_data['OK'] = 0;
+				    }
+
+				    if(! array_key_exists('ER', $cc_data))
+				    {
+					    $cc_data['ER'] = 0;
+				    }
+
 				    $temperatures_data[$c_id] = array_sum($chain['brd_temp']) / count($chain['brd_temp']) + $temperatures_data[$c_id];
 
 				    $freq_data[$c_id] = $chain['brd_freq'] + $freq_data[$c_id];
+
+				    $cc_data['OK'] = $chain['chips_condition']['ok'] + $cc_data['OK'];
+				    $cc_data['ER'] = $chain['chips_condition']['er'] + $cc_data['ER'];
 			    }
 
 			    $hr_data = $sdata->hash_rate + $hr_data;
-
+			    $hw_data = $sdata->hw + $hw_data;
 		    }
-
 
 		    $date = $data->first()->created_at;
 
@@ -227,11 +251,14 @@ class AntMinerController extends AppBaseController
 		    }
 
 		    $data_hr    = [$date, round($hr_data/$data->count(), 0)];
-
+		    $data_hw    = [$date, $hw_data/$data->count()];
+		    $data_cc    = [$date, round($cc_data['OK']/$data->count()), round($cc_data['ER']/$data->count(), 0)];
 
 		    $temperatures->addRow($data_temp);
 		    $freqs->addRow($data_freq);
 		    $hr->addRow($data_hr);
+		    $hw->addRow($data_hw);
+		    $cc->addRow($data_cc);
 
 	    }
 
@@ -245,6 +272,14 @@ class AntMinerController extends AppBaseController
 
 	    Lava::LineChart('HashRate', $hr, [
 		    'title' => 'Hash Rate',
+	    ]);
+
+	    Lava::LineChart('HWERR', $hw, [
+		    'title' => 'HW Errors',
+	    ]);
+
+	    Lava::LineChart('Chips', $cc, [
+		    'title' => 'Chips Count',
 	    ]);
 
         return view('ant_miners.show')->with('antMiner', $antMiner)->with('stats', $stats);
