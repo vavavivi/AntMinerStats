@@ -18,11 +18,15 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
-.btn-inline { display: inline-flex;}
-
-.content-header h1 .btn {
+.btn-inline { display: inline-flex; float: right; }
+.btn-inline .btn {
     margin-bottom: 5px;
     margin-left: 5px;
+}
+
+.content-header h1 {
+    position: relative;
+    top: 5px;
 }
 
 .color-red       { color: #dd4b39;}
@@ -47,23 +51,37 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     top: -2px;
 }
 
-#antMiners-table { border: 1px solid #efefef; }
-#antMiners-table td { padding: 7px 3px 7px 5px !important; }
+#antMiners-table {
+    box-shadow: 1px 1px 5px #eee;
+    background: #fff;
+    border-bottom: 1px solid #efefef;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+#antMiners-table td { padding: 7px 0px 7px 11px !important; }
 
-.table thead th { background-color: #dfdfdf !important; }
-.table>thead>tr>th {border-bottom: 1px solid #cfcfcf; }
-
-.table tr td { padding: 4px !important; }
+.table thead th    { background-color: #437096 !important; color: #fff;}
+.table>thead>tr>th { border-bottom: 1px solid #cfcfcf; }
+.table tr td       { padding: 4px !important; }
 
 .table-td-valign-middle td, .table-th-valign-middle th, .table-valign-middle td, .table-valign-middle th, .td-valign-middle {
     vertical-align: middle !important;
 }
 
-.table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th
+.table-responsive::-webkit-scrollbar-thumb
 {
-    padding: 3px 4px;
-    font-size: 95%;
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .2);
 }
+.table-responsive::-webkit-scrollbar
+{
+    background: #fff;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+}
+
 
 .connectedSortable .bg-gray { background-color: #888 !important; color: #fff; }
 .connectedSortable .box-title { color: #fff; font-size: 100%;}
@@ -152,13 +170,6 @@ ul.sidebar-menu li i {
     top: 20px;
 }
 
-.table-responsive::-webkit-scrollbar
-{
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-}
-
 /* ---- COLORING ---- */
 
 /* Основная плашка */
@@ -186,14 +197,6 @@ ul.sidebar-menu li i {
 .btn-primary {
     background-color: #497ba5 !important;
     border-color: #437096 !important;
-}
-
-
-.table-responsive::-webkit-scrollbar-thumb
-{
-    border-radius: 8px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, .2);
 }
 
 /* Кнопки пагинации */
@@ -340,14 +343,17 @@ ul.sidebar-menu li i {
 }
 
 @media (max-width: 1024px) {
-    #antMiners-table th { padding: 5px 2px 5px 5px !important; font-size: 12px; }
+    #antMiners-table { margin: 0px;}
+    #antMiners-table th { padding: 6px 2px 5px 5px !important; font-size: 13px; }
     #antMiners-table td { padding: 8px 2px 4px 5px !important; font-size: 12px; }
     #antMiners-table .btn { font-size: 11px; }
+    .table-responsive {margin-top: 5px;}
     .miner-temp { width: 28px; }
     .miner-temp2 { width: 56px; }
     .login-box, .register-box {
         margin-top: 20% auto;
     }
+
 }
 
 @media (max-width: 768px) {
@@ -367,9 +373,6 @@ ul.sidebar-menu li i {
 
 @media (max-width: 480px) {
     .content-header { padding-bottom: 15px; }
-
-    .table-responsive { margin-bottom: 0px; }
-
     .table-condensed { font-size: 82%;}
     .table-condensed .btn-sm { font-size: 70%; padding: 4px 6px; }
 

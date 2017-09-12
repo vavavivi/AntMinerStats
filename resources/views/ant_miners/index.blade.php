@@ -4,10 +4,8 @@
 
 @section('content')
     <section class="content-header">
-       <h1 class="pull-left">AntMiners</h1>
-        <h1 class="pull-right">
-
-           <div class="btn-inline">
+       <h1 class="pull-left">Miners</h1>
+       <div class="btn-inline">
                <!-- BUTTON: ADD -->
                <a class="btn btn-sm btn-success" href="{!! route('antMiners.create') !!}"><span class="hidden-xs">Add miner </span> <i class="fa fa-plus"></i> </a>
 
@@ -32,7 +30,6 @@
                 </button>
                 {!! Form::close() !!}
             </div>
-        </h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -40,16 +37,13 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-
-        <div class="box box-primary">
-            <div class="box-body">
-                @if(session()->get('miners_view','table') == 'table')
+            @if(session()->get('miners_view','table') == 'table')
                     @include('ant_miners.table')
-                @else
-                    @include('ant_miners.widget')
-                @endif
-            </div>
-        </div>
+            @else
+                <div class="clearfix"></div>
+                <br>
+                @include('ant_miners.widget')
+            @endif
     </div>
 @endsection
 
