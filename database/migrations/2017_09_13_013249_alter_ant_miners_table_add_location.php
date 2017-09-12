@@ -15,12 +15,7 @@ class AlterAntMinersTableAddLocation extends Migration
     {
 	    Schema::table('ant_miners', function (Blueprint $table) {
 		    $table->integer('location_id')->unsigned()->nullable()->after('user_id');
-		    $table->foreign('location_id')
-			    ->references('id')
-			    ->on('locations')
-			    ->onUpdate('cascade')
-			    ->onDelete('cascade')
-		    ;
+
 	    });
     }
 
