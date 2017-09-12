@@ -7,8 +7,8 @@
                     <th width="1%" class="text-center">TH/S</th>
                     <th width="1%" class="text-left">Board Temp,°C</th>
                     <th width="1%" class="text-left">Board Chips</th>
-                    <th width="1%" class="text-left">Board Frequency</th>
-                    <th width="1%" class="text-left">Fans</th>
+                    <th width="1%" class="text-left">Board Frequency, Mhz</th>
+                    <th width="1%" class="text-left">Fans, rpm</th>
                     <th width="1%" class="text-left">Updated</th>
                     <th width="1%" class="text-center"></th>
                     <th width="1%" class="text-center">Manage</th>
@@ -28,7 +28,7 @@
                         <td class="text-left">
                             <div class='btn-group'>
                                 @if($antMiner->url)
-                                    <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-cogs"></i></a>
+                                    <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-wrench"></i></a>
                                 @endif
                             </div>
                         </td>
@@ -114,7 +114,7 @@
                         <td class="text-center">
                             {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cog"></i></a>
+                                <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cogs"></i></a>
                                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             </div>
                             {!! Form::close() !!}
