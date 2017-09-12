@@ -16,12 +16,11 @@
             <th width="100%" class="text-center"></th>
         </thead>
         <tbody>
-        @php ($i = 1)
         @foreach($antMiners->sortBy('order') as $antMiner)
             <tr>
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{{ $i }}. {!! $antMiner->title !!}</a>
+                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{{ $loop->index + 1 }}. {!! $antMiner->title !!}</a>
                 </td>
 
                 <!-- MANAGE URL -->
@@ -147,7 +146,6 @@
                 </td>
                 <td></td>
             </tr>
-            @php ($i++)
         @endforeach
         </tbody>
     </table>
