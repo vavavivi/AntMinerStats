@@ -17,27 +17,31 @@
         <tbody>
         @foreach($antMiners as $location_id => $location_antMiners)
             @foreach($location_antMiners as $antMiner)
-            <tr>
 
             @if($loop->first)
-                <td class="text-center" rowspan="{{$location_antMiners->count() }}" bgcolor="#fff">
-                    <i class="fa fa-cubes" aria-hidden="true"></i><br>
-                    <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small><br>
-                </td>
+                <tr>
+                    <td class="text-left" colspan="8" bgcolor="#fff">
+                        <i class="fa fa-cubes" aria-hidden="true"></i>
+                        <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small>
+                        | <small>Count: {{$location_antMiners->count()}}</small>
+                    </td>
+                </tr>
             @endif
 
-            <!-- TITLE -->
-            <td class="small">
-                <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
-            </td>
+            <tr>
+
+                <!-- TITLE -->
+                <td class="small">
+                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}"><i class="fa fa-angle-right"></i> {!! $antMiner->title !!}</a>
+                </td>
 
 
-            <!-- MANAGE URL -->
-            <td class="text-left">
-                @if($antMiner->url)
-                    <a href="{{$antMiner->url}}"  class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
-                @endif
-            </td>
+                <!-- MANAGE URL -->
+                <td class="text-left">
+                    @if($antMiner->url)
+                        <a href="{{$antMiner->url}}"  class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                    @endif
+                </td>
 
 
             @if($data[$antMiner->id])
