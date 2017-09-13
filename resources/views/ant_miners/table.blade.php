@@ -1,18 +1,18 @@
 <div class="table-responsive">
     <table class="table table-striped table-valign-middle" id="antMiners-table">
         <thead>
-            <th width="1%" class="text-center" colspan="3">Title</th>
-            <th width="1%" class="text-center">Status</th>
-            <th width="1%" class="text-center">Errors</th>
-            <th width="1%" class="text-center">TH/S</th>
-            <th width="1%" class="text-center">Board Temp,°C</th>
-            <th width="1%" class="text-center">Board Chips</th>
-            <th width="1%" class="text-center">B.Freq</th>
-            <th width="1%" class="text-center">Fans, rpm</th>
-            <th width="1%" class="text-center"></th>
-            <th width="1%" class="text-center">Manage</th>
-            <th width="1%" class="text-center">Sort</th>
-            <th width="100%" class="text-center"></th>
+            <th class="text-center" colspan="2">Title</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Errors</th>
+            <th class="text-center">TH/S</th>
+            <th class="text-center">Board Temp,°C</th>
+            <th class="text-center">Board Chips</th>
+            <th class="text-center">B.Freq</th>
+            <th class="text-center">Fans, rpm</th>
+            <th class="text-center"></th>
+            <th class="text-center">Manage</th>
+            <th class="text-center">Sort</th>
+            <th width="100%"></th>
         </thead>
         <tbody>
         @foreach($antMiners as $location_id => $location_antMiners)
@@ -20,7 +20,7 @@
 
             @if($loop->first)
                 <tr>
-                    <td class="text-left" colspan="8" bgcolor="#fff">
+                    <td class="text-left" colspan="14" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
                         <i class="fa fa-cubes" aria-hidden="true"></i>
                         <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small>
                         | <small>Count: {{$location_antMiners->count()}}</small>
@@ -31,7 +31,7 @@
             <tr>
 
                 <!-- TITLE -->
-                <td class="small">
+                <td class="small" nowrap>
                     <a href="{!! route('antMiners.show', [$antMiner->id]) !!}"><i class="fa fa-angle-right"></i> {!! $antMiner->title !!}</a>
                 </td>
 
@@ -157,12 +157,6 @@
                 <td></td>
             </tr>
             @endforeach
-
-            @if(! $loop->last)
-                <tr>
-                    <td colspan="11"></td>
-                </tr>
-            @endif
         @endforeach
         </tbody>
     </table>

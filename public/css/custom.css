@@ -365,7 +365,7 @@ ul.sidebar-menu li i {
 @media (max-width: 1024px) {
     #antMiners-table      { margin: 0px;}
     #antMiners-table th   { padding: 6px 2px 5px 5px !important; font-size: 13px; }
-    #antMiners-table td   { padding: 8px 2px 4px 5px !important; font-size: 12px; }
+    #antMiners-table td   { padding: 6px 2px 5px 5px !important; font-size: 12px; }
     #antMiners-table .btn { font-size: 11px; }
     .table-responsive     { margin-top: 5px;}
     .miner-temp           { width: 28px; }
