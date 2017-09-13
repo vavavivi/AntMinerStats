@@ -4,7 +4,7 @@
         <section class="col-xs-12 col-sm-6 col-lg-4 connectedSortable">
 
             <div class="box" style="border: 0px;">
-
+{{--
                 <div class="box-header @if($data[$antMiner->id]) bg-primary @else bg-red-active @endif">
                     <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">
                         <!-- Check status -->
@@ -129,6 +129,7 @@
                     </div>
                 @endif
                 </div>
+--}}
             </div>
         </section>
     @endforeach
