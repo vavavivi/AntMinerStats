@@ -392,6 +392,11 @@ ul.sidebar-menu li i {
     .skin-yellow .main-header .navbar .dropdown-menu li a:hover {
         background-color: #efefef;
     }
+    .main-header .navbar .nav>li>a>.label {
+        top: -1px;
+        padding: 3px 5px;
+        font-size: 100%;
+    }
 }
 
 @media (max-width: 768px) {
