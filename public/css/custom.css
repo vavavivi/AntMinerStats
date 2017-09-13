@@ -129,6 +129,16 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     font-weight: 300;
 }
 
+.navbar-nav>li.user-menu,
+.navbar-nav>.user-menu>.dropdown-menu { width: 160px; }
+
+.main-header .navbar .nav>li>a>.label {
+    position: relative;
+    top: -2px;
+    left: 5px;
+    padding: 3px 5px;
+}
+
 .progress.vertical {
     position: relative;
     height: 20px !important;
@@ -373,7 +383,15 @@ ul.sidebar-menu li i {
     .login-box, .register-box {
         margin-top: 20% auto;
     }
-
+    .navbar-custom-menu>.navbar-nav>li>.dropdown-menu { right: 0;}
+    .navbar-nav>li.user-menu,
+    .navbar-nav>.user-menu>.dropdown-menu { width: auto; }
+    .skin-yellow .main-header .navbar .dropdown-menu li a {
+        color: #333;
+    }
+    .skin-yellow .main-header .navbar .dropdown-menu li a:hover {
+        background-color: #efefef;
+    }
 }
 
 @media (max-width: 768px) {
@@ -407,6 +425,7 @@ ul.sidebar-menu li i {
     .login-box, .register-box {
         margin-top: 42% auto;
     }
+
 }
 
 @media (max-width: 320px) {

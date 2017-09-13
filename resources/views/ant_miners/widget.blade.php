@@ -2,7 +2,6 @@
     @foreach($antMiners->sortBy('user_id') as $antMiner)
 
         <section class="col-xs-12 col-sm-6 col-lg-4 connectedSortable">
-
             <div class="box" style="border: 0px;">
 {{--
                 <div class="box-header @if($data[$antMiner->id]) bg-primary @else bg-red-active @endif">

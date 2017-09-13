@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/AdminLTE.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="/css/custom.css?v12091702">
+    <link rel="stylesheet" href="/css/custom.css?v13091701">
 
     <!-- PLUGINS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,31 +54,24 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="/images/user-avatar.png" class="user-image" alt="User Image"/>
                                 <span class="hidden-xs">{!! Auth::user()->name !!}</span>
+                                @if(Auth::user()->alerts->where('status','new')->count() > 0)
+                                   <span class="label label-danger">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+                                @endif
                             </a>
                             <ul class="dropdown-menu">
-                                <!-- The user image in the menu -->
-                                <li class="user-header">
-                                    <img src="/images/user-avatar.png" class="img-circle" alt="User Image"/>
-                                    <p>
-                                        {!! Auth::user()->name !!}
+                                <li><a href="{{route('profile')}}"><i class="fa fa-address-card-o"></i>View profile</a></li>
+                                <li><a href="{!! route('alerts.index') !!}"><i class="fa fa-exclamation-triangle"></i>Alerts
+                                        @if(Auth::user()->alerts->where('status','new')->count() > 0)
+                                              [{{Auth::user()->alerts->where('status','new')->count()}}]
+                                        @endif
+                                    </a></li>
+                                <li>
+                                    <a href="{!! url('/logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>Logout</a>
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
 
-                                    </p>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="{{route('profile')}}" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </div>
-                                </li>
                             </ul>
                         </li>
                     </ul>
