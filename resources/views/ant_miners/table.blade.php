@@ -131,16 +131,6 @@
                     <a href="{!! route('antMiners.state', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-toggle-{{$antMiner->active ? 'on' : 'off'}}"></i></a>
                 </td>
 
-                <!-- Manage -->
-                <td class="text-center">
-                    {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
-                        <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cogs"></i></a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </td>
-
                 <!-- Sorting -->
                 <td class="text-center" nowrap>
                     @if($loop->first)
@@ -154,6 +144,18 @@
                         <a class="btn btn-default btn-xs sort" href="{{route('antMiners.desc',$antMiner->id)}}"> <i class="fa fa-angle-down"></i></a>
                     @endif
                 </td>
+
+                <!-- Manage -->
+                <td class="text-center">
+                    {!! Form::open(['route' => ['antMiners.destroy', $antMiner->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        <a href="{!! route('antMiners.edit', [$antMiner->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-cogs"></i></a>
+                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
+                </td>
+
+
                 <td></td>
             </tr>
             @endforeach
