@@ -21,6 +21,11 @@
     </a>
 </li>
 
+<!-- LOCATION -->
+<li class="{{ Request::is('locations*') ? 'active' : '' }}">
+    <a href="{!! route('locations.index') !!}"><i class="fa fa-home"></i><span>Locations</span></a>
+</li>
+
 <!-- MINER LIST -->
 <li class="treeview {{ Route::is('antMiners.show') ? 'active' : '' }}">
     <a href="#">
@@ -35,9 +40,5 @@
             </li>
         @endforeach
     </ul>
-</li>
-
-<li class="{{ Request::is('locations*') ? 'active' : '' }}">
-    <a href="{!! route('locations.index') !!}"><i class="fa fa-edit"></i><span>Locations</span></a>
 </li>
 

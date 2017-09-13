@@ -1,7 +1,7 @@
 <div class="table-responsive">
-    <table class="table table-hover table-valign-middle" id="antMiners-table">
+    <table class="table table-striped table-valign-middle" id="antMiners-table">
         <thead>
-            <th width="1%" class="text-left" colspan="3">Miner title</th>
+            <th width="1%" class="text-left" colspan="3">Title</th>
             <th width="1%" class="text-center" colspan="2">Status</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
@@ -9,7 +9,6 @@
             <th width="1%" class="text-center">Board Chips</th>
             <th width="1%" class="text-center">B.Freq</th>
             <th width="1%" class="text-center">Fans, rpm</th>
-            <th width="1%" class="text-left">Updated</th>
             <th width="1%" class="text-center"></th>
             <th width="1%" class="text-center">Manage</th>
             <th width="1%" class="text-center">Sort</th>
@@ -20,10 +19,12 @@
             @foreach($location_antMiners as $antMiner)
             <tr>
                 @if($loop->first)
-                    <td rowspan="{{$location_antMiners->count() }}">
-                        {{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}
+                    <td class="text-center" rowspan="{{$location_antMiners->count() }}" bgcolor="#fff">
+                        <i class="fa fa-cubes" aria-hidden="true"></i><br>
+                        <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small><br>
                     </td>
                 @endif
+
                 <!-- TITLE -->
                 <td class="small" nowrap>
                     <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
@@ -44,9 +45,19 @@
                     <span style="margin-left: 3px;"><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span>
                 </td>
 
-                <!-- Check status -->
-                <td class="text-center">
-                    <span ><i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i></span>
+                <!-- Update status -->
+                <td class="text-center" nowrap>
+                    <button class="btn btn-xs btn-default">
+                        <i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i>
+                        <small>
+                        @if($data[$antMiner->id]['created_at']->diffInMinutes() < 1)
+                            {{$data[$antMiner->id]['created_at']->diffInSeconds()}}s
+                        @else
+                            {{$data[$antMiner->id]['created_at']->diffInMinutes()}}m
+                        @endif
+                        ago
+                        </small>
+                    </button>
                 </td>
 
                 <!-- ERRORS -->
@@ -105,20 +116,11 @@
                     @endforeach
                 </td>
 
-                <!-- Updated -->
-                <td class="text-left small" nowrap>
-                    @if($data[$antMiner->id]['created_at']->diffInMinutes() < 1)
-                        {{$data[$antMiner->id]['created_at']->diffInSeconds()}}s
-                    @else
-                        {{$data[$antMiner->id]['created_at']->diffInMinutes()}}m
-                    @endif
-                        ago
-                </td>
             @else
                 @if($antMiner->active)
-                    <td colspan="9" class="text-left">No data to display</td>
+                    <td colspan="8" class="text-left">No data to display</td>
                 @else
-                    <td colspan="9" class="text-left">{{$antMiner->d_reason}}</td>
+                    <td colspan="8" class="text-left"><small>{{$antMiner->d_reason}}</small></td>
                 @endif
             @endif
 
