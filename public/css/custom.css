@@ -393,7 +393,7 @@ ul.sidebar-menu li i {
         background-color: #efefef;
     }
     .main-header .navbar .nav>li>a>.label {
-        top: -2px;
+        top: -1px;
         padding: 4px 6px;
         font-size: 80%;
     }
