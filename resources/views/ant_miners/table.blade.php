@@ -2,7 +2,7 @@
     <table class="table table-striped table-valign-middle" id="antMiners-table">
         <thead>
             <th width="1%" class="text-center" colspan="3">Title</th>
-            <th width="1%" class="text-center" colspan="1">Updated</th>
+            <th width="1%" class="text-center">Status</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
             <th width="1%" class="text-center">Board Temp,°C</th>
@@ -25,25 +25,27 @@
                     </td>
                 @endif
 
+                <!-- MANAGE URL -->
+                    <td class="text-left">
+                        <div class='btn-group'>
+                            @if($antMiner->url)
+                                <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                            @endif
+                        </div>
+                    </td>
+
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a class="btn btn-xs btn-{{$data[$antMiner->id]->ok ? 'success' : 'danger'}}" href="{!! route('antMiners.show', [$antMiner->id]) !!}">
+                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">
                         {!! $antMiner->title !!}
                     </a>
                 </td>
 
-                <!-- MANAGE URL -->
-                <td class="text-left">
-                    <div class='btn-group'>
-                        @if($antMiner->url)
-                            <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
-                        @endif
-                    </div>
-                </td>
-
             @if($data[$antMiner->id])
-                <!-- Update status -->
+                <!-- Check status -->
                 <td class="text-center" nowrap>
+                    <span style="position: relative; top: 2px; margin-right: 2px;"><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span>
+
                     <a class="btn btn-xs btn-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'danger' : 'success'}}">
                         <small>
                         @if($data[$antMiner->id]['created_at']->diffInSeconds() < 60)
