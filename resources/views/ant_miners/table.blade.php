@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table table-striped table-valign-middle" id="antMiners-table">
         <thead>
-            <th width="1%" class="text-left" colspan="3">Title</th>
+            <th width="1%" class="text-center" colspan="3">Title</th>
             <th width="1%" class="text-center" colspan="1">Updated</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
