@@ -47,17 +47,20 @@
 
                 <!-- Update status -->
                 <td class="text-center" nowrap>
-                    <button class="btn btn-xs btn-default">
-                        <i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i>
+                    <a class="btn btn-xs btn-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'danger' : 'success'}}">
                         <small>
-                        @if($data[$antMiner->id]['created_at']->diffInMinutes() < 1)
+                        @if($data[$antMiner->id]['created_at']->diffInSeconds() < 60)
                             {{$data[$antMiner->id]['created_at']->diffInSeconds()}}s
-                        @else
+                        @elseif($data[$antMiner->id]['created_at']->diffInSeconds() >= 60 && $data[$antMiner->id]['created_at']->diffInSeconds() < 60*60 )
                             {{$data[$antMiner->id]['created_at']->diffInMinutes()}}m
+                        @elseif($data[$antMiner->id]['created_at']->diffInSeconds() >= 60*60 && $data[$antMiner->id]['created_at']->diffInSeconds() < 24*60*60 )
+                            {{$data[$antMiner->id]['created_at']->diffInHours()}}h
+                        @else
+                            {{$data[$antMiner->id]['created_at']->diffInDays()}}d
                         @endif
                         ago
                         </small>
-                    </button>
+                    </a>
                 </td>
 
                 <!-- ERRORS -->
