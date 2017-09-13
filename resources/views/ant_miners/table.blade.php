@@ -27,7 +27,7 @@
 
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a class="btn btn-xs btn-{{$data[$antMiner->id]->ok ? 'default' : 'danger'}}" href="{!! route('antMiners.show', [$antMiner->id]) !!}">
+                    <a class="btn btn-xs btn-{{$data[$antMiner->id]->ok ? 'success' : 'danger'}}" href="{!! route('antMiners.show', [$antMiner->id]) !!}">
                         {!! $antMiner->title !!}
                     </a>
                 </td>
