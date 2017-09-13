@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table table-striped table-valign-middle" id="antMiners-table">
         <thead>
-            <th width="1%" class="text-left" colspan="3">Title</th>
+            <th width="1%" class="text-left" colspan="2">Title</th>
             <th width="1%" class="text-center" colspan="2">Status</th>
             <th width="1%" class="text-center">Errors</th>
             <th width="1%" class="text-center">TH/S</th>
@@ -27,7 +27,9 @@
 
                 <!-- TITLE -->
                 <td class="small" nowrap>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
+                    <a class="btn btn-xs btn-{{$data[$antMiner->id]->ok ? 'default' : 'danger'}}" href="{!! route('antMiners.show', [$antMiner->id]) !!}">
+                        {!! $antMiner->title !!}
+                    </a>
                 </td>
 
                 <!-- MANAGE URL -->
@@ -40,11 +42,6 @@
                 </td>
 
             @if($data[$antMiner->id])
-                <!-- Check status -->
-                <td class="text-center">
-                    <span style="margin-left: 3px;"><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span>
-                </td>
-
                 <!-- Update status -->
                 <td class="text-center" nowrap>
                     <a class="btn btn-xs btn-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'danger' : 'success'}}">
