@@ -18,36 +18,34 @@
         @foreach($antMiners as $location_id => $location_antMiners)
             @foreach($location_antMiners as $antMiner)
             <tr>
-                @if($loop->first)
-                    <td class="text-center" rowspan="{{$location_antMiners->count() }}" bgcolor="#fff">
-                        <i class="fa fa-cubes" aria-hidden="true"></i><br>
-                        <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small><br>
-                    </td>
-                @endif
 
-                <!-- MANAGE URL -->
-                    <td class="text-left">
-                        <div class='btn-group'>
-                            @if($antMiner->url)
-                                <a href="{{$antMiner->url}}" class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
-                            @endif
-                        </div>
-                    </td>
-
-                <!-- TITLE -->
-                <td class="small" nowrap>
-                    <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">
-                        {!! $antMiner->title !!}
-                    </a>
+            @if($loop->first)
+                <td class="text-center" rowspan="{{$location_antMiners->count() }}" bgcolor="#fff">
+                    <i class="fa fa-cubes" aria-hidden="true"></i><br>
+                    <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small><br>
                 </td>
+            @endif
+
+            <!-- TITLE -->
+            <td class="small">
+                <a href="{!! route('antMiners.show', [$antMiner->id]) !!}">{!! $antMiner->title !!}</a>
+            </td>
+
+
+            <!-- MANAGE URL -->
+            <td class="text-left">
+                @if($antMiner->url)
+                    <a href="{{$antMiner->url}}"  class="btn btn-xs btn-default" target="_blank"><i class="glyphicon glyphicon-share"></i></a>
+                @endif
+            </td>
+
 
             @if($data[$antMiner->id])
                 <!-- Check status -->
                 <td class="text-center" nowrap>
-                    <span style="position: relative; top: 2px; margin-right: 2px;"><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span>
-
-                    <a class="btn btn-xs btn-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'danger' : 'success'}}">
-                        <small>
+                    <a class="btn btn-xs btn-default">
+                        <span><i class="fa {{$data[$antMiner->id]->ok ? 'fa-check-circle color-green' : 'fa-exclamation-circle color-red'}}"></i></span> |
+                        <i class="fa fa-clock-o color-{{$data[$antMiner->id]['created_at']->diffInSeconds() > 300 ? 'red' : 'green'}}"></i>
                         @if($data[$antMiner->id]['created_at']->diffInSeconds() < 60)
                             {{$data[$antMiner->id]['created_at']->diffInSeconds()}}s
                         @elseif($data[$antMiner->id]['created_at']->diffInSeconds() >= 60 && $data[$antMiner->id]['created_at']->diffInSeconds() < 60*60 )
@@ -57,8 +55,6 @@
                         @else
                             {{$data[$antMiner->id]['created_at']->diffInDays()}}d
                         @endif
-                        ago
-                        </small>
                     </a>
                 </td>
 
@@ -120,9 +116,9 @@
 
             @else
                 @if($antMiner->active)
-                    <td colspan="8" class="text-left">No data to display</td>
+                    <td colspan="7" class="text-left">No data to display</td>
                 @else
-                    <td colspan="8" class="text-left"><small>{{$antMiner->d_reason}}</small></td>
+                    <td colspan="7" class="text-left"><small>{{$antMiner->d_reason}}</small></td>
                 @endif
             @endif
 
@@ -157,6 +153,7 @@
                 <td></td>
             </tr>
             @endforeach
+
             @if(! $loop->last)
                 <tr>
                     <td colspan="11"></td>

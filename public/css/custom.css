@@ -40,8 +40,8 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 .color-white       { color: #ffffff;}
 .color-white:hover { color: #ccc;}
 
-.hw-errors   { width: 60px; }
-.ths         { width: 45px; }
+.hw-errors   { width: 53px; }
+.ths         { width: 43px; }
 .miner-temp  { width: 35px; position: relative; top: 1px; }
 .chip-status { width: 27px; }
 .freq        { width: 60px; }
