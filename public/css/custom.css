@@ -18,6 +18,9 @@ h6 {margin-top:7px; margin-bottom: 3px;}
     box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
+.alerts a { color: #454545;}
+
+
 .btn-inline { display: inline-flex; float: right; }
 .btn-inline .btn {
     margin-bottom: 5px;
@@ -425,7 +428,7 @@ ul.sidebar-menu li i {
         line-height: 1.3857143;
         font-size: 90%;
     }
-    .table thead th { font-size: 85%; }
+    .table thead th { font-size: 95%; }
 
     .login-box, .register-box {
         margin-top: 42% auto;

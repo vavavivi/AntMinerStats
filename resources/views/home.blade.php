@@ -5,7 +5,7 @@
 @section('content')
     <section class="content">
 
-        <div class="row">
+        <div class="row alerts">
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-blue">
@@ -14,9 +14,10 @@
                         </a>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-number text-center">{{Auth::user()->hashrate}} TH/s</span>
+                        <span class="info-box-number text-center">
+                            <a href="{!! route('antMiners.index') !!}">{{Auth::user()->hashrate}} TH/s</a>
+                        </span>
                         <span class="info-box-text text-center">Total Hashrate</span>
-
                     </div>
                 </div>
             </div>
@@ -28,8 +29,10 @@
                         </a>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-number text-center">{{Auth::user()->miners->count()}} / {{Auth::user()->miners->count()}}</span>
-                        <span class="info-box-text text-center">Active / Total Miners</span>
+                        <span class="info-box-number text-center">
+                            <a href="{!! route('antMiners.index') !!}">{{Auth::user()->miners->count()}}</a>
+                        </span>
+                        <span class="info-box-text text-center">Total Miners</span>
                     </div>
                 </div>
             </div>
@@ -39,7 +42,9 @@
                         <a href="{!! route('alerts.index') !!}"><img src="/images/icons/wh/006-smartphone.png" width="64"></a>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-number text-center">{{Auth::user()->alerts->where('status','new')->count()}}</span>
+                        <span class="info-box-number text-center">
+                            <a href="{!! route('alerts.index') !!}">{{Auth::user()->alerts->where('status','new')->count()}}</a>
+                        </span>
                         <span class="info-box-text text-center">Miners alerts</span>
                     </div>
                 </div>
