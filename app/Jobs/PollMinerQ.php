@@ -57,7 +57,7 @@ class PollMinerQ implements ShouldQueue
 			    if( $miner_data['hash_rate'] < 500 && $antMiner->restart )
 			    {
 				    $resp = $this->read_from_socket($antMiner, 'restart');
-				    $msg[] = 'Trying to restart ' . $antMiner->title . ' due to <b>0</b> hashrate. Restart cmd result: ' . $resp;
+				    $msg[] = 'Restart ' . $antMiner->title . ' due to <b>0 hashrate</b>.<br> Result: ' . $resp;
 			    }
 		    }
 
