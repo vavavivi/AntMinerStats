@@ -22,7 +22,7 @@
                 <tr>
                     <td class="text-left" colspan="14" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
                         <i class="fa fa-cubes" aria-hidden="true"></i>
-                        <small style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</small>
+                        <strong style="padding-right: 5px;">{{\App\Models\Location::find($location_id) ? \App\Models\Location::find($location_id)->title : '  ' }}</strong>
                         | <small>Count: {{$location_antMiners->count()}}</small>
                     </td>
                 </tr>
