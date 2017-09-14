@@ -33,7 +33,7 @@ trait MinerTrait
         fclose($connection);
         $connection = null;
 
-        return $reply;
+        return str_replace("\0", '', $reply);
     }
 
     public function get_api_data(AntMiner $antMiner)
@@ -79,33 +79,25 @@ trait MinerTrait
         return $this->read_from_socket($antMiner, 'summary');
     }
 
-    public function parseStats($array)
+    public function parseStats($string)
     {
-        $reply = explode('|',$array);
-        $result = [];
+	    $string = preg_replace('/{[\s\S]+?}/', '', $string);
 
-        foreach($reply as $block=>$data_raw)
-        {
-            $data = explode(',',$data_raw);
+        $parse = explode('|',$string);
 
-            foreach($data as $id=>$value)
-            {
-                if(substr( $value, 0, 11 ) === "chain_xtime" OR substr( $value, 0, 1 ) === "X")
-                {
-                }
-                else
-                {
-                    $temp = explode('=',$value);
-                }
+	    $reply = array_filter($parse);
+	    $data = [];
 
-                if(key_exists(0,$temp) && key_exists(1,$temp))
-                {
-                    $result[$temp[0]] = $temp[1];
-                }
-            }
-        }
+	    foreach($reply as $data_raw)
+	    {
+		    foreach(explode(',',$data_raw) as $item)
+		    {
+			    $temp = explode('=',$item);
+			    $data[$temp[0]] = count($temp) > 1 ? $temp[1] : null;
+		    }
+	    }
 
-        return $result;
+        return $data;
     }
 
     public function parsePools($array)
