@@ -15,12 +15,11 @@ trait MinerTrait
         $connection = null;
 
         try{
-            ini_set("default_socket_timeout", 5);
-            $connection = fsockopen($host, $port,$errstr);
+            $connection = fsockopen($host, $port, $errno, $errstr, 1);
 
         }
         catch(\Exception $e){
-
+			//dd($e);
         }
 
         if (!$connection) {
@@ -33,7 +32,6 @@ trait MinerTrait
         stream_socket_shutdown($connection, STREAM_SHUT_WR);
         fclose($connection);
         $connection = null;
-
 
         return $reply;
     }
