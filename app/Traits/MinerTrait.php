@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-
+use App\Jobs\SendAlert;
 use App\Models\AntMiner;
 
 trait MinerTrait
@@ -219,6 +219,103 @@ trait MinerTrait
         }
 
         return $stats;
+    }
+
+    public function storeLog($miner_data, AntMiner $antMiner )
+    {
+	    $antMinerLog = null;
+
+    	if(! $miner_data)
+	    {
+		    return null;
+	    }
+
+	    $this->clearLogs($antMiner);
+	    $antMinerLog = $antMiner->antlogs()->create($miner_data);
+
+    	return $antMinerLog;
+    }
+
+	public function clearLogs(AntMiner $antMiner)
+    {
+    	$logs_count = 0;
+	    if( $antMiner->antlogs->count() > 1440 )
+	    {
+		    foreach($antMiner->antlogs->take($antMiner->antlogs->count() - 1440) as $log)
+		    {
+			    $log->delete();
+			    $logs_count++;
+		    }
+	    }
+
+	    return $logs_count;
+    }
+
+    public function analizeLog($antMinerLog, AntMiner $antMiner)
+    {
+	    $msg_array = [];
+
+	    if(! $antMinerLog)
+	    {
+		    $msg_array[] = $antMiner->title . ' is offline or unable to connect.';
+
+		    $antMiner->increment('f_count');
+
+		    if( $antMiner->f_count >= 5 )
+		    {
+		    	$disable_reason = 'Auto disabled due to 5 unsuccessful attempts to connect to ASIC in a row on : ' . Carbon::now()->format('d.m.Y H:i:s');
+			    $msg_array[] = $disable_reason;
+
+			    $antMiner->update([
+				    'active'   => false,
+				    'd_reason' => $disable_reason,
+				    'f_count'  => 0,
+			    ]);
+		    }
+	    }
+	    else
+	    {
+		    if( $antMiner->hr_limit && $antMinerLog['hash_rate'] < $antMiner->hr_limit )
+		    {
+			    $msg_array[] = $antMiner->title . ' low Hashrate alert: <b>' . round($antMinerLog['hash_rate'] / 1024, 2) . ' Th</b> Your limit is: <b>' . round($antMiner->hr_limit / 1024, 2) . ' Th</b>';
+
+
+			    if( $antMinerLog['hash_rate'] < 500 && $antMiner->restart )
+			    {
+				    $restart = $this->read_from_socket($antMiner, 'restart');
+				    $msg_array[] = 'Restart ' . $antMiner->title . ' due to <b>0 hashrate</b>.<br> Result: ' . $restart;
+			    }
+		    }
+
+		    if( $antMiner->temp_limit )
+		    {
+			    $max_temp = 0;
+			    foreach($antMinerLog['chains'] as $chain)
+			    {
+				    foreach($chain['brd_temp'] as $cur_temp)
+				    {
+					    if( $cur_temp > $max_temp )
+					    {
+						    $max_temp = $cur_temp;
+					    }
+				    }
+			    }
+
+			    if( $max_temp > $antMiner->temp_limit )
+			    {
+				    $msg_array[] = $antMiner->title . ' high temperature alert: <b>' . $max_temp . 'C</b> Your limit is: <b>' . $antMiner->temp_limit . 'C</b>';
+			    }
+		    }
+
+		    $data = null;
+
+		    $antMiner->update(['f_count' => 0]);
+	    }
+
+	    foreach($msg_array as $message)
+	    {
+		    SendAlert::dispatch($antMiner, $message);
+	    }
     }
 
 }
