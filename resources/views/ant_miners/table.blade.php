@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         @foreach($antMiners as $location_id => $location_antMiners)
-            @foreach($location_antMiners as $antMiner)
+            @foreach($location_antMiners->sortBy('order') as $antMiner)
 
             @if($loop->first)
                 <tr>
