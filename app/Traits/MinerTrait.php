@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Jobs\SendAlert;
 use App\Models\AntMiner;
+use Carbon\Carbon;
 
 trait MinerTrait
 {
