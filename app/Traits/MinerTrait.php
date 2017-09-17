@@ -16,7 +16,8 @@ trait MinerTrait
         $connection = null;
 
         try{
-            $connection = fsockopen($host, $port, $errno, $errstr, 1);
+	        ini_set("default_socket_timeout", 5);
+	        $connection = fsockopen($host, $port,$errstr);
 
         }
         catch(\Exception $e){
