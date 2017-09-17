@@ -284,7 +284,7 @@ trait MinerTrait
 			    if( $antMinerLog['hash_rate'] < 500 && $antMiner->restart )
 			    {
 				    $restart = $this->read_from_socket($antMiner, 'restart');
-				    $msg_array[] = 'Restart ' . $antMiner->title . ' due to <b>0 hashrate</b>.<br> Result: ' . $restart;
+				    $msg_array[] = 'Restart ' . $antMiner->title . ' due to <b>0 hashrate</b>.Result: ' . $restart;
 			    }
 		    }
 
