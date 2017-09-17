@@ -122,7 +122,7 @@
                 @if($antMiner->active)
                     <td colspan="7" class="text-left">No data to display</td>
                 @else
-                    <td colspan="7" class="text-left"><small>{{$antMiner->d_reason}}</small></td>
+                    <td colspan="7" class="text-left"><small>{!! $antMiner->d_reason !!}</small></td>
                 @endif
             @endif
 

@@ -255,16 +255,18 @@ trait MinerTrait
     public function analizeLog($antMinerLog, AntMiner $antMiner)
     {
 	    $msg_array = [];
+	    $url = route('antMiners.show',$antMiner->id);
 
 	    if(! $antMinerLog)
 	    {
-		    $msg_array[] = $antMiner->title . ' is offline or unable to connect.';
-
 		    $antMiner->increment('f_count');
+
+		    $msg_array[] = "⚠️ <a href='". $url ."'>Anminer: ". $antMiner->title . "</a> is offline or unable to connect.\n Please check your internet connection.\n Try #" .$antMiner->f_count;
 
 		    if( $antMiner->f_count >= 5 )
 		    {
-		    	$disable_reason = 'Auto disabled due to 5 unsuccessful attempts to connect to ASIC in a row on : ' . Carbon::now()->format('d.m.Y H:i:s');
+			    $disable_reason = "⛔️ <a href='". $url ."'>Anminer: ". $antMiner->title . "</a> was disabled after 5 attempts to connect to ASIC on: " .Carbon::now()->format('d.m.Y H:i:s');
+
 			    $msg_array[] = $disable_reason;
 
 			    $antMiner->update([
@@ -278,8 +280,7 @@ trait MinerTrait
 	    {
 		    if( $antMiner->hr_limit && $antMinerLog['hash_rate'] < $antMiner->hr_limit )
 		    {
-			    $msg_array[] = $antMiner->title . ' low Hashrate alert: <b>' . round($antMinerLog['hash_rate'] / 1024, 2) . ' Th</b> Your limit is: <b>' . round($antMiner->hr_limit / 1024, 2) . ' Th</b>';
-
+			    $msg_array[] = "⚡️ <a href='". $url ."'>Anminer: ". $antMiner->title . "</a> low Hashrate alert: <b>". round($antMinerLog['hash_rate'] / 1024, 2) ." Th</b>.\n Your limit is: <b>". round($antMiner->hr_limit / 1024, 2) ." Th</b>.";
 
 			    if( $antMinerLog['hash_rate'] < 500 && $antMiner->restart )
 			    {
@@ -304,7 +305,7 @@ trait MinerTrait
 
 			    if( $max_temp > $antMiner->temp_limit )
 			    {
-				    $msg_array[] = $antMiner->title . ' high temperature alert: <b>' . $max_temp . 'C</b> Your limit is: <b>' . $antMiner->temp_limit . 'C</b>';
+				    $msg_array[] = "☀️ <a href='". $url ."'>Anminer: ". $antMiner->title . "</a> high temperature alert: <b>". $max_temp ." °C</b>.\n Your limit is: <b>". $antMiner->temp_limit ." °C</b>.";
 			    }
 		    }
 
