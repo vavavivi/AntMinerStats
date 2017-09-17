@@ -16,7 +16,7 @@ trait MinerTrait
         $connection = null;
 
         try{
-            $connection = fsockopen($host, $port, $errno, $errstr, 1);
+            $connection = fsockopen($host, $port, $errno, $errstr, 5);
 
         }
         catch(\Exception $e){
