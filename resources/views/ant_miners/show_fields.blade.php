@@ -18,7 +18,7 @@
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
                                     <span class="description-text"><i class="fa fa-rocket"></i> UPTIME</span>
-                                    <h5 class="description-header">{{ gmdate('d',$stats['summary']['Elapsed']) }}d {{ gmdate('H',$stats['summary']['Elapsed']) }}h {{ gmdate('i',$stats['summary']['Elapsed']) }}m  {{ gmdate('s',$stats['summary']['Elapsed']) }}s</h5>
+                                    <h5 class="description-header">{{ gmdate('d',$stats['summary']['Elapsed']) - 1 }}d {{ gmdate('H',$stats['summary']['Elapsed']) }}h {{ gmdate('i',$stats['summary']['Elapsed']) }}m  {{ gmdate('s',$stats['summary']['Elapsed']) }}s</h5>
                                 </div>
                             </div>
                             <!-- HW -->
