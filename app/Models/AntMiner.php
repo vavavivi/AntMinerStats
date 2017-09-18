@@ -89,6 +89,24 @@ class AntMiner extends Model
 		return $query->where('active', 1);
 	}
 
+	public function getFullTitleAttribute()
+	{
+		if($this->location)
+		{
+			return $this->location->title . ' / ' . $this->title;
+		}
+
+		return $this->title;
+	}
+
+	public function getFullTitleUrlAttribute($target = null)
+	{
+		$url = route('antMiners.show',$this->id);
+
+		return '<a href="'.$url.'">'.$this->full_title.'</a>';
+
+	}
+
 
 
 }
