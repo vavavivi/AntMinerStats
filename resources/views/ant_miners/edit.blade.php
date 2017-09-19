@@ -3,14 +3,13 @@
 @section('title',"Edit: \"$antMiner->title\" -")
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Edit miner: {!! $antMiner->title !!}
-        </h1>
-   </section>
    <div class="content">
        {{-- @include('adminlte-templates::common.errors') --}}
        <div class="box box-primary">
+           <div class="box-header with-border">
+               <i class="fa fa-cogs"></i>
+               <h3 class="box-title">Edit <b>{!! $antMiner->title !!}</b></h3>
+           </div>
            <div class="box-body">
                <div class="row">
                    {!! Form::model($antMiner, ['route' => ['antMiners.update', $antMiner->id], 'method' => 'patch']) !!}
