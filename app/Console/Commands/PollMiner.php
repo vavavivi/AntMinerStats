@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\PollMinerQ;
 use App\Models\AntMiner;
 use App\Traits\MinerTrait;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class PollMiner extends Command
@@ -24,9 +25,20 @@ class PollMiner extends Command
     {
 	    $antMiners = AntMiner::active()->get();
 
-	    foreach($antMiners as $antMiner)
+	    $count = $antMiners->count();
+
+	    $chunks = floor($count / 5) + 1;
+
+	    $seconds_delay = 0;
+
+	    foreach($antMiners->chunk($chunks) as $antMiners_chunked)
 	    {
-		    PollMinerQ::dispatch($antMiner);
+	    	foreach($antMiners_chunked as $antMiner)
+		    {
+			    PollMinerQ::dispatch($antMiner)->delay(Carbon::now()->addSeconds($seconds_delay));
+		    }
+
+		    $seconds_delay = $seconds_delay + 60;
 	    }
 
 	    echo 'OK';
