@@ -48,10 +48,12 @@ class AntMiner extends Model
 
     public static $rules = [
         'title' => 'required',
+        'type' => 'required',
         'host' => 'required',
         'port' => 'required',
 	    'temp_limit' => 'integer|nullable',
 	    'hr_limit' => 'integer|nullable',
+	    'url' => 'url|nullable',
     ];
 
     public function setOptionsAttribute($array)

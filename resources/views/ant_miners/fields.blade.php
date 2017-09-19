@@ -1,110 +1,70 @@
 <!-- Title Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('title', 'Title:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6 {{ $errors->has('title') ? ' has-error' : '' }}">
+    {!! Form::label('title', '* Title:') !!}
+    {!! Form::text('title', null, ['class' => 'form-control','placeholder' => 'My Antminer S9']) !!}
+    @if ($errors->has('title'))
+        <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
+    @endif
 </div>
 
-<div class="form-group col-sm-6">
-    {!! Form::label('type', 'Type:') !!}
-    {!! Form::select('type',['bmminer' => 'AntMiner T9/S9','cgminer' => 'AntMiner S7'], null, ['class' => 'form-control']) !!}
+<!-- Type Field -->
+<div class="form-group col-sm-6 {{ $errors->has('type') ? ' has-error' : '' }}">
+    {!! Form::label('type', '* Type:') !!}
+    {!! Form::select('type',[null => 'Select ASIC Type','bmminer' => 'AntMiner T9/S9','cgminer' => 'AntMiner S7'], null, ['class' => 'form-control']) !!}
+    @if ($errors->has('type'))
+        <span class="help-block"><strong>{{ $errors->first('type') }}</strong></span>
+    @endif
 </div>
+
+<div class="clearfix"></div>
+
 <!-- Host Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('host', 'Host:') !!}
-    {!! Form::text('host', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6 {{ $errors->has('host') ? ' has-error' : '' }}">
+    {!! Form::label('host', '* Host (accepts both IP and hostmane):') !!}
+    {!! Form::text('host', null, ['class' => 'form-control','placeholder' => '100.84.213.43']) !!}
+    @if ($errors->has('host'))
+        <span class="help-block"><strong>{{ $errors->first('host') }}</strong></span>
+    @endif
 </div>
 
 <!-- Port Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('port', 'Port:') !!}
-    {!! Form::text('port', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6 {{ $errors->has('port') ? ' has-error' : '' }}">
+    {!! Form::label('port', '* API Port:') !!}
+    {!! Form::text('port', null, ['class' => 'form-control','placeholder' => '4028']) !!}
+    @if ($errors->has('port'))
+        <span class="help-block"><strong>{{ $errors->first('port') }}</strong></span>
+    @endif
 </div>
 
+<div class="clearfix"></div>
+
 <!-- temp_limit Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('temp_limit', 'Temperature Warning level:') !!}
-    {!! Form::text('temp_limit', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6 {{ $errors->has('temp_limit') ? ' has-error' : '' }}">
+    {!! Form::label('temp_limit', 'Temperature warning level (in Celsius):') !!}
+    {!! Form::text('temp_limit', null, ['class' => 'form-control','placeholder' => '85']) !!}
+    @if ($errors->has('temp_limit'))
+        <span class="help-block"><strong>{{ $errors->first('temp_limit') }}</strong></span>
+    @endif
 </div>
 
 <!-- hr_limit Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('hr_limit', 'HashRate Warning level:') !!}
-    {!! Form::text('hr_limit', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-6 {{ $errors->has('hr_limit') ? ' has-error' : '' }}">
+    {!! Form::label('hr_limit', 'Hashrate warning level (in Ghs):') !!}
+    {!! Form::text('hr_limit', null, ['class' => 'form-control','placeholder' => '11500']) !!}
+    @if ($errors->has('hr_limit'))
+        <span class="help-block"><strong>{{ $errors->first('hr_limit') }}</strong></span>
+    @endif
 </div>
 
+<div class="clearfix"></div>
 
 <!-- Url Field -->
-<div class="form-group col-sm-12">
-    {!! Form::label('url', 'Management Url:') !!}
-    {!! Form::text('url', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-12  {{ $errors->has('url') ? ' has-error' : '' }}">
+    {!! Form::label('url', 'Management Url (just in case you need fast access to bitmain web interface):') !!}
+    {!! Form::text('url', null, ['class' => 'form-control','placeholder' => 'http://100.84.213.43:2101/cgi-bin/minerConfiguration.cgi']) !!}
+    @if ($errors->has('url'))
+        <span class="help-block"><strong>{{ $errors->first('url') }}</strong></span>
+    @endif
 </div>
 
-@if(isset($keys))
-    <!-- Options Field -->
-    <div class="form-group col-sm-4">
-        <h4>Detected Fans:</h4>
-        @foreach($keys as $key => $value)
-            @if(substr( $key, 0, 3 ) === "fan" && substr( $key, 0, 4 ) !== "fan_" && $value != 0)
-                <div class="checkbox">
-                    <label>
-                        {{Form::checkbox('options['.$key.']', $key, 1,['onclick='=>'return false;'])}}
-                        {{$key}}: {{$value}}
-                    </label>
-                </div>
-            @endif
-        @endforeach
-    </div>
 
-    <!-- Options Field -->
-    <div class="form-group col-sm-4">
-        <h4>Detected  Temperatures:</h4>
-        @foreach($keys as $key => $value)
-            @if(substr( $key, 0, 4 ) === "temp" && substr( $key, 0, 5 ) !== "temp_" && $value != 0)
-                <div class="checkbox">
-                    <label>
-                        {{Form::checkbox('options['.$key.']', $key, 1,['onClick'=>'return false;'])}}
-                        {{$key}}: {{$value}}
-                    </label>
-                </div>
-            @endif
-        @endforeach
-    </div>
-
-    <!-- Options Field -->
-    <div class="form-group col-sm-4">
-        <h4>Detected Hash boards:</h4>
-        @foreach($keys as $key => $value)
-            @if(substr( $key, 0, 9 ) === "chain_acn" && $value != 0)
-                <div class="checkbox">
-                    <label>
-                        {{Form::checkbox('options['.$key.']', $key, 1,['onclick='=>'return false;'])}}
-                        {{$key}}: {{$value}}
-                    </label>
-                </div>
-            @endif
-        @endforeach
-    </div>
-@endif
-
-@if(isset($keys))
-<!-- Options Field
-<div class="form-group col-sm-3">
-    @foreach($keys as $key => $value)
-    <div class="checkbox">
-        <label>
-            <input type="checkbox">
-            {{Form::checkbox('options['.$key.']', $key)}}
-            {{$key}}: {{$value}}
-        </label>
-    </div>
-    @endforeach
-</div>
--->
-@endif
-
-
-<!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('antMiners.index') !!}" class="btn btn-default">Cancel</a>
-</div>
