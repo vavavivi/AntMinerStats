@@ -13,12 +13,12 @@
                {!! Form::open(['route' => ['antMiners.force'], 'method' => 'post']) !!}
                <button class="btn btn-sm btn-warning"><span class="hidden-xs">Update</span>  <i class="fa fa-refresh"></i></button>
                {!! Form::close() !!}
-
-               <!-- BUTTON: TABLE VIEW -->
-               {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
+                {{--
+                <!-- BUTTON: TABLE VIEW -->
+                {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
                 <input type="hidden" name="view" value="table">
                 <button class="btn btn-sm {{session()->get('miners_view','table') == 'table' ? 'btn-primary' : 'btn-white'}}">
-                    <i class="fa fa-table"></i>
+                   <i class="fa fa-table"></i>
                 </button>
                 {!! Form::close() !!}
 
@@ -26,9 +26,10 @@
                 {!! Form::open(['route' => ['antMiners.view'], 'method' => 'post']) !!}
                 <input type="hidden" name="view" value="widget">
                 <button class="btn btn-sm {{session()->get('miners_view') == 'widget' ? 'btn-primary' : 'btn-white'}}">
-                    <i class="fa fa-th-large"></i>
+                   <i class="fa fa-th-large"></i>
                 </button>
                 {!! Form::close() !!}
+                --}}
             </div>
     </section>
     <div class="content">
