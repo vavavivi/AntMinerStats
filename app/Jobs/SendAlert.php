@@ -41,7 +41,7 @@ class SendAlert implements ShouldQueue
 			    'chat_id'    => $this->antMiner->user->chat_id,
 			    'text'       => $this->message,
 			    'parse_mode' => 'HTML',
-			    'disable_web_page_preview' => false
+			    'disable_web_page_preview' => true
 		    ]);
 	    }
     }
