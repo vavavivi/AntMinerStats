@@ -32,6 +32,7 @@ class SendAlert implements ShouldQueue
 		    'subject'      => '',
 		    'body'         => $this->message,
 		    'status'       => 'new',
+		    'disable_web_page_preview' => false
 	    ]);
 
 	    if( $this->antMiner->user->chat_id)
