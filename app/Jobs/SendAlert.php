@@ -32,7 +32,7 @@ class SendAlert implements ShouldQueue
 		    'subject'      => '',
 		    'body'         => $this->message,
 		    'status'       => 'new',
-		    'disable_web_page_preview' => false
+
 	    ]);
 
 	    if( $this->antMiner->user->chat_id)
@@ -41,6 +41,7 @@ class SendAlert implements ShouldQueue
 			    'chat_id'    => $this->antMiner->user->chat_id,
 			    'text'       => $this->message,
 			    'parse_mode' => 'HTML',
+			    'disable_web_page_preview' => false
 		    ]);
 	    }
     }
