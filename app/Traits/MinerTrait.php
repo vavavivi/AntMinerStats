@@ -37,34 +37,6 @@ trait MinerTrait
         return str_replace("\0", '', $reply);
     }
 
-    public function get_api_data(AntMiner $antMiner)
-    {
-    	$stats = null;
-	    $pools = null;
-	    $summary = null;
-
-	    $stats = $this->get_api_stats($antMiner);
-
-	    if(! $stats) goto end;
-
-	    $pools = $this->get_api_pools($antMiner);
-
-	    if(! $pools) goto end;
-
-	    $summary = $this->get_api_summary($antMiner);
-
-	    if(! $summary) goto end;
-
-	    end:
-
-	    $reply['stats']   = $stats;
-	    $reply['pools']   = $pools;
-	    $reply['summary'] = $summary;
-
-
-        return $reply;
-    }
-
     public function get_api_stats(AntMiner $antMiner)
     {
         return $this->read_from_socket($antMiner, 'stats');

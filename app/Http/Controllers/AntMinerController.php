@@ -269,23 +269,17 @@ class AntMinerController extends AppBaseController
             return redirect(route('antMiners.index'));
         }
 
-	    if ($antMiner->user_id != \Auth::id() && \Auth::id() != 1) {
+	    if ($antMiner->user_id != \Auth::id()) {
 		    Flash::error('Ant Miner not found');
 
 		    return redirect(route('antMiners.index'));
 	    }
 
-	    $keys = [];
+	    $stats_raw = $this->get_api_stats($antMiner);
+	    $stats = $this->parseStats($stats_raw);
 
-	    $stats_all = $this->get_api_data($antMiner);
-        $result = $this->parseStats($stats_all['stats']);
 
-	    foreach($result as $key => $value)
-	    {
-		    $keys[$key] = $value;
-	    }
-
-        return view('ant_miners.edit')->with('antMiner', $antMiner)->with('keys', $keys);
+        return view('ant_miners.edit')->with('antMiner', $antMiner)->with('stats', $stats);
     }
 
     public function update($id, UpdateAntMinerRequest $request)
