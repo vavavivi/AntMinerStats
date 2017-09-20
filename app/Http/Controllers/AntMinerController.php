@@ -40,7 +40,7 @@ class AntMinerController extends AppBaseController
 			{
 				if($antMiner->active)
 				{
-					$data[$antMiner->id] = $antMiner->antlogs->last();
+					$data[$antMiner->id] = $antMiner->antlogs->sortByDesc('id')->first();
 				}
 				else
 				{
