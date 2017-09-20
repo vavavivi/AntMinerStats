@@ -211,17 +211,13 @@ trait MinerTrait
 
 	public function clearLogs(AntMiner $antMiner)
     {
-    	$logs_count = 0;
 	    if( $antMiner->antlogs->count() > 1440 )
 	    {
 		    foreach($antMiner->antlogs->sortBy('id')->take($antMiner->antlogs->count() - 1440) as $log)
 		    {
 			    $log->delete();
-			    $logs_count++;
 		    }
 	    }
-
-	    return $logs_count;
     }
 
     public function analizeLog($antMinerLog, AntMiner $antMiner)
