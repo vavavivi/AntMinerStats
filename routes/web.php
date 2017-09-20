@@ -27,4 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('alerts', 'AlertController');
 
 	Route::resource('locations', 'LocationController');
+	//Route::resource('faq', 'FaqController');
+
+	Route::get('/faq', 'FaqController@index')->name('faq.index');
 });
+

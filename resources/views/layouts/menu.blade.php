@@ -42,3 +42,7 @@
     </ul>
 </li>
 
+<li class="{{ Request::is('faq*') ? 'active' : '' }}">
+    <a href="{!! route('faq.index') !!}"><i class="fa fa-info"></i><span>Faq</span></a>
+</li>
+
