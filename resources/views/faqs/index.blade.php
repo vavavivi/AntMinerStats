@@ -11,13 +11,9 @@
             <div class="box-body">
                     <h3>Is it safe to grant access to API of your antminer to our monitoring service?</h3>
                     <p class="lead">
-                        All latest firmwares provide only read access by default.
-                        That means, that we can read all data from your harware, but we cannot write or change any of your settings.
-                    </p>
-                    <p class="lead">
-                        However we have optional functionality of remote restart miners via API.
-                        And to enable this functionality you have to make some changes to cgminer.conf via SSH.
-                        To make it more safe, you can setup your antminer to allow write acceess ONLY from IP address of our service.
+                        All latest  <a href="https://shop.bitmain.com/support.htm" target="_blank">AntMiner firmware</a> provides <strong>read-only</strong> access by default.
+                        And we cannot access any privileged command that affects the miner.
+                        That means, that we can read all data from your hardware, but we cannot write or change any of your settings.
                     </p>
 
                     <h3>Is there an integration guide for PHP frameworks such as Yii or Symfony?</h3>
@@ -30,3 +26,5 @@
         </div>
     </div>
 @endsection
+
+
