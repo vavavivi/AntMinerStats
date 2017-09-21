@@ -122,7 +122,7 @@ class AntMinerController extends AppBaseController
 
 	    //return $stats['pools'];
 
-	    $logs = $antMiner->antlogs;
+	    $logs = $antMiner->antlogs->sortBy('id');
 
 
 	    $hourly = $logs->groupBy(function($log) {
