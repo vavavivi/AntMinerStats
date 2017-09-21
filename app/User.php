@@ -55,7 +55,7 @@ class User extends Authenticatable
 		{
 			if($miner->antlogs)
 			{
-				$hr = $hr + $miner->antlogs->last()->hash_rate;
+				$hr = $hr + $miner->antlogs->sortByDesc('id')->first()->hash_rate;
 			}
 
 		}
