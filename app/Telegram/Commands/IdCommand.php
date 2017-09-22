@@ -15,7 +15,7 @@ class IdCommand extends Command
 	/**
 	 * @var string Command Description
 	 */
-	protected $description = "Gives you chat ID for sync with antstats profile";
+	protected $description = "Sync your antstats.info account with telegram bot";
 
 	/**
 	 * @inheritdoc
