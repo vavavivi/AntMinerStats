@@ -10,7 +10,7 @@ class MinerCommand extends Command
 	/**
 	 * @var string Command Name
 	 */
-	protected $name = "miner";
+	protected $name = "antminer";
 
 	/**
 	 * @var string Command Description
