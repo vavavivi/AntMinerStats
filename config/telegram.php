@@ -26,7 +26,7 @@ return [
 	| Possible Values: (Boolean) "true" OR "false"
 	|
 	*/
-	'async_requests' => env('TELEGRAM_ASYNC_REQUESTS', false),
+	'async_requests' => env('TELEGRAM_ASYNC_REQUESTS', true),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,5 +57,6 @@ return [
 	*/
 	'commands' => [
 		Telegram\Bot\Commands\HelpCommand::class,
+		\App\Telegram\Commands\StartCommand::class
 	],
 ];
