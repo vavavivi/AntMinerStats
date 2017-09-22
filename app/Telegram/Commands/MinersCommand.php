@@ -45,7 +45,7 @@ class MinersCommand extends Command
 
 		foreach($antminers as $antminer)
 		{
-			$keyboard[] = $antminer->title;
+			$keyboard[] = [$antminer->title];
 		}
 
 
