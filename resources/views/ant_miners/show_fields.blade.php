@@ -17,7 +17,7 @@
                             <!-- UPTIME -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <span class="description-text"><i class="fa fa-rocket"></i> UPTIME</span>
+                                    <span class="description-text"><i class="fa fa-rocket"></i> Uptime</span>
                                     <h5 class="description-header">{{ gmdate('d',$stats['summary']['Elapsed']) - 1 }}d {{ gmdate('H',$stats['summary']['Elapsed']) }}h {{ gmdate('i',$stats['summary']['Elapsed']) }}m  {{ gmdate('s',$stats['summary']['Elapsed']) }}s</h5>
                                 </div>
                             </div>
@@ -25,21 +25,21 @@
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
                                 <span class="description-text">
-                                    <i class="fa fa-star"></i> HW ERRORS</span>
+                                    <i class="fa fa-star"></i> HW errors</span>
                                     <h5 class="description-header">{{$stats['summary']['Device Hardware%']}} %</h5>
                                 </div>
                             </div>
                             <!-- HASHRATE -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <span class="description-text"><i class="fa fa-cog fa-spin"></i> HASHRATE </span>
+                                    <span class="description-text"><i class="fa fa-cog fa-spin"></i> Hashrate </span>
                                     <h5 class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1000,2) !!} / {!! round(intval($stats['summary']['GHS av'])/1000,2) !!}</h5>
                                 </div>
                             </div>
                             <!-- BOARD FREQ -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <span class="description-text"><i class="fa fa-wrench"></i> BOARD FREQ.</span>
+                                    <span class="description-text"><i class="fa fa-wrench"></i> Board freq.</span>
                                     <h5 class="description-header">
 
                                         @php
@@ -58,7 +58,7 @@
                             <!-- FANS -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <span class="description-text"><img src="/images/fan.png" width="16"> FANS</span>
+                                    <span class="description-text"><img src="/images/fan.png" width="16"> Fans</span>
                                     <h5 class="description-header">
                                         @foreach($stats['stats']['fans'] as $fan)
                                             {{$fan}}
@@ -70,7 +70,7 @@
                             <!-- BLOCKS -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <span class="description-text"><i class="fa fa-star"></i> FOND BLOCKS</span>
+                                    <span class="description-text"><i class="fa fa-star"></i> Blocks</span>
                                     <h5 class="description-header">{{$stats['summary']['Found Blocks']}}</h5>
                                 </div>
                             </div>
