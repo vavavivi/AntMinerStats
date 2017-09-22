@@ -57,7 +57,7 @@ return [
 	*/
 	'commands' => [
 		\App\Telegram\Commands\StartCommand::class,
-		\App\Telegram\Commands\IdCommand::class,
+		\App\Telegram\Commands\MinersCommand::class,
 		Telegram\Bot\Commands\HelpCommand::class,
 	],
 ];
