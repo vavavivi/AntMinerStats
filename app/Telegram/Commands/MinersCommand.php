@@ -24,7 +24,7 @@ class MinersCommand extends Command
 		if(! $user)
 		{
 			Telegram::sendMessage([
-				'chat_id' => $this->update->getMessage()->getChat()->getId(),
+				'chat_id' => $chat_id,
 				'text' => 'No user found',
 			]);
 
@@ -36,8 +36,8 @@ class MinersCommand extends Command
 		if($antminers->count() == 0)
 		{
 			Telegram::sendMessage([
-			'chat_id' => $this->update->getMessage()->getChat()->getId(),
-			'text' => 'No antminers found',
+				'chat_id' => $chat_id,
+				'text' => 'No antminers found',
 			]);
 
 			return 'ok';
@@ -48,7 +48,7 @@ class MinersCommand extends Command
 		{
 			foreach($item as $antminer)
 			{
-				$keyboard[$i][] = $antminer->title;
+				$keyboard[][] = $antminer->title;
 			}
 
 			$i++;
@@ -62,7 +62,7 @@ class MinersCommand extends Command
 		]);
 
 		Telegram::sendMessage([
-			'chat_id' => $this->update->getMessage()->getChat()->getId(),
+			'chat_id' => $chat_id,
 			'text' => 'Hello World',
 			'reply_markup' => $reply_markup
 		]);
