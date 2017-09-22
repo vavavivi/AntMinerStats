@@ -3,6 +3,7 @@
 namespace App\Telegram\Commands;
 
 use Telegram;
+use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
 
 class MinersCommand extends Command
