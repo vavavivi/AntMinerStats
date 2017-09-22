@@ -22,10 +22,10 @@ class IdCommand extends Command
 	 */
 	public function handle($arguments)
 	{
-		$start_text = json_encode($this);
+		$chat_id = $this->update->getMessage()->getChat()->getId();
 
 		$this->replyWithChatAction(['action' => Actions::TYPING]);
-		$this->replyWithMessage(['text' => 'ID']);
+		$this->replyWithMessage(['text' => $chat_id]);
 
 	}
 }
