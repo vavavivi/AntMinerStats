@@ -28,7 +28,7 @@ class MinersCommand extends Command
 		]);
 
 		Telegram::sendMessage([
-			'chat_id' => 'CHAT_ID',
+			'chat_id' => $this->update->getMessage()->getChat()->getId(),
 			'text' => 'Hello World',
 			'reply_markup' => $reply_markup
 		]);
