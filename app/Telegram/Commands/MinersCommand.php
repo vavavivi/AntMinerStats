@@ -49,12 +49,11 @@ class MinersCommand extends Command
 		}
 
 		$keyboard = [
-			['S71','S72','S73'],
-			['S74','S75','S76'],
-			['S77','S78'],
+			['S9 1','T9 1','S7 1"'],
+			['S7 2','S7 3','S7 4'],
+			['S7 6','S7 7'],
 
 		];
-
 
 		$reply_markup = Telegram::replyKeyboardMarkup([
 			'keyboard' => $keyboard,
