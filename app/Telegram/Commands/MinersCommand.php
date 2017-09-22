@@ -48,6 +48,18 @@ class MinersCommand extends Command
 			$keyboard[] = [$antminer->title];
 		}
 
+		$i = 0;
+
+		foreach($antminers->chunk(3) as $antMiners_chunked)
+		{
+			foreach($antMiners_chunked as $antMiner)
+			{
+				$keyboard[$i] = [$antminer->title];
+			}
+
+			$i++;
+
+		}
 
 		$reply_markup = Telegram::replyKeyboardMarkup([
 			'keyboard' => $keyboard,
