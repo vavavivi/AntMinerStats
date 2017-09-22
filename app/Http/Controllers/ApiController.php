@@ -30,7 +30,7 @@ class ApiController extends Controller
 
 		    Telegram::sendMessage([
 			    'chat_id' => $chat_id,
-			    'text' => $update,
+			    'text' => json_encode($update),
 			    'parse_mode' =>'HTML'
 		    ]);
 
