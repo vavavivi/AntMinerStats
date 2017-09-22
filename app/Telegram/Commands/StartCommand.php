@@ -22,7 +22,7 @@ class StartCommand extends Command
 	 */
 	public function handle($arguments)
 	{
-		$start_text = 'Hello! Welcome to our bot, Here are our available commands:';
+		$start_text = 'Hello! Welcome to antstats.info bot notifier, Here are our available commands:';
 
 		$this->replyWithMessage(['text' => $start_text]);
 		$this->replyWithChatAction(['action' => Actions::TYPING]);
