@@ -14,9 +14,6 @@ class MinersCommand extends Command
 
 	public function handle($arguments)
 	{
-		$this->replyWithMessage(['text' => 'Hello!']);
-		$this->replyWithChatAction(['action' => Actions::TYPING]);
-
 		$keyboard = [
 			['7', '8', '9'],
 			['4', '5', '6'],
