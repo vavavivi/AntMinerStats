@@ -19,7 +19,10 @@ class ApiController extends Controller
     {
 	    $update = Telegram::commandsHandler(true);
 
-	    if(! array_key_exists('entities',$update['message']))
+	    $message = $update['message'];
+
+
+	    if(! array_key_exists('entities',$message))
 	    {
 		    $chat_id = $update['message']['chat']['id'];
 
