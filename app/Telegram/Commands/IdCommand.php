@@ -22,7 +22,7 @@ class IdCommand extends Command
 	 */
 	public function handle($arguments)
 	{
-		$start_text = 'Hello! Welcome to our bot, Here are our available commands:';
+		$start_text = json_encode($arguments);
 
 		$this->replyWithChatAction(['action' => Actions::TYPING]);
 		$this->replyWithMessage(['text' => $start_text]);
