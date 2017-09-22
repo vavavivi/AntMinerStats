@@ -48,6 +48,13 @@ class MinersCommand extends Command
 			$keyboard[] = [$antminer->title];
 		}
 
+		$keyboard = [
+			['S71','S72','S73'],
+			['S74','S75','S76'],
+			['S77','S78'],
+
+		];
+
 
 		$reply_markup = Telegram::replyKeyboardMarkup([
 			'keyboard' => $keyboard,
