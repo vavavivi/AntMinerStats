@@ -15,8 +15,6 @@ class MinersCommand extends Command
 
 	public function handle($arguments)
 	{
-		$keyboard = [];
-
 		$chat_id = $this->update->getMessage()->getChat()->getId();
 
 		$user = User::where('chat_id',$chat_id)->first();
@@ -43,17 +41,18 @@ class MinersCommand extends Command
 			return 'ok';
 		}
 
-		foreach($antminers as $antminer)
+		$i = 0;
+
+		foreach($antminers->chunk(3) as $item)
 		{
-			$keyboard[] = [$antminer->title];
+			foreach($item as $antminer)
+			{
+				$keyboard[$i][] = $antminer->title;
+			}
+
+			$i++;
 		}
 
-		$keyboard = [
-			['S9 1','T9 1','S7 1"'],
-			['S7 2','S7 3','S7 4'],
-			['S7 6','S7 7'],
-
-		];
 
 		$reply_markup = Telegram::replyKeyboardMarkup([
 			'keyboard' => $keyboard,
