@@ -22,7 +22,7 @@ class ApiController extends Controller
 	    $message = $update['message'];
 
 
-	    if(! array_key_exists('entities',$message))
+	    if(false)
 	    {
 		    $chat_id = $update['message']['chat']['id'];
 
