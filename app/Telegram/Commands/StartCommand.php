@@ -31,6 +31,8 @@ class StartCommand extends Command
 		// This will update the chat status to typing...
 		$this->replyWithChatAction(['action' => Actions::TYPING]);
 
+		sleep(1);
+
 		// This will prepare a list of available commands and send the user.
 		// First, Get an array of all registered commands
 		// They'll be in 'command-name' => 'Command Handler Class' format.
