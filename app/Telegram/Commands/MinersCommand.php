@@ -15,6 +15,8 @@ class MinersCommand extends Command
 
 	public function handle($arguments)
 	{
+		$keyboard = [];
+
 		$chat_id = $this->update->getMessage()->getChat()->getId();
 
 		$user = User::where('chat_id',$chat_id)->first();
@@ -42,7 +44,6 @@ class MinersCommand extends Command
 		}
 
 		$i = 0;
-
 		foreach($antminers->chunk(3) as $item)
 		{
 			foreach($item as $antminer)
