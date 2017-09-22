@@ -19,7 +19,7 @@ class MinersCommand extends Command
 
 		$chat_id = $this->update->getMessage()->getChat()->getId();
 
-		$user = User::where('chat_id',$chat_id)->first();
+		$user = User::where('chat_id',$chat_id)->get();
 
 		if(! $user)
 		{
@@ -43,10 +43,6 @@ class MinersCommand extends Command
 			return 'ok';
 		}
 
-		foreach($antminers as $antminer)
-		{
-			$keyboard[] = [$antminer->title];
-		}
 
 		$i = 0;
 
