@@ -54,7 +54,7 @@ class MinersCommand extends Command
 		{
 			foreach($antMiners_chunked as $antMiner)
 			{
-				$keyboard[$i] = [$antMiner->title];
+				$keyboard[$i][] = $antMiner->title;
 			}
 
 			$i++;
