@@ -25,7 +25,7 @@ class IdCommand extends Command
 		$start_text = json_encode($this);
 
 		$this->replyWithChatAction(['action' => Actions::TYPING]);
-		$this->replyWithMessage(['text' => $arguments]);
+		$this->replyWithMessage(['text' => 'ID']);
 
 	}
 }
