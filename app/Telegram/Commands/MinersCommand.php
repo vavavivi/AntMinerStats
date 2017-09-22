@@ -43,15 +43,9 @@ class MinersCommand extends Command
 			return 'ok';
 		}
 
-		$i = 0;
-		foreach($antminers->chunk(3) as $item)
+		foreach($antminers as $antminer)
 		{
-			foreach($item as $antminer)
-			{
 				$keyboard[][] = $antminer->title;
-			}
-
-			$i++;
 		}
 
 
