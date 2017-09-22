@@ -19,17 +19,19 @@ class ApiController extends Controller
     {
 	    $update = Telegram::commandsHandler(true);
 
-	    $chat_id = $update['message']['chat']['id'];
+	    if(! array_key_exists('entities',$update['message']))
+	    {
+		    $chat_id = $update['message']['chat']['id'];
 
-	    $msg = 'Welcome to antMiner notify service. Your chat ID is: <strong>'.$chat_id.'</strong>. 
+		    $msg = 'Welcome to antMiner notify service. Your chat ID is: <strong>'.$chat_id.'</strong>. 
 			Please fill chat id in your <a href="'.route('profile').'">profile</a>.
     	';
-
 		    Telegram::sendMessage([
 			    'chat_id' => $chat_id,
 			    'text' => json_encode($update),
 			    'parse_mode' =>'HTML'
 		    ]);
+	    }
 
 	    return 'ok';
     }
