@@ -173,7 +173,7 @@
                                                 @if($chip == 'o')
                                                     <i class="fa fa-circle" style="color: gray; font-size: 40%;" ></i>
                                                 @else
-                                                    <i class="fa fa-times-circle" style="color: red; font-size: 40%;" ></i>
+                                                    <i class="fa fa-times" style="color: red; font-size: 40%;" ></i>
                                                 @endif
                                             @endforeach
                                         </td>
