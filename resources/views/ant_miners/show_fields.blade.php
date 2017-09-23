@@ -72,9 +72,8 @@
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
                                 <div class="description-text"><img src="/images/icons/bl/012-bitcoin.png" width="48"><br> Found blocks</div>
-                                <div class="description-header">{{$stats['summary']['Found Blocks']}}</div>
+                                <div class="description-header">{{$stats['summary']['Found Blocks']}} <small>blocks</small></div>
                             </div>
-                        </div>
                         </div>
                 </div>
             </div>

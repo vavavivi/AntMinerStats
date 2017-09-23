@@ -107,7 +107,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .miner-info .description-text {
-    font-size: 130%;
+    font-size: 110%;
 }
 .miner-info .description-text img {
     position: relative;
@@ -115,7 +115,7 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 .miner-info .description-header {
     margin-top: 5px;
-    font-size: 110%;
+    font-size: 130%;
 }
 
 .navbar .title {
@@ -442,8 +442,8 @@ ul.sidebar-menu .treeview-menu>li i {
     }
 
     .miner-info .description-text img { width: 38px; }
-    .miner-info .description-text { font-size: 110%;}
-    .miner-info .description-header { font-size: 100%; }
+    .miner-info .description-text { font-size: 100%;}
+    .miner-info .description-header { font-size: 130%; }
 }
 
 @media (max-width: 320px) {
