@@ -5,8 +5,25 @@
 
 <!-- MINER STATUS -->
 <li class="{{ Route::is('antMiners.index') ? 'active' : '' }}">
-    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i> <span>Monitoring</span></a>
+    <a href="{!! route('antMiners.index') !!}"><i class="fa fa-bar-chart"></i><span>Monitoring</span></a>
 </li>
+
+<!-- MINER LIST -->
+<li class="treeview {{ Route::is('antMiners/*') ? 'active' : '' }}">
+    <a href="#">
+        <i class="fa fa-cubes"></i>
+        <span>List of miners</span>
+        <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
+    </a>
+    <ul class="treeview-menu">
+        @foreach(Auth::user()->miners as $antMiner)
+            <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
+                <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->location ? $antMiner->location->title : ''}}{{$antMiner->location ? ' / ' : ''}} {{$antMiner->title}}</a>
+            </li>
+        @endforeach
+    </ul>
+</li>
+
 
 <!-- ALERTS -->
 <li class="{{ Request::is('alerts*') ? 'active' : '' }}">
@@ -36,25 +53,8 @@
     <ul class="treeview-menu">
         <!-- LOCATION -->
         <li class="{{ Request::is('locations*') ? 'active' : '' }}">
-            <a href="{!! route('locations.index') !!}"><i class="fa fa-home"></i><span>Locations</span></a>
+            <a href="{!! route('locations.index') !!}"><i class="fa fa-circle-o"></i><span>Locations</span></a>
         </li>
-
-        <!-- MINER LIST -->
-        <li class="treeview {{ Route::is('antMiners*') ? 'active' : '' }}">
-            <a href="#">
-                <i class="ion-cube"></i>
-                <span>List of miners</span>
-                <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
-            </a>
-            <ul class="treeview-menu">
-                @foreach(Auth::user()->miners as $antMiner)
-                    <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
-                        <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->location ? $antMiner->location->title : ''}}{{$antMiner->location ? ' / ' : ''}} {{$antMiner->title}}</a>
-                    </li>
-                @endforeach
-            </ul>
-        </li>
-
     </ul>
 </li>
 

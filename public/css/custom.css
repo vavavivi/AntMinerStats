@@ -107,9 +107,10 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .miner-info .description-text {
-    font-size: 120%;
+    font-size: 140%;
 }
 .miner-info .description-text img {
+    font-size: 120%;
     position: relative;
     top: -2px;
 }

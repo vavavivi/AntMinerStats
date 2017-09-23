@@ -14,6 +14,13 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
+                        <!-- HASHRATE -->
+                        <div class="col-sm-2 col-xs-6 border-right">
+                            <div class="description-block">
+                                <div class="description-text"><i class="fa fa-cog fa-spin"></i> Hashrate </div>
+                                <div class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1000,2) !!} / {!! round(intval($stats['summary']['GHS av'])/1000,2) !!}</div>
+                            </div>
+                        </div>
                             <!-- UPTIME -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
@@ -29,13 +36,7 @@
                                     <h5 class="description-header">{{$stats['summary']['Device Hardware%']}} %</h5>
                                 </div>
                             </div>
-                            <!-- HASHRATE -->
-                            <div class="col-sm-2 col-xs-6 border-right">
-                                <div class="description-block">
-                                    <span class="description-text"><i class="fa fa-cog fa-spin"></i> Hashrate </span>
-                                    <h5 class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1000,2) !!} / {!! round(intval($stats['summary']['GHS av'])/1000,2) !!}</h5>
-                                </div>
-                            </div>
+
                             <!-- BOARD FREQ -->
                             <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
@@ -80,10 +81,62 @@
         </div>
     @endif
 
+    @if($stats['stats'])
+        <!-- CHIPS INFO -->
+            <div class="col-sm-12">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Chips status</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-">
+                                <thead>
+                                    <th class="text-center">Board</th>
+                                    <th class="text-center">Temp</th>
+                                    <th class="text-center">FREQ</th>
+                                    <th class="text-center">Chips</th>
+                                    <th class="text-left">Chips info</th>
+                                </thead>
+                                <tbody>
+                                @foreach($stats['stats']['chains'] as $chain_index => $chain_data)
+                                    <tr>
+                                        <td class="text-center">#{{$chain_index}}</td>
+                                        <td class="text-center">
+                                            @foreach($chain_data['brd_temp'] as $brd_temp){{$brd_temp}}
+                                                @if(!$loop->last) / @endif
+                                            @endforeach
+                                            &deg;
+                                        </td>
+                                        <td class="text-center">{{$chain_data['brd_freq']}} <small>Mhz</small></td>
+                                        <td class="text-center">{{$chain_data['chips']}}</td>
+                                        <td class="text-left">
+                                            @foreach($chain_data['chips_stat'] as $chip)
+                                                @if($chip == 'o')
+                                                    <i class="fa fa-circle" style="color: gray; font-size: 60%;" ></i>
+                                                @else
+                                                    <i class="fa fa-times-circle" style="color: red; font-size: 60%;" ></i>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    @endif
+
     @if($stats['pools'])
         <!-- POOL INFO -->
         <div class="col-sm-12">
-            <div class="box box-primary">
+            <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Pool information</h3>
                     <div class="box-tools pull-right">
@@ -133,8 +186,8 @@
     @endif
 
     <!-- GRAPHICS -->
-    <div class="col-sm-{{$stats['stats'] ? '8' : '12'}}">
-        <div class="box box-primary">
+    <div class="col-sm-12">
+        <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">Graphics</h3>
                 <div class="box-tools pull-right">
@@ -159,73 +212,6 @@
             </div>
         </div>
     </div>
-    @if($stats['stats'])
-        <!-- CHIPS INFO -->
-        <div class="col-sm-4">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chips status</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="row">
-                        @foreach($stats['stats']['chains'] as $chain_index => $chain_data)
-                            <div class="col-sm-12">
-                                <div class="box box-widget">
-                                    <div class="box-header bg-maroon  text-center">
-                                        <h3 class="box-title">BOARD #{{$chain_index}}</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <div class="col-xs-4 border-right">
-                                                <div class="description-block">
-                                                    <span class="description-text">Chips</span>
-                                                    <h5 class="description-header">{{$chain_data['chips']}}</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4 border-right">
-                                                <div class="description-block">
-                                                    <span class="description-text">FREQ</span>
-                                                    <h5 class="description-header">{{$chain_data['brd_freq']}} <small>Mhz</small></h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div class="description-block">
-                                                    <span class="description-text">Temp</span>
-                                                    <h5 class="description-header">
-                                                        @foreach($chain_data['brd_temp'] as $brd_temp)
-                                                            {{$brd_temp}}
-                                                            @if(!$loop->last)
-                                                                /
-                                                            @endif
-                                                        @endforeach
-
-                                                        &deg;</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="box-footer text-center">
-                                        @foreach($chain_data['chips_stat'] as $chip)
-                                            @if($chip == 'o')
-                                                <i class="fa fa-circle" style="color: gray; font-size: 60%;" ></i>
-                                            @else
-                                                <i class="fa fa-circle-o" style="color: red; font-size: 60%;" ></i>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
 </div>
 
 
