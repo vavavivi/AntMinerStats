@@ -21,28 +21,42 @@
     </a>
 </li>
 
-<!-- LOCATION -->
-<li class="{{ Request::is('locations*') ? 'active' : '' }}">
-    <a href="{!! route('locations.index') !!}"><i class="fa fa-home"></i><span>Locations</span></a>
+<!-- FAQ -->
+<li class="{{ Request::is('faq*') ? 'active' : '' }}">
+    <a href="{!! route('faq.index') !!}"><i class="fa fa-info-circle"></i><span>F.A.Q.</span></a>
 </li>
 
-<!-- MINER LIST -->
-<li class="treeview {{ Route::is('antMiners.show') ? 'active' : '' }}">
-    <a href="#">
-        <i class="ion-cube"></i>
-        <span>AntMiners</span>
+<!-- CONFIGURE -->
+<li class="treeview {{Request::is('antMiners/*') ? 'active' : ''}} {{ Request::is('locations*') ? 'active' : '' }}">
+    <a href="/">
+        <i class="fa fa-cog"></i>
+        <span>Configure</span>
         <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
     </a>
     <ul class="treeview-menu">
-        @foreach(Auth::user()->miners as $antMiner)
-            <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
-                <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->location ? $antMiner->location->title : ''}}{{$antMiner->location ? ' / ' : ''}} {{$antMiner->title}}</a>
-            </li>
-        @endforeach
+        <!-- LOCATION -->
+        <li class="{{ Request::is('locations*') ? 'active' : '' }}">
+            <a href="{!! route('locations.index') !!}"><i class="fa fa-home"></i><span>Locations</span></a>
+        </li>
+
+        <!-- MINER LIST -->
+        <li class="treeview {{ Route::is('antMiners*') ? 'active' : '' }}">
+            <a href="#">
+                <i class="ion-cube"></i>
+                <span>List of miners</span>
+                <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
+            </a>
+            <ul class="treeview-menu">
+                @foreach(Auth::user()->miners as $antMiner)
+                    <li class="treeview {{ Request::url() == route('antMiners.show',$antMiner->id)  ? 'active' : '' }}">
+                        <a href="{!! route('antMiners.show', $antMiner->id) !!}"><i class="fa fa-cube"></i> {{$antMiner->location ? $antMiner->location->title : ''}}{{$antMiner->location ? ' / ' : ''}} {{$antMiner->title}}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </li>
+
     </ul>
 </li>
 
-<li class="{{ Request::is('faq*') ? 'active' : '' }}">
-    <a href="{!! route('faq.index') !!}"><i class="fa fa-info"></i><span>Faq</span></a>
-</li>
+
 

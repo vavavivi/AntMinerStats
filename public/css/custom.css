@@ -188,6 +188,8 @@ ul.sidebar-menu li i {
     left: -3px;
 }
 
+ul.sidebar-menu .treeview-menu>li span { text-transform: none; }
+
 /* ---- COLORING ---- */
 
 /* Основная плашка */

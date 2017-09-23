@@ -14,26 +14,31 @@
     <div class="content">
         @include('adminlte-templates::common.errors')
         @include('flash::message')
+
         <div class="clearfix"></div>
+
         <div class="box box-primary">
             @if($alerts->count() > 0)
                 <div class="box-body">
-                    <div class="table-responsive mailbox-messages">
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped">
-                            <tbody>
 
+                            <tbody>
                             @foreach($alerts as $alert)
                                 <tr>
-                                    <td>
+                                    <td width="1%" class="text-center">
                                         <input type="checkbox" name="messages[]" class="checkbox" value="{{$alert->id}}">
                                     </td>
-                                    <td class="mailbox-nam1e">
-                                        <a href="{{route('alerts.read',$alert->id)}}">{{$alert->antMiner->title}}</a>
-                                    </td>
-                                    <td class="mailbox-subject">
+                                    <td width="170" class="text-center" nowrap>{{$alert->created_at->format('H:i:s | d-m-Y')}}</td>
+                                    <td class="text-left">
                                         {!! $alert->status == 'new' ? '<b>' : '' !!}{!! $alert->body !!}{!!$alert->status == 'new' ? '</b>' : '' !!}
                                     </td>
-                                    <td class="mailbox-date">{{$alert->created_at->diffForHumans()}}</td>
+                                    <td class="text-center">
+                                        <a href="{{route('alerts.read',$alert->id)}}" class="btn btn-xs btn-default"><i class="fa fa-check"></i> </a>
+                                    </td>
+
+
+
                                 </tr>
                             @endforeach
                             </tbody>
