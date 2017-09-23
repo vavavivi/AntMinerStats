@@ -1,13 +1,13 @@
-<table class="table table-responsive" id="locations-table">
+<table class="table table-hover" id="locations-table">
     <thead>
-        <th>Title</th>
-        <th colspan="3">Action</th>
+        <th>Name of Location</th>
+        <th class="text-right">Action</th>
     </thead>
     <tbody>
     @foreach($locations as $location)
         <tr>
-            <td>{!! $location->title !!}</td>
-            <td>
+            <td width="50%">{!! $location->title !!}</td>
+            <td class="text-right">
                 {!! Form::open(['route' => ['locations.destroy', $location->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('locations.edit', [$location->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>

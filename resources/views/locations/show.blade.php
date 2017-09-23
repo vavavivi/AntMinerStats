@@ -2,9 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Location
-        </h1>
+        <h1>Manage Location</h1>
     </section>
     <div class="content">
         <div class="box box-primary">
