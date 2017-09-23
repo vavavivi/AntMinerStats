@@ -107,15 +107,15 @@ h6 {margin-top:7px; margin-bottom: 3px;}
 }
 
 .miner-info .description-text {
-    font-size: 140%;
+    font-size: 130%;
 }
 .miner-info .description-text img {
-    font-size: 120%;
     position: relative;
     top: -2px;
 }
 .miner-info .description-header {
     margin-top: 5px;
+    font-size: 110%;
 }
 
 .navbar .title {
@@ -441,6 +441,9 @@ ul.sidebar-menu .treeview-menu>li i {
         margin-top: 42% auto;
     }
 
+    .miner-info .description-text img { width: 38px; }
+    .miner-info .description-text { font-size: 110%;}
+    .miner-info .description-header { font-size: 100%; }
 }
 
 @media (max-width: 320px) {
