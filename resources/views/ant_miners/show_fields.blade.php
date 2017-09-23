@@ -1,5 +1,6 @@
 @include('flash::message')
 <div class="clearfix"></div>
+
 <div class="row">
     @if($stats['summary'])
         <!-- STATUS INFO-->
@@ -17,7 +18,7 @@
                         <!-- HASHRATE -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <div class="description-text"><img src="/images/icons/bl/004-bitcoin.png" width="48"><br> Hashrate </div>
+                                <div class="description-text"><img src="/images/icons/bl/004-bitcoin.png"><br> Hashrate </div>
                                 <div class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1000,2) !!} / {!! round(intval($stats['summary']['GHS av'])/1000,2) !!}</div>
                             </div>
                         </div>
@@ -25,7 +26,7 @@
                         <!-- BOARD FREQ -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <div class="description-text"><img src="/images/icons/bl/010-monitor.png" width="48"><br> Boards freq.</div>
+                                <div class="description-text"><img src="/images/icons/bl/010-monitor.png"><br> Boards freq.</div>
                                 <div class="description-header">
                                     @php
                                         $board_freq = 0;
@@ -42,7 +43,7 @@
                         <!-- HW -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <div class="description-text"><img src="/images/icons/bl/007-alert.png" width="48"><br> HW errors</div>
+                                <div class="description-text"><img src="/images/icons/bl/007-alert.png"><br> HW errors</div>
                                 <div class="description-header">{{$stats['summary']['Device Hardware%']}} %</div>
                             </div>
                         </div>
@@ -50,7 +51,7 @@
                         <!-- UPTIME -->
                         <div class="col-sm-2 col-xs-6 border-right">
                                 <div class="description-block">
-                                    <div class="description-text"><img src="/images/icons/bl/005-folder.png" width="48"><br> Uptime</div>
+                                    <div class="description-text"><img src="/images/icons/bl/005-folder.png"><br> Uptime</div>
                                     <div class="description-header">{{ gmdate('d',$stats['summary']['Elapsed']) - 1 }}d {{ gmdate('H',$stats['summary']['Elapsed']) }}h {{ gmdate('i',$stats['summary']['Elapsed']) }}m  {{ gmdate('s',$stats['summary']['Elapsed']) }}s</div>
                                 </div>
                             </div>
@@ -58,7 +59,7 @@
                         <!-- FANS -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <div class="description-text"><img src="/images/icons/bl/fan.png" width="48"><br> Fans</div>
+                                <div class="description-text"><img src="/images/icons/bl/fan.png"><br> Fans</div>
                                 <div class="description-header">
                                     @foreach($stats['stats']['fans'] as $fan)
                                         {{$fan}}
@@ -71,7 +72,7 @@
                         <!-- BLOCKS -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <div class="description-text"><img src="/images/icons/bl/012-bitcoin.png" width="48"><br> Found blocks</div>
+                                <div class="description-text"><img src="/images/icons/bl/012-bitcoin.png"><br> Found blocks</div>
                                 <div class="description-header">{{$stats['summary']['Found Blocks']}} <small>blocks</small></div>
                             </div>
                         </div>
@@ -80,8 +81,6 @@
         </div>
         </div>
     @endif
-
-
 
     @if($stats['pools'])
         <!-- POOL INFO -->
