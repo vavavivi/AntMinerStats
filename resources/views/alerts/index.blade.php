@@ -20,9 +20,8 @@
         <div class="box box-primary">
             @if($alerts->count() > 0)
                 <div class="box-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
-
                             <tbody>
                             @foreach($alerts as $alert)
                                 <tr>
@@ -36,9 +35,6 @@
                                     <td class="text-center">
                                         <a href="{{route('alerts.read',$alert->id)}}" class="btn btn-xs btn-default"><i class="fa fa-check"></i> </a>
                                     </td>
-
-
-
                                 </tr>
                             @endforeach
                             </tbody>
@@ -47,20 +43,7 @@
                 </div>
             @else
                 <div class="box-body no-padding">
-                    <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        <br>
-                                        <p>No alerts found...</p>
-                                        <br>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <p class="text-center m-20">No alerts found... ;-)</p>
                 </div>
             @endif
         </div>
