@@ -15,7 +15,8 @@
                                 <span class="description-text"><i class="fa fa-clock-o fa-lg"></i> Uptime</span>
                                 <div class="description-header">
                                     {{ gmdate('d',$stats['summary']['Elapsed']) - 1 }}d
-                                    {{ gmdate('H',$stats['summary']['Elapsed']) }}:{{ gmdate('i',$stats['summary']['Elapsed']) }}
+                                    {{ gmdate('H',$stats['summary']['Elapsed']) }}
+                                    :{{ gmdate('i',$stats['summary']['Elapsed']) }}
                                 </div>
                             </div>
                         </div>
@@ -24,7 +25,9 @@
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
                                 <span class="description-text"><i class="fa fa-bolt fa-lg"></i> Hashrate RT</span>
-                                <div class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1024,2) !!} <small>Ths</small></div>
+                                <div class="description-header">{!! round(intval($stats['summary']['GHS 5s'])/1000,2) !!}
+                                    <small>Ths</small>
+                                </div>
                             </div>
                         </div>
 
@@ -32,10 +35,11 @@
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
                                 <span class="description-text"><i class="fa fa-bolt fa-lg"></i> Hashrate avg</span>
-                                <div class="description-header">{!! round(intval($stats['summary']['GHS av'])/1024,2) !!} <small>Ths</small></div>
+                                <div class="description-header">{!! round(intval($stats['summary']['GHS av'])/1000,2) !!}
+                                    <small>Ths</small>
+                                </div>
                             </div>
                         </div>
-
 
                         <!-- HW -->
                         <div class="col-sm-2 col-xs-6 border-right">
@@ -56,13 +60,14 @@
                         <!-- Local Work -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <span class="description-text"><i class="fa fa-database fa-lg"></i> Local Work</span>
+                                <span class="description-text"><i
+                                            class="fa fa-database fa-lg"></i> Local Work</span>
                                 <div class="description-header">{{number_format($stats['summary']['Local Work'])}} </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     @endif
 
@@ -116,7 +121,7 @@
         <div class="col-sm-12">
             <div class="box box-success">
                 <div class="box-body">
-                    <div class="text-center">
+                    <div class="text-center table-responsive">
                         <table class="table table-td-valign-middle">
                             <thead>
                                 <th class="text-center" width="10%"></th>
@@ -134,8 +139,8 @@
                                         <td class="text-center" rowspan="3">
                                             @foreach($stats['stats']['fans'] as $fan)
                                                 @if($loop->first)
-                                                    <i class="fa fa-cog fa-4x fa-spin"></i> <br>
-                                                    <h3>{{$fan}} RPM</h3>
+                                                    <i class="fa fa-life-ring fa-2x fa-spin"></i> <br>
+                                                    <h5>{{$fan}} RPM</h5>
                                                 @endif
                                             @endforeach
                                         </td>
@@ -155,8 +160,8 @@
                                             @if(count($stats['stats']['fans']) == 2)
                                                 @foreach($stats['stats']['fans'] as $fan)
                                                     @if($loop->last)
-                                                        <i class="fa fa-cog fa-4x fa-spin"></i> <br>
-                                                        <h3>{{$fan}} RPM</h3>
+                                                        <i class="fa fa-life-ring fa-2x fa-spin"></i> <br>
+                                                        <h5>{{$fan}} RPM</h5>
                                                     @endif
                                                 @endforeach
                                             @endif
