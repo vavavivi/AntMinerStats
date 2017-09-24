@@ -9,10 +9,10 @@
                 <div class="box-body">
                     <div class="row">
 
-                        <!-- Hashrate -->
+                        <!-- Uptime -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
-                                <span class="description-text"><i class="fa fa-clock-o fa-lg"></i> Hashrate</span>
+                                <span class="description-text"><i class="fa fa-clock-o fa-lg"></i> Uptime</span>
                                 <div class="description-header">
                                     {{ gmdate('d',$stats['summary']['Elapsed']) - 1 }}d
                                     {{ gmdate('H',$stats['summary']['Elapsed']) }}:{{ gmdate('i',$stats['summary']['Elapsed']) }}
