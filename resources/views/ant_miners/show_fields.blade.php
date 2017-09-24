@@ -130,7 +130,7 @@
                                 <th class="text-center" width="10%"><i class="fa fa-tachometer"></i> Freq</th>
                                 <th class="text-center" width="10%"><i class="fa fa-microchip text-success"></i> Ok</th>
                                 <th class="text-center" width="10%"><i class="fa fa-microchip text-danger"></i> Fail</th>
-                                <th class="text-center" width="10%"></th>
+                                <th class="text-left" width="100%"></th>
                             </thead>
                             <tbody>
                             @foreach($stats['stats']['chains'] as $chain_index => $chain_data)
@@ -156,7 +156,7 @@
                                     <td class="text-center">{{$chain_data['chips_condition']['ok']}}</td>
                                     <td class="text-center">{{$chain_data['chips_condition']['er']}}</td>
                                     @if($loop->first)
-                                        <td class="text-center" rowspan="3">
+                                        <td class="text-left" rowspan="3">
                                             @if(count($stats['stats']['fans']) == 2)
                                                 @foreach($stats['stats']['fans'] as $fan)
                                                     @if($loop->last)
