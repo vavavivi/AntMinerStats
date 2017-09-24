@@ -8,7 +8,6 @@
             <div class="box box-primary miner-info">
                 <div class="box-body">
                     <div class="row">
-
                         <!-- Uptime -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
@@ -20,7 +19,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Hashrate -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
@@ -30,7 +28,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Hashrate -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
@@ -40,7 +37,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- HW -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
@@ -48,7 +44,6 @@
                                 <div class="description-header">{{$stats['summary']['Device Hardware%']}} %</div>
                             </div>
                         </div>
-
                         <!-- Blocks -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
@@ -56,7 +51,6 @@
                                 <div class="description-header">{{$stats['summary']['Found Blocks']}} </div>
                             </div>
                         </div>
-
                         <!-- Local Work -->
                         <div class="col-sm-2 col-xs-6 border-right">
                             <div class="description-block">
