@@ -28,7 +28,7 @@
                                     <td width="1%" class="text-center">
                                         <input type="checkbox" name="messages[]" class="checkbox" value="{{$alert->id}}">
                                     </td>
-                                    <td width="170" class="text-center" nowrap>{{$alert->created_at->format('H:i:s | d-m-Y')}}</td>
+                                    <td width="170" class="text-center" nowrap>{!! $alert->status == 'new' ? '<b>' : '' !!}{{$alert->created_at->diffForHumans()}}{!!$alert->status == 'new' ? '</b>' : '' !!}</td>
                                     <td class="text-left">
                                         {!! $alert->status == 'new' ? '<b>' : '' !!}{!! $alert->body !!}{!!$alert->status == 'new' ? '</b>' : '' !!}
                                     </td>
