@@ -9,10 +9,10 @@
 </li>
 
 <!-- MINER LIST -->
-<li class="treeview {{ Route::is('antMiners/*') ? 'active' : '' }}">
+<li class="treeview {{ Route::is('antMiners.*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-cubes"></i>
-        <span>List of miners</span>
+        <span>Miners</span>
         <span class="pull-right"><i class="fa fa-angle-down pull-right"></i></span>
     </a>
     <ul class="treeview-menu">
@@ -44,7 +44,7 @@
 </li>
 
 <!-- CONFIGURE -->
-<li class="treeview {{Request::is('antMiners/*') ? 'active' : ''}} {{ Request::is('locations*') ? 'active' : '' }}">
+<li class="treeview {{ Request::is('locations*') ? 'active' : '' }}">
     <a href="/">
         <i class="fa fa-cog"></i>
         <span>Configure</span>
