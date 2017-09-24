@@ -114,10 +114,10 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-valign-middle">
+                                        <table class="table table-bordered table-hover table-valign-middle" id="mc-table">
                                         <thead>
                                             <tr>
-                                                <th></th>
+                                                <th width="10%"><input type="text" id="kurs" name="kurs" value="" class="form-control hidden" style="text-align: center"></th>
                                                 @foreach($whattomine as $coin)
                                                     @if($coin['btc_revenue'] > 0)
                                                         <th class="text-center"  @if ($coin['tag'] == "BTC") style="font-size: 130%;  border: 2px dashed #333; border-bottom: 0px;" @endif>{{$coin['tag']}}</th>
@@ -130,10 +130,15 @@
                                                 <td class="text-center small">Est. Rewards</td>
                                                 @foreach($whattomine as $coin)
                                                     @if ($coin['tag'] == "BTC")
-                                                            <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">± {{$coin['btc_revenue']}} <small>BTC</small></td>
+                                                            <td class="text-center bg-white" style="border: 2px dashed #333; border-top: 0px;border-bottom: 0px;">
+                                                                ± {{$coin['btc_revenue']}} <small>BTC</small> <br>
+                                                                <b>± {{ $coin['btc_revenue'] * $coin['exchange_rate'] }} <small title="{{$coin['exchange_rate']}}">USD</small></b>
+                                                            </td>
                                                     @else
                                                         @if($coin['btc_revenue'] > 0)
-                                                            <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">± {{$coin['btc_revenue']}} <small>BTC</small> </td>
+                                                            <td class="text-center bg-{{ $coin['profitability'] < 100 ? 'danger' : 'success' }}">
+                                                                ± {{$coin['btc_revenue']}} <small>BTC</small>
+                                                            </td>
                                                         @endif
                                                     @endif
                                                 @endforeach
